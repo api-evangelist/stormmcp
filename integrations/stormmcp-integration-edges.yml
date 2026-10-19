@@ -1,0 +1,18 @@
+generated: '2026-10-19'
+method: none
+source:
+- https://zapier.com/apps/stormmcp/integrations
+- https://zapier.com/apps/storm-mcp/integrations
+- https://n8n.io/integrations/stormmcp/
+- https://composio.dev/toolkits/stormmcp
+- https://monid.ai/tools/stormmcp
+checked:
+- https://composio.dev/toolkits/stormmcp
+- https://monid.ai/tools/stormmcp
+- https://n8n.io/integrations/stormmcp/
+- https://zapier.com/apps/storm-mcp/integrations
+- https://zapier.com/apps/stormmcp/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

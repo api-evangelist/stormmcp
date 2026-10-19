@@ -1,0 +1,130 @@
+generated: '2026-10-19'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/stormmcp-openapi.json
+format: custom
+envelope:
+  media_type: application/json
+  schema: ProblemDetails
+coverage:
+  operations: 181
+  statuses_declared: 13
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad Request
+  operations: 103
+  media_types:
+  - application/json
+  - text/csv
+  - text/plain
+  schema: ProblemDetails
+- status: 401
+  title: Unauthorized
+  description: Unauthorized
+  operations: 132
+  media_types:
+  - application/json
+  - text/csv
+  - text/plain
+  schema: ProblemDetails
+- status: 403
+  title: Forbidden
+  description: Forbidden
+  operations: 83
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails
+- status: 404
+  title: Not Found
+  description: Not Found
+  operations: 108
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails
+- status: 409
+  title: Conflict
+  description: Conflict
+  operations: 36
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails
+- status: 412
+  title: Precondition Failed
+  description: Precondition Failed
+  operations: 4
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails
+- status: 426
+  title: Upgrade Required
+  description: Upgrade Required
+  operations: 5
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails
+- status: 429
+  title: Too Many Requests
+  description: Too Many Requests
+  operations: 4
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails
+- status: 500
+  title: Internal Server Error
+  description: Internal Server Error
+  operations: 26
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails
+- status: 501
+  title: Not Implemented
+  description: Not Implemented
+  operations: 4
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails
+- status: 502
+  title: Bad Gateway
+  description: Bad Gateway
+  operations: 18
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails
+- status: 503
+  title: Service Unavailable
+  description: Service Unavailable
+  operations: 28
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails
+- status: 504
+  title: Gateway Timeout
+  description: Gateway Timeout
+  operations: 4
+  media_types:
+  - text/plain
+  - application/json
+  - text/json
+  schema: ProblemDetails

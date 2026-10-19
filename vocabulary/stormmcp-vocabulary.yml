@@ -1,0 +1,440 @@
+generated: '2026-10-19'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/stormmcp-openapi.json
+vocabulary:
+  name: Storm MCP Domain Vocabulary
+  description: 'Terms declared by Storm MCP''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-19'
+  terms:
+  - term: ActiveSessionResponse
+    definition: Response model for active session information.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ActiveSessionResponse
+  - term: ActivityAggregatesResponse
+    definition: Windowed activity aggregates.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ActivityAggregatesResponse
+  - term: ActivityBucket20mResponse
+    definition: One 15-minute bucket (MCPG-2192; the type name is historical); start is a UTC instant; the client decides day and hour boundaries.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ActivityBucket20mResponse
+  - term: ActivityDetailResponse
+    definition: The full request/response payload for a single tool call (AI-50 call detail).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ActivityDetailResponse
+  - term: ActivityOutcome
+    definition: Outcome of a recorded tool call (MCPG-1156), mapped from the request-log status.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ActivityOutcome
+  - term: ActivityRecentRowResponse
+    definition: One recent tool-call row. `client` and `sessionId` are omitted when unknown (AI-50).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ActivityRecentRowResponse
+  - term: ActivityResponse
+    definition: Current-user dynamic gateway activity projection (MCPG-1156).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ActivityResponse
+  - term: ActivitySeries24hBucketResponse
+    definition: One 20-minute bucket of the 24-hour outcome-split series (AI-51).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ActivitySeries24hBucketResponse
+  - term: ActivitySeriesPointResponse
+    definition: One day of the 7-day series.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ActivitySeriesPointResponse
+  - term: AdminToolkitAssignmentMode
+    definition: How assignees may change an admin-assigned toolkit (MCPG-1699). Existing rows default to AdminToolkitAssignmentMode.Editable.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AdminToolkitAssignmentMode
+  - term: AdminToolkitEntryRequest
+    definition: One library's membership in an admin toolkit.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AdminToolkitEntryRequest
+  - term: AdminToolkitEntryResponse
+    definition: One library's membership in an admin toolkit.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AdminToolkitEntryResponse
+  - term: AdminToolkitResponse
+    definition: An admin toolkit with entries and assignments (MCPG-1671).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AdminToolkitResponse
+  - term: AnalyticsExportModel
+    definition: Flattened model for CSV export of analytics data.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AnalyticsExportModel
+  - term: AnalyticsMetadata
+    definition: Metadata about analytics response.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AnalyticsMetadata
+  - term: AnalyticsResponseOfGatewayActivityResponse
+    definition: Generic wrapper for analytics responses.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AnalyticsResponseOfGatewayActivityResponse
+  - term: AnalyticsResponseOfUserAnalyticsTrend
+    definition: Generic wrapper for analytics responses.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AnalyticsResponseOfUserAnalyticsTrend
+  - term: AnalyticsResponseOfUserDistribution
+    definition: Generic wrapper for analytics responses.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AnalyticsResponseOfUserDistribution
+  - term: AnalyticsResponseOfUserGrowthMetrics
+    definition: Generic wrapper for analytics responses.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AnalyticsResponseOfUserGrowthMetrics
+  - term: AppAccessCoverage
+    definition: 'Who a library''s app access covers, derived from its approval grant rows (MCPG-1890). A domain classification rather than a UI
+      state: only the gateway knows that a scope-only `AllUsers` row confers nothing, so the answer is computed here and consumers render it as
+      they like (Server Management shows Approved / Limited / Not Approved). Deliberately not named "scope", which across this feature means a'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppAccessCoverage
+  - term: AppConnectionsResponse
+    definition: 'The connections an authorized admin sees for one app on App Management (MCPG-2383): the Tenant configuration and every personal
+      connection, the caller''s own included.'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppConnectionsResponse
+  - term: AppInstructionResponse
+    definition: The tenant-wide instructions configured for a single MCP server (MCPG-1296).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppInstructionResponse
+  - term: AppPersonalConnectionRow
+    definition: One user's personal connection for an app, as App Management lists it (MCPG-2383).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppPersonalConnectionRow
+  - term: AppRevokeImpactAgent
+    definition: An agent that references a deployment of a revoked app (MCPG-2384).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppRevokeImpactAgent
+  - term: AppRevokeImpactApprovalGrant
+    definition: An approval grant a revoke resets (MCPG-2384). A revoke returns the app to never approved, so every grant and tool scope it lists
+      is discarded and part of what the admin acknowledges.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppRevokeImpactApprovalGrant
+  - term: AppRevokeImpactDeployment
+    definition: An agent deployment that binds a revoked app, read from Platform (MCPG-2384).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppRevokeImpactDeployment
+  - term: AppRevokeImpactGateway
+    definition: A gateway that lists a revoked app (MCPG-2384).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppRevokeImpactGateway
+  - term: AppRevokeImpactPersonalConnection
+    definition: A personal connection to a revoked app, named by owning user id (MCPG-2384).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppRevokeImpactPersonalConnection
+  - term: AppRevokeImpactRequest
+    definition: Request body for the admin app-revoke preflight (MCPG-2384). One preflight covers the whole selection.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppRevokeImpactRequest
+  - term: AppRevokeImpactResponse
+    definition: The impact set of revoking a selection of apps, and the digest an acknowledged revoke must carry (MCPG-2384).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppRevokeImpactResponse
+  - term: AppRevokeImpactTenantConfiguration
+    definition: The Tenant configuration of a revoked app (MCPG-2384).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppRevokeImpactTenantConfiguration
+  - term: AppRevokeRequest
+    definition: Request body for the acknowledged admin app revoke (MCPG-2384).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppRevokeRequest
+  - term: AppRevokeResponse
+    definition: The outcome of an acknowledged admin app revoke (MCPG-2384).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppRevokeResponse
+  - term: ApprovalClassificationResponse
+    definition: 'The calling user''s approval classification for one summary row (MCPG-1550). Informational: the server never narrows a listing
+      or refuses an operation on it — the personal gateway and personal toolkit pickers render from it, and refusal at use is MCPG-1652''s. ApprovalToolMode
+      reaches the TypeScript client by DTO reference (MCPG-1547); do not register it in `StandaloneEnumSchemaProcessor`.'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ApprovalClassificationResponse
+  - term: ApprovalGrantResponse
+    definition: One principal-scoped approval grant row (MCPG-1547 admin read). The enums reach the TypeScript client by DTO reference — deliberately
+      NOT registered in `StandaloneEnumSchemaProcessor` (a string-constant-class registrar; registering a C# enum there clobbers NSwag's schema
+      into an untyped string).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ApprovalGrantResponse
+  - term: ApprovalPrincipalType
+    definition: The principal an approval grant row is scoped to (MCPG-1547). Feature-prefixed — deliberately not shared with GatewayAccessPrincipalType
+      or AdminToolkitPrincipalType so the member sets can evolve independently. Stored as a string through the strict `ApprovalPrincipalTypeConverter`
+      (unknown store values throw; never bare `HasConversion&lt;string&gt;()`).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ApprovalPrincipalType
+  - term: ApprovalProvenanceResponse
+    definition: 'One covering grant in an effective-approval result — the PRD D1 "Already approved for: …" provenance (AS6), reported per `(library,
+      principal)` so the caller never re-derives membership.'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ApprovalProvenanceResponse
+  - term: ApprovalToolScopeRequest
+    definition: 'One principal''s tool scope on a library (MCPG-1649, PRD AS5): the App Settings tool selector''s per-view save. The enum reaches
+      the TypeScript client by DTO reference — deliberately NOT registered in `StandaloneEnumSchemaProcessor`.'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ApprovalToolScopeRequest
+  - term: AppTenantConfigurationRow
+    definition: An app's Tenant configuration as App Management lists it (MCPG-2383).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AppTenantConfigurationRow
+  - term: AssignedToolkitHiddenResponse
+    definition: Response for a hide/unhide of an admin-assigned toolkit (MCPG-1672).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AssignedToolkitHiddenResponse
+  - term: AssignedToolkitSummaryResponse
+    definition: Dynamic gateway self-service summary rollup for one admin-assigned toolkit (MCPG-1672).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AssignedToolkitSummaryResponse
+  - term: AuxiliaryGatewayInventoryAppResponse
+    definition: One application included in the gateway, with the tools and skills that gateway includes.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AuxiliaryGatewayInventoryAppResponse
+  - term: AuxiliaryGatewayInventoryDetailResponse
+    definition: 'The MCP Gateway Inventory read of one auxiliary gateway (MCPG-1880): the stored configuration the read-only detail view renders
+      (PRD section 6). It carries the gateway settings, its applications, and per application only the tools and skills that gateway includes
+      (PRD D2), with enabled state (PRD D5). It never carries credential material, a connection state, or a per-connection identifier: the gat'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AuxiliaryGatewayInventoryDetailResponse
+  - term: AuxiliaryGatewayInventoryListResponse
+    definition: 'One page of the Auxiliary Gateway listing (MCPG-1879), plus the one page-level fact the `userId` filter can add: whether the
+      group half of that user''s reachability could be resolved. `GatewayInventoryListContractTests` pins this envelope from its root, so adding
+      a property here means updating that allowlist under review.'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AuxiliaryGatewayInventoryListResponse
+  - term: AuxiliaryGatewayInventoryProvenanceResponse
+    definition: Where a stored list came from, so an auditor can tell a current observation from a stale one.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AuxiliaryGatewayInventoryProvenanceResponse
+  - term: AuxiliaryGatewayInventoryResponse
+    definition: 'One Auxiliary Gateway row on the MCP Gateway Inventory list page (MCPG-1879). Configuration and reachability only: no credential
+      material, no connection state, no tool bytes.'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AuxiliaryGatewayInventoryResponse
+  - term: AuxiliaryGatewayInventorySkillResponse
+    definition: One skill the gateway includes for an app, drawn from the gateway's own stored selection (`AllowedSkillsByLibrary`) and described
+      from the inventory it observed at save time (`StoredSkillDefinitions`), both added by MCPG-2072. No upstream is contacted, so PRD D2 holds.
+      Read the rows through the app's `skillListing`, which says whether they are the admin's selection, everything the gateway observed
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AuxiliaryGatewayInventorySkillResponse
+  - term: AuxiliaryGatewayInventoryToolResponse
+    definition: One tool the gateway includes for an app.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/AuxiliaryGatewayInventoryToolResponse
+  - term: CatalogSeedSweepResult
+    definition: Operator-owned counts for one post-deploy baked-seed sweep (MCPG-1834).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CatalogSeedSweepResult
+  - term: ClearConnectionsImpactResponse
+    definition: The rows one connection clear would remove, and the digest the admin acknowledges (MCPG-2383). Exactly one of IReadOnlyList&lt;AppPersonalConnectionRow&gt;
+      ClearConnectionsImpactResponse.PersonalRows and AppTenantConfigurationRow? ClearConnectionsImpactResponse.TenantRow is populated, because
+      no scope chooses both. A Tenant configuration clear that deletes an OAuth provider also removes the person
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ClearConnectionsImpactResponse
+  - term: ClearConnectionsRequest
+    definition: Body of the App Management connection clear and its preflight (MCPG-2383).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ClearConnectionsRequest
+  - term: ClearConnectionsResponse
+    definition: Result of an acknowledged App Management connection clear (MCPG-2383).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ClearConnectionsResponse
+  - term: ClientKind
+    definition: The kind of MCP client that connected to a dynamic gateway (MCPG-1156), derived best-effort from the authenticating bearer scheme
+      at handshake time. Display-only; never an authorization input.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ClientKind
+  - term: ClientSessionResponse
+    definition: A recent dynamic-gateway client session (MCPG-1156). `client` is an untrusted, display-only label.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ClientSessionResponse
+  - term: ConfiguredAppInstructionsResponse
+    definition: 'The batched existence check backing the Server Management grid''s Configure/Edit indicator (MCPG-1296): one call resolves the
+      state of every visible row, rather than one call per row.'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ConfiguredAppInstructionsResponse
+  - term: ConnectivityInfo
+    definition: Represents connectivity information for a custom server.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ConnectivityInfo
+  - term: ConnectivityTestResult
+    definition: Represents the detailed result of a connectivity test.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ConnectivityTestResult
+  - term: ContentResult
+    definition: 'Object declared by the contract with fields: content, contentType, statusCode.'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/ContentResult
+  - term: CreateAdminToolkitRequest
+    definition: Request to create an admin toolkit (MCPG-1671).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CreateAdminToolkitRequest
+  - term: CreateCustomServerCredentialRequest
+    definition: Request model for creating server credentials. Credentials are stored in User Credential Store (not locally).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CreateCustomServerCredentialRequest
+  - term: CreateCustomServerRequest
+    definition: Request model for creating a new custom remote server.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CreateCustomServerRequest
+  - term: CreateCustomServerResponse
+    definition: Response model for server creation operations.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CreateCustomServerResponse
+  - term: CreateGatewayConfigurationResult
+    definition: Typed POST success payload so NSwag emits `id` and `version` on `@airia/mcp-gateway-client` (MCPG-2094).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CreateGatewayConfigurationResult
+  - term: CreateTenantServerAccessRequest
+    definition: Request model for granting tenant access to a restricted server.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CreateTenantServerAccessRequest
+  - term: CreateToolkitRequest
+    definition: Request to create a toolkit (MCPG-1130).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CreateToolkitRequest
+  - term: CreateUserApiKeyRequest
+    definition: Request model for creating a new user API key.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CreateUserApiKeyRequest
+  - term: CredentialBindingSummaryRequest
+    definition: Batch request for the credential-binding summary.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CredentialBindingSummaryRequest
+  - term: CredentialBindingSummaryRow
+    definition: One library on the credential-binding summary. Ids are UCS binder ids. States are the caller's. This type carries no credential
+      material.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CredentialBindingSummaryRow
+  - term: CredentialCensusCounts
+    definition: Tenant-wide counts for the credential census. One aggregate query per family.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CredentialCensusCounts
+  - term: CredentialCensusPage
+    definition: One page of the tenant credential census. Ids and classifications only.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CredentialCensusPage
+  - term: CredentialCensusRow
+    definition: One census row. A binder id names a UCS binder. It is not a credential and it does not authorize the caller to read or serve that
+      credential.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CredentialCensusRow
+  - term: CredentialTestRequest
+    definition: Request model for testing credentials against a provider's test endpoint.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CredentialTestRequest
+  - term: CredentialTestResult
+    definition: Result of a credential test operation.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CredentialTestResult
+  - term: CustomServerCredentialBindingBackfillResult
+    definition: The outcome of one typed credential-binding backfill run. Every counter is a row count.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CustomServerCredentialBindingBackfillResult
+  - term: CustomServerCredentialInfo
+    definition: Credential information model (without sensitive data).
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CustomServerCredentialInfo
+  - term: CustomServerResponse
+    definition: Response model for custom server details.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/CustomServerResponse
+  - term: DateRange
+    definition: Represents a date range for analytics queries.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/DateRange
+  - term: DerivedAnnotationResult
+    definition: Derived annotation hints for a single upstream MCP tool that declares no `annotations` block of its own (MCPG-1417). One entry
+      is produced per derived tool; tools that were skipped (already annotated, non-upstream, or whose derivation failed) produce no entry. Also
+      the value cached in the global content-addressed verdict cache — the tool name participates in the content hash, so a cached entry's i
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/DerivedAnnotationResult
+  - term: DiscoverDynamicToolsRequest
+    definition: 'Request for `POST /api/v1/dynamic/tools/discover` (MCPG-882, Phase 2e) — the Radar service''s dynamic-index callback. Both ids
+      are cross-checked against the authenticated bearer (the caller''s own token, echoed by Radar): a mismatch is `403`, mirroring the dynamic
+      transport''s tenant-claim discipline. They are carried explicitly (rather than derived from the token alone) so the Radar service states
+      w'
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/DiscoverDynamicToolsRequest
+  - term: DistributionSegment
+    definition: Represents a segment in a distribution.
+    tags:
+    - Object
+    source: openapi/stormmcp-openapi.json#/components/schemas/DistributionSegment

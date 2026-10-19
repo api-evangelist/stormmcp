@@ -1,24 +1,88 @@
 aid: stormmcp
+
 name: Storm MCP
-description: 'Storm MCP provides a modern Managed Cloud Platform (MCP) that enables enterprises to integrate, orchestrate, and monitor their SaaS and on‑premise applications through a unified API layer. The platform offers robust data pipelines, real‑time event streaming, and comprehensive security controls, allowing businesses to automate workflows, enforce compliance, and gain actionable insights across their software ecosystem. With a focus on scalability, low‑code integration, and developer-friendly tooling, Storm MCP aims to simplify complex multi‑cloud environments and accelerate digital transformation initiatives for organizations of all sizes.'
+
+description: Storm MCP provides a modern Managed Cloud Platform (MCP) that enables enterprises to integrate, orchestrate, and monitor their SaaS
+  and on‑premise applications through a unified API layer. The platform offers robust data pipelines, real‑time event streaming, and comprehensive
+  security controls, allowing businesses to automate workflows, enforce compliance, and gain actionable insights across their software ecosystem.
+  With a focus on scalability, low‑code integration, and developer-friendly tooling, Storm MCP aims to simplify complex multi‑cloud environments
+  and accelerate digital transformation initiatives for organizations of all sizes.
+
 url: https://raw.githubusercontent.com/api-evangelist/stormmcp/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:g2-catalog
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-19 (modular-v1; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-18'
+
 modified: '2026-10-18'
+
 tags:
 - Company
-apis: []
+- Cloud
+- Integration
+- Automation
+- Security
+- Low-code
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: AgenticAccess
+  url: agentic-access/stormmcp-agentic-access.yml
+- type: Spectral
+  url: rules/stormmcp-rules.yml
+- type: JSONLD
+  url: json-ld/stormmcp-context.jsonld
+- type: Vocabulary
+  url: vocabulary/stormmcp-vocabulary.yml
+- type: DataModel
+  url: data-model/stormmcp-data-model.yml
+- type: ErrorCatalog
+  url: errors/stormmcp-problem-types.yml
+- type: Conformance
+  url: conformance/stormmcp-conformance.yml
+- type: WellKnown
+  url: well-known/stormmcp-well-known.yml
+- type: Hosts
+  url: hosts/stormmcp-hosts.yml
+- type: Vendors
+  url: vendors/stormmcp-vendors.yml
 - type: DomainSecurity
   url: security/stormmcp-domain-security.yml
 - type: Website
   url: https://stormmcp.ai/
+- type: Documentation
+  url: https://stormmcp.ai/docs
+- type: Pricing
+  url: https://stormmcp.ai/pricing
+- type: Blog
+  url: https://stormmcp.ai/blog
+- type: GettingStarted
+  url: https://stormmcp.ai/docs/getting-started
+
+apis:
+- name: Storm MCP API
+  description: API for MCP Gateway operations
+  humanURL: https://stormmcp.ai/docs
+  baseURL: https://dev.stormmcp.ai/
+  properties:
+  - type: OpenAPI
+    url: openapi/stormmcp-openapi.json
+  aid: stormmcp:storm-mcp-api
+x-enrichment:
+  date: '2026-10-19'
+  status: enriched
+  artifacts_added: 18
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

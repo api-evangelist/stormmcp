@@ -1,0 +1,1359 @@
+generated: '2026-10-19'
+method: derived
+generator: derive-data-model.py
+source:
+- openapi/stormmcp-openapi.json
+notation: has_one = property $ref; has_many = array of $ref; belongs_to = <entity>_id field
+summary:
+  entities: 256
+  entities_in_spec: 256
+  relationships: 145
+entities:
+- name: ActiveSessionResponse
+  fields: 10
+  description: Response model for active session information.
+- name: ActivityAggregatesResponse
+  fields: 4
+  description: Windowed activity aggregates.
+- name: ActivityBucket20mResponse
+  fields: 6
+  description: One 15-minute bucket (MCPG-2192; the type name is historical); start is a UTC instant; the client
+    decides day and hour boundaries.
+- name: ActivityDetailResponse
+  fields: 7
+  description: The full request/response payload for a single tool call (AI-50 call detail).
+- name: ActivityRecentRowResponse
+  fields: 9
+  description: One recent tool-call row. `client` and `sessionId` are omitted when unknown (AI-50).
+- name: ActivityResponse
+  fields: 7
+  description: Current-user dynamic gateway activity projection (MCPG-1156).
+- name: ActivitySeries24hBucketResponse
+  fields: 5
+  description: One 20-minute bucket of the 24-hour outcome-split series (AI-51).
+- name: ActivitySeriesPointResponse
+  fields: 2
+  description: One day of the 7-day series.
+- name: AdminToolkitEntryRequest
+  fields: 2
+  description: One library's membership in an admin toolkit.
+- name: AdminToolkitEntryResponse
+  fields: 2
+  description: One library's membership in an admin toolkit.
+- name: AdminToolkitResponse
+  fields: 11
+  description: An admin toolkit with entries and assignments (MCPG-1671).
+- name: AnalyticsExportModel
+  fields: 11
+  description: Flattened model for CSV export of analytics data.
+- name: AnalyticsMetadata
+  fields: 5
+  description: Metadata about analytics response.
+- name: AnalyticsResponseOfGatewayActivityResponse
+  fields: 4
+  description: Generic wrapper for analytics responses.
+- name: AnalyticsResponseOfUserAnalyticsTrend
+  fields: 4
+  description: Generic wrapper for analytics responses.
+- name: AnalyticsResponseOfUserDistribution
+  fields: 4
+  description: Generic wrapper for analytics responses.
+- name: AnalyticsResponseOfUserGrowthMetrics
+  fields: 4
+  description: Generic wrapper for analytics responses.
+- name: AppConnectionsResponse
+  fields: 3
+  description: 'The connections an authorized admin sees for one app on App Management (MCPG-2383): the'
+- name: AppInstructionResponse
+  fields: 7
+  description: The tenant-wide instructions configured for a single MCP server (MCPG-1296).
+- name: AppPersonalConnectionRow
+  fields: 4
+  description: One user's personal connection for an app, as App Management lists it (MCPG-2383).
+- name: AppRevokeImpactAgent
+  fields: 2
+  description: An agent that references a deployment of a revoked app (MCPG-2384).
+- name: AppRevokeImpactApprovalGrant
+  fields: 6
+  description: An approval grant a revoke resets (MCPG-2384). A revoke returns the app to never approved, so
+- name: AppRevokeImpactDeployment
+  fields: 5
+  description: An agent deployment that binds a revoked app, read from Platform (MCPG-2384).
+- name: AppRevokeImpactGateway
+  fields: 6
+  description: A gateway that lists a revoked app (MCPG-2384).
+- name: AppRevokeImpactPersonalConnection
+  fields: 4
+  description: A personal connection to a revoked app, named by owning user id (MCPG-2384).
+- name: AppRevokeImpactRequest
+  fields: 1
+  description: Request body for the admin app-revoke preflight (MCPG-2384). One preflight covers the whole
+- name: AppRevokeImpactResponse
+  fields: 9
+  description: The impact set of revoking a selection of apps, and the digest an acknowledged revoke must carry
+- name: AppRevokeImpactTenantConfiguration
+  fields: 2
+  description: The Tenant configuration of a revoked app (MCPG-2384).
+- name: AppRevokeRequest
+  fields: 2
+  description: Request body for the acknowledged admin app revoke (MCPG-2384).
+- name: AppRevokeResponse
+  fields: 5
+  description: The outcome of an acknowledged admin app revoke (MCPG-2384).
+- name: AppTenantConfigurationRow
+  fields: 2
+  description: An app's Tenant configuration as App Management lists it (MCPG-2383).
+- name: ApprovalClassificationResponse
+  fields: 3
+  description: 'The calling user''s approval classification for one summary row (MCPG-1550). Informational: the'
+- name: ApprovalGrantResponse
+  fields: 8
+  description: One principal-scoped approval grant row (MCPG-1547 admin read). The enums reach the
+- name: ApprovalProvenanceResponse
+  fields: 5
+  description: One covering grant in an effective-approval result — the PRD D1 "Already approved
+- name: ApprovalToolScopeRequest
+  fields: 2
+  description: 'One principal''s tool scope on a library (MCPG-1649, PRD AS5): the App Settings tool'
+- name: AssignedToolkitHiddenResponse
+  fields: 2
+  description: Response for a hide/unhide of an admin-assigned toolkit (MCPG-1672).
+- name: AssignedToolkitSummaryResponse
+  fields: 11
+  description: Dynamic gateway self-service summary rollup for one admin-assigned toolkit (MCPG-1672).
+- name: AuxiliaryGatewayInventoryAppResponse
+  fields: 12
+  description: One application included in the gateway, with the tools and skills that gateway includes.
+- name: AuxiliaryGatewayInventoryDetailResponse
+  fields: 13
+  description: 'The MCP Gateway Inventory read of one auxiliary gateway (MCPG-1880): the stored configuration'
+- name: AuxiliaryGatewayInventoryListResponse
+  fields: 7
+  description: One page of the Auxiliary Gateway listing (MCPG-1879), plus the one page-level fact the
+- name: AuxiliaryGatewayInventoryProvenanceResponse
+  fields: 6
+  description: Where a stored list came from, so an auditor can tell a current observation from a stale one.
+- name: AuxiliaryGatewayInventoryResponse
+  fields: 8
+  description: One Auxiliary Gateway row on the MCP Gateway Inventory list page (MCPG-1879). Configuration and
+- name: AuxiliaryGatewayInventorySkillResponse
+  fields: 4
+  description: One skill the gateway includes for an app, drawn from the gateway's own stored selection
+- name: AuxiliaryGatewayInventoryToolResponse
+  fields: 2
+  description: One tool the gateway includes for an app.
+- name: CatalogSeedSweepResult
+  fields: 12
+  description: Operator-owned counts for one post-deploy baked-seed sweep (MCPG-1834).
+- name: ClearConnectionsImpactResponse
+  fields: 6
+  description: The rows one connection clear would remove, and the digest the admin acknowledges (MCPG-2383).
+- name: ClearConnectionsRequest
+  fields: 3
+  description: Body of the App Management connection clear and its preflight (MCPG-2383).
+- name: ClearConnectionsResponse
+  fields: 1
+  description: Result of an acknowledged App Management connection clear (MCPG-2383).
+- name: ClientSessionResponse
+  fields: 4
+  description: A recent dynamic-gateway client session (MCPG-1156). `client` is an untrusted, display-only label.
+- name: ConfiguredAppInstructionsResponse
+  fields: 1
+  description: The batched existence check backing the Server Management grid's Configure/Edit indicator
+- name: ConnectivityInfo
+  fields: 3
+  description: Represents connectivity information for a custom server.
+- name: ConnectivityTestResult
+  fields: 6
+  description: Represents the detailed result of a connectivity test.
+- name: ContentResult
+  fields: 3
+- name: CreateAdminToolkitRequest
+  fields: 3
+  description: Request to create an admin toolkit (MCPG-1671).
+- name: CreateCustomServerCredentialRequest
+  fields: 2
+  description: Request model for creating server credentials.
+- name: CreateCustomServerRequest
+  fields: 11
+  description: Request model for creating a new custom remote server.
+- name: CreateCustomServerResponse
+  fields: 11
+  description: Response model for server creation operations.
+- name: CreateGatewayConfigurationResult
+  fields: 2
+  description: Typed POST success payload so NSwag emits `id` and `version` on
+- name: CreateTenantServerAccessRequest
+  fields: 1
+  description: Request model for granting tenant access to a restricted server.
+- name: CreateToolkitRequest
+  fields: 2
+  description: Request to create a toolkit (MCPG-1130).
+- name: CreateUserApiKeyRequest
+  fields: 3
+  description: Request model for creating a new user API key.
+- name: CredentialBindingSummaryRequest
+  fields: 1
+  description: Batch request for the credential-binding summary.
+- name: CredentialBindingSummaryRow
+  fields: 5
+  description: One library on the credential-binding summary. Ids are UCS binder ids.
+- name: CredentialCensusCounts
+  fields: 8
+  description: Tenant-wide counts for the credential census. One aggregate query per family.
+- name: CredentialCensusPage
+  fields: 4
+  description: One page of the tenant credential census. Ids and classifications only.
+- name: CredentialCensusRow
+  fields: 10
+  description: One census row. A binder id names a UCS binder. It is not a credential and it does not
+- name: CredentialTestRequest
+  fields: 1
+  description: Request model for testing credentials against a provider's test endpoint.
+- name: CredentialTestResult
+  fields: 7
+  description: Result of a credential test operation.
+- name: CustomServerCredentialBindingBackfillResult
+  fields: 10
+  description: The outcome of one typed credential-binding backfill run. Every counter is a row count.
+- name: CustomServerCredentialInfo
+  fields: 3
+  description: Credential information model (without sensitive data).
+- name: CustomServerResponse
+  fields: 21
+  description: Response model for custom server details.
+- name: DateRange
+  fields: 3
+  description: Represents a date range for analytics queries.
+- name: DerivedAnnotationResult
+  fields: 9
+  description: Derived annotation hints for a single upstream MCP tool that declares no
+- name: DiscoverDynamicToolsRequest
+  fields: 2
+  description: Request for `POST /api/v1/dynamic/tools/discover` (MCPG-882, Phase 2e) — the Radar service's
+- name: DistributionSegment
+  fields: 4
+  description: Represents a segment in a distribution.
+- name: DynamicGatewayInventoryAppResponse
+  fields: 7
+  description: The subject's app-level preference for one library.
+- name: DynamicGatewayInventoryAssignedToolkitResponse
+  fields: 6
+  description: An admin toolkit assigned to the subject.
+- name: DynamicGatewayInventoryListResponse
+  fields: 4
+  description: One Dynamic Gateway row on the MCP Gateway Inventory list page (MCPG-1879), indexed by the user
+- name: DynamicGatewayInventoryRadarCacheEntryResponse
+  fields: 7
+  description: One Radar cache entry.
+- name: DynamicGatewayInventoryRadarCacheResponse
+  fields: 2
+  description: The subject's Radar cache.
+- name: DynamicGatewayInventoryResponse
+  fields: 8
+  description: 'The MCP Gateway Inventory read of one user''s Dynamic Gateway (MCPG-1881): stored configuration'
+- name: DynamicGatewayInventorySkillSourceResponse
+  fields: 3
+  description: One skill source (a SkillLink server) and whether the subject serves it.
+- name: DynamicGatewayInventorySkillsResponse
+  fields: 2
+  description: 'The subject''s Skills toolkit preference (MCPG-1511 / MCPG-1766): the master switch and the'
+- name: DynamicGatewayInventoryToolResponse
+  fields: 2
+  description: One tool row. The set is the union of the stored selection and the tools the subject's Radar
+- name: DynamicGatewayInventoryToolkitMemberResponse
+  fields: 6
+  description: One app inside a toolkit, with its per-tool membership and enabled state.
+- name: DynamicGatewayInventoryToolkitResponse
+  fields: 7
+  description: One of the subject's own toolkits.
+- name: DynamicGatewayLibraryPreferenceResponse
+  fields: 6
+  description: Dynamic gateway preference response for one library.
+- name: DynamicGatewayToolCountsResponse
+  fields: 2
+  description: Dynamic gateway tool-count DTO.
+- name: DynamicGatewayToolPreferenceResponse
+  fields: 2
+  description: Dynamic gateway tool preference DTO.
+- name: DynamicGatewayUserPreferencesResponse
+  fields: 3
+  description: Dynamic gateway preference response for the authenticated tenant/user.
+- name: EffectiveApprovalsResponse
+  fields: 3
+  description: A user's effective approvals — the union of the AllUsers, group, and individual grants
+- name: EffectiveLibraryApprovalResponse
+  fields: 4
+  description: A user's effective approval on one library (MCPG-1547 admin read).
+- name: EffectiveToolSurfaceResponse
+  fields: 8
+  description: 'Dynamic gateway self-service summary response (MCPG-882, Phase 2a): the current user''s apps, each
+    with'
+- name: FlaggedToolWithholdAllowRequest
+  fields: 2
+  description: A request to add a named exception.
+- name: FlaggedToolWithholdSettingRequest
+  fields: 1
+  description: A write of the tenant setting. bool? FlaggedToolWithholdSettingRequest.Enabled is required.
+- name: GatewayActivityPeriod
+  fields: 11
+  description: Activity data for a specific time period.
+- name: GatewayActivityPeriodGateway
+  fields: 4
+  description: Request count for one gateway in one activity period, with the gateway's identity (MCPG-2095).
+- name: GatewayActivityResponse
+  fields: 3
+  description: Response model for gateway activity analytics.
+- name: GatewayActivitySummary
+  fields: 17
+  description: Summary statistics for gateway activity.
+- name: GatewayConfigurationRequest
+  fields: 17
+  description: Request model for creating or updating gateway configuration.
+- name: GatewayConfigurationResponse
+  fields: 21
+  description: Response model for gateway configuration.
+- name: GatewayInventoryClientResponse
+  fields: 3
+  description: One MCP client a gateway has been reached through, as the durable session registry last recorded
+- name: GatewayLibrarySummary
+  fields: 7
+  description: Display and auth metadata for a single library included in a gateway configuration.
+- name: GatewayMetadataResponse
+  fields: 4
+  description: Current-user dynamic gateway metadata (MCPG-1156). Uses only real or deterministically-derived values;
+- name: GatewaySessionDetail
+  fields: 7
+  description: Detailed information about a gateway session.
+- name: GenericProviderConfigurationModel
+  fields: 2
+  description: Represents the configuration properties for a generic provider.
+- name: GenericProviderPropertyModel
+  fields: 11
+  description: Represents a single property in a generic provider configuration.
+- name: GetCustomServersResponse
+  fields: 7
+  description: Response model for paginated custom server list.
+- name: GetSkillSourceTemplatesResponse
+  fields: 1
+  description: Response carrying the skill-source template catalog.
+- name: GetSlotsRequest
+  fields: 1
+  description: Request model for reading catalog slots for a list of libraries.
+- name: GetSlotsResponse
+  fields: 1
+  description: Response model for the GetSlots endpoint.
+- name: GetStoredToolsResponse
+  fields: 2
+  description: MCP-compliant response model for the GET stored tools endpoint.
+- name: GetToolsRequest
+  fields: 3
+  description: Request model for getting tools from a list of MCP providers.
+- name: GetToolsResponse
+  fields: 2
+  description: Response model for the GetTools endpoint.
+- name: GrowthMetric
+  fields: 5
+  description: Represents growth metrics for a specific period comparison.
+- name: HubConnectionTicketResponse
+  fields: 2
+  description: A hub connection ticket.
+- name: JsonObject
+  fields: 0
+- name: JsonRpcError
+  fields: 3
+- name: JsonRpcErrorDetail
+  fields: 3
+- name: KnownMcpServer
+  fields: 28
+  description: Static catalog definition of an available MCP server, loaded from known-mcp-servers.json.
+- name: KnownMcpServerWithStatus
+  fields: 29
+  description: Wire-shape DTO returned by the `/library/.../status` REST endpoints.
+- name: LandingPage
+  fields: 2
+  description: Landing page information for the MCP server.
+- name: LibraryApprovalGrantSummaryResponse
+  fields: 4
+  description: One library's app-access coverage plus the principal counts behind it ("3 users,
+- name: LibraryApprovalGrantsResponse
+  fields: 2
+  description: Every approval grant on one library, per principal — the PRD AS4 principal list and the
+- name: LibraryApprovalGrantsSummaryRequest
+  fields: 1
+  description: 'The page-scoped bulk grants-summary request (MCPG-1890): the library ids visible in the'
+- name: LibraryApprovalGrantsSummaryResponse
+  fields: 1
+  description: 'The bulk grants summary (MCPG-1890): one entry per distinct requested library, in'
+- name: LibraryCatalogInvalidationResult
+  fields: 13
+  description: Counts owned by the gateway issuer of a library catalog invalidation (MCPG-1833).
+- name: LibraryConfigurationStatusResponse
+  fields: 3
+  description: Response model for the per-library configuration-status pre-flight endpoint.
+- name: LibraryServerWithAssignmentStatus
+  fields: 16
+  description: Response model that combines library server information with its assignment status for the current
+    tenant.
+- name: LibraryServersWithAssignmentStatusResponse
+  fields: 9
+  description: Paginated response containing all library servers with their assignment status for the current tenant.
+- name: LibraryToolResult
+  fields: 27
+  description: Result for tools from a specific library.
+- name: Links
+  fields: 3
+  description: Various links related to the MCP server.
+- name: McpConnectionState
+  fields: 6
+  description: State-only view of an MCP server connection — the wire-shape primitive that
+- name: McpDocumentation
+  fields: 3
+  description: Documentation links.
+- name: McpImage
+  fields: 3
+  description: Image for the MCP server gallery.
+- name: McpRegistryListMetadata
+  fields: 2
+  description: Server-list pagination metadata.
+- name: McpRegistryRemote
+  fields: 2
+  description: MCP Registry remote transport definition.
+- name: McpRegistryServerDetail
+  fields: 5
+  description: MCP Registry server detail.
+- name: McpRegistryServerListResponse
+  fields: 2
+  description: MCP Registry server-list response.
+- name: McpRegistryServerResponse
+  fields: 2
+  description: MCP Registry server envelope.
+- name: McpServerDefinition
+  fields: 18
+  description: Base server definition shared by both catalog servers (KnownMcpServer)
+- name: McpSystemRequirements
+  fields: 3
+  description: System requirements for locally installed applications.
+- name: OAuthCallbackRequest
+  fields: 3
+  description: Request model for OAuth callback handling.
+- name: OAuthCallbackResponse
+  fields: 6
+  description: Response model for OAuth callback completion.
+- name: OAuthConfig
+  fields: 13
+  description: OAuth-specific configuration for Manual OAuth providers.
+- name: OAuthConfigItem
+  fields: 9
+  description: A single OAuth provider configuration item returned from UCS.
+- name: OAuthConfigListResponse
+  fields: 3
+  description: Response model for listing OAuth provider configurations.
+- name: OAuthRedirectRequest
+  fields: 7
+  description: Request model for OAuth redirect URL generation.
+- name: OAuthRedirectResponse
+  fields: 2
+  description: Response model for OAuth redirect URL generation.
+- name: OIDCClientRepresentation
+  fields: 55
+  description: Represents an OIDC client representation for dynamic client registration in Keycloak.
+- name: OrganicMemoryAdminRequest
+  fields: 4
+  description: Admin write for the tenant organic memory setting. Enabling requires both slots.
+- name: OrganicMemoryAdminResponse
+  fields: 4
+  description: The stored organic memory configuration for the caller's tenant.
+- name: OrganicMemoryCompartmentCreateRequest
+  fields: 2
+  description: Creates a compartment the caller owns.
+- name: OrganicMemoryCompartmentRenameRequest
+  fields: 2
+  description: A rename or serve-flag update of a compartment the caller owns.
+- name: OrganicMemoryCompartmentRenameResponse
+  fields: 6
+  description: The compartment a rename returned. bool? OrganicMemoryCompartmentRenameResponse.Default is null when
+    the
+- name: OrganicMemoryCompartmentResponse
+  fields: 6
+  description: One compartment the caller can see. Shared compartments are included.
+- name: OrganicMemoryCompartmentShareRequest
+  fields: 2
+  description: Shares a compartment the caller owns with one exact email.
+- name: OrganicMemoryCompartmentUnshareRequest
+  fields: 1
+  description: Stops sharing a compartment the caller owns with one exact email.
+- name: OrganicMemoryItemDeleteRequest
+  fields: 1
+  description: The items to delete from one compartment the caller owns.
+- name: OrganicMemoryPurgeCounts
+  fields: 9
+  description: What the memory service removed for one user. Counts only, safe to log.
+- name: OrganicMemoryPurgeRequest
+  fields: 1
+  description: Admin request to hard-delete users' organic memory data in the caller's tenant (MCPG-2873).
+- name: OrganicMemoryPurgeResponse
+  fields: 1
+  description: 'The outcome of an organic memory purge: counts per user, no content.'
+- name: OrganicMemoryPurgedUser
+  fields: 2
+  description: The purge outcome for one user.
+- name: OrganicMemorySlotRequest
+  fields: 2
+  description: One provider slot on an organic memory admin write. The body carries a mode
+- name: OrganicMemorySlotResponse
+  fields: 2
+  description: One stored provider slot. The response names the mode and the binder id, never the key.
+- name: OrganicMemoryUserPreferenceRequest
+  fields: 1
+  description: A user's organic memory toggle. True includes the library. False opts that user out.
+- name: OrganicMemoryUserPreferenceResponse
+  fields: 1
+  description: The caller's organic memory toggle. No stored row is reported as enabled.
+- name: PagedResultOfAdminToolkitResponse
+  fields: 6
+  description: Generic paged result wrapper for API responses.
+- name: PagedResultOfDynamicGatewayInventoryListResponse
+  fields: 6
+  description: Generic paged result wrapper for API responses.
+- name: PagedResultOfTenantServerAccessResponse
+  fields: 6
+  description: Generic paged result wrapper for API responses.
+- name: PendingCatalogChange
+  fields: 3
+  description: One library's tool changes that the upstream advertises but the gateway's pinned
+- name: PersonalConfigurationDeleteOutcome
+  fields: 2
+  description: What an admin delete of another user's Personal configuration did to the gateway row.
+- name: PersonalConfigurationHolder
+  fields: 1
+  description: A user who holds a Personal configuration. The id only.
+- name: PersonalCredentialStatusResponse
+  fields: 5
+  description: Response model for the personal credential status check.
+- name: PersonalUriVariableOverrideRequest
+  fields: 2
+  description: Sets or clears one personal URI variable on the caller's Personal row.
+- name: ProblemDetails
+  fields: 5
+- name: ProviderIntegrationModelRequest
+  fields: 5
+  description: Request model for saving provider integration configuration.
+- name: ProviderIntegrationModelResponse
+  fields: 9
+  description: Represents a provider integration with its metadata and configuration.
+- name: ProviderIntegrationStatusResponse
+  fields: 8
+  description: A response model representing the integration status of a provider.
+- name: RadarCacheEntryResponse
+  fields: 6
+  description: One cached Radar tool entry (MCPG-1156).
+- name: RadarCacheResponse
+  fields: 7
+  description: Current-user Radar cache view (MCPG-1156).
+- name: RadarToolExecuteRequest
+  fields: 2
+  description: Request model for the dedicated tool execution endpoint.
+- name: RemoteServerConfig
+  fields: 26
+  description: Template configuration for remote MCP servers, loaded from known-mcp-servers.json.
+- name: ReplaceAdminToolkitAssignmentsRequest
+  fields: 2
+  description: Request to replace an admin toolkit's assignments (MCPG-1671).
+- name: ReplaceAppApprovalsRequest
+  fields: 3
+  description: 'The app-approval replace-set (MCPG-1649, PRD SM2): the full principal set the Server'
+- name: RequestLogQueryResponse
+  fields: 5
+  description: Response model for paginated request log queries.
+- name: RequestLogResponse
+  fields: 17
+  description: Response model for a single request log entry.
+- name: ResolvedMcpServerResponse
+  fields: 22
+  description: Dynamic gateway self-service summary row for one library.
+- name: RevokePersonalHolder
+  fields: 3
+  description: Who holds a Personal connection that blocks removing an app's approval.
+- name: SaveAppInstructionRequest
+  fields: 2
+  description: Request body for creating or replacing a server's tenant-wide app instructions (MCPG-1296).
+- name: SaveProviderConfigurationResponse
+  fields: 2
+  description: REST 200 body for `POST {libraryId}/configuration`. Carries the post-save
+- name: SaveSchemaCredentialRequest
+  fields: 3
+  description: Request payload for creating the secondary spec-fetch credential for an MCP-Link server
+- name: SaveSchemaCredentialResponse
+  fields: 1
+  description: Response payload for SaveSchemaCredentialRequest (MCPG-756, MCPG-765).
+- name: SelfServiceDashboardAreaRequest
+  fields: 2
+  description: A replace of both area toggles. Each field is required.
+- name: SelfServiceDashboardAreaResponse
+  fields: 3
+  description: The stored tenant area toggles. An absent row is both true.
+- name: SelfServiceDashboardAreaViewResponse
+  fields: 3
+  description: The area toggles the end-user hub reads. bool SelfServiceDashboardAreaViewResponse.MemoryAreaEffective
+    is the value the hub uses.
+- name: ServerUsageInfo
+  fields: 2
+  description: Response model for server usage information by gateways.
+- name: SetAssignedToolkitHiddenRequest
+  fields: 1
+  description: Request to hide or unhide an admin-assigned toolkit (MCPG-1672). Hide is not edit.
+- name: SetCustomServerAssignmentRequest
+  fields: 2
+  description: Request model for setting the assignment status of a custom server.
+- name: SetDynamicGatewayLibraryPreferenceRequest
+  fields: 1
+  description: Request to set a dynamic gateway app-level preference.
+- name: SetDynamicGatewayToolPreferenceRequest
+  fields: 2
+  description: Request to set a dynamic gateway upstream tool preference.
+- name: SetRadarCacheSizeRequest
+  fields: 1
+  description: Request to set the current user's Radar cache size (MCPG-1156).
+- name: SetServerFeaturedRequest
+  fields: 1
+  description: Request model for setting the featured status of a server for the current tenant.
+- name: SetSkillSelectionRequest
+  fields: 3
+  description: Request to select or deselect one skill (MCPG-1511). bool SetSkillSelectionRequest.Selected true
+- name: SetSkillSourceRequest
+  fields: 2
+  description: Request to enable or disable one SkillLink source (MCPG-1766). Enabling lights
+- name: SetSkillsMasterRequest
+  fields: 1
+  description: Request to set the Skills toolkit master switch (MCPG-1511).
+- name: SetToolkitMemberRequest
+  fields: 2
+  description: Request to add or update a toolkit member (MCPG-1130).
+- name: SkillDeselectionResponse
+  fields: 2
+  description: One deselected skill on the preference response.
+- name: SkillScanResult
+  fields: 3
+  description: Governance scan outcome for a single skill (MCPG-1262). One entry is produced per
+- name: SkillSourceTemplate
+  fields: 5
+  description: Immutable description of one skills-repository host, as loaded from
+- name: SkillsInventoryGroupResponse
+  fields: 8
+  description: One SkillLink server's full skill inventory plus credential status.
+- name: SkillsInventoryResponse
+  fields: 1
+  description: On-demand full per-server skill inventory for the Skills toolkit editor (MCPG-1511).
+- name: SkillsInventorySkillResponse
+  fields: 5
+  description: One skill in the editor inventory.
+- name: SkillsPreferenceResponse
+  fields: 3
+  description: Response for the stored skills preference.
+- name: SkillsToolkitServerGroupResponse
+  fields: 4
+  description: Identity metadata for one SkillLink group on the summary. Credential status rides
+- name: SkillsToolkitSummaryResponse
+  fields: 3
+  description: Kind-discriminated virtual Skills toolkit on the dynamic-gateway summary (MCPG-1511).
+- name: SlotResult
+  fields: 6
+  description: One bound catalog slot on the REST wire.
+- name: TenantLibraryConfigurationEntity
+  fields: 5
+  description: Represents tenant library configuration for controlling server list display mode.
+- name: TenantServerAccessResponse
+  fields: 5
+  description: Response model for tenant-server access assignments.
+- name: TestEndpointConfig
+  fields: 4
+  description: Configuration for testing credentials against an external API endpoint.
+- name: TestServerConnectivityRequest
+  fields: 4
+  description: Request model for testing server connectivity.
+- name: TestServerConnectivityResponse
+  fields: 5
+  description: Response model for server connectivity test results.
+- name: TestSkillPreview
+  fields: 2
+  description: A single entry in the Skills repository test preview.
+- name: TestSkillsRequest
+  fields: 4
+  description: Request model for the pre-save Skills repository test operation.
+- name: TestSkillsResponse
+  fields: 6
+  description: Response model for a pre-save Skills repository test.
+- name: TestYamlRequest
+  fields: 5
+  description: 'Request model for the SpecLink test-yaml endpoint. Powers the Add Custom Server "Test" modal:'
+- name: TestYamlResponse
+  fields: 9
+  description: Response model for the SpecLink test-yaml endpoint. Flat shape with an bool TestYamlResponse.Ok
+- name: TestYamlToolPreview
+  fields: 2
+  description: A single tool in the test-yaml preview.
+- name: ToolScanResult
+  fields: 2
+  description: Scan outcome for a single MCP tool definition. One entry is produced per
+- name: ToolkitMemberResponse
+  fields: 4
+  description: One library's membership in a toolkit (MCPG-1130).
+- name: ToolkitResponse
+  fields: 7
+  description: A user's toolkit with its members (MCPG-1130).
+- name: ToolkitSummaryResponse
+  fields: 7
+  description: Dynamic gateway self-service summary rollup for one toolkit (MCPG-1130).
+- name: TopToolDetail
+  fields: 8
+  description: Detailed information about a top tool by usage.
+- name: TrendDataPoint
+  fields: 5
+  description: Represents a single data point in a trend.
+- name: TrendSummary
+  fields: 6
+  description: Represents summary statistics for a trend.
+- name: UiConfiguration
+  fields: 3
+  description: UI configuration for the MCP server display.
+- name: UpdateAdminToolkitRequest
+  fields: 4
+  description: Request to replace an admin toolkit's name, description, and entries (MCPG-1671).
+- name: UpdateCustomServerCredentialRequest
+  fields: 2
+  description: Request model for updating server credentials.
+- name: UpdateCustomServerRequest
+  fields: 11
+  description: Request model for updating an existing custom remote server.
+- name: UpdateGatewayConfigurationResult
+  fields: 2
+  description: Typed PUT success payload so NSwag emits `message` and `version` on
+- name: UpdateLibraryConfigurationRequest
+  fields: 1
+  description: Request model for updating the tenant's library configuration mode.
+- name: UpdateToolkitRequest
+  fields: 3
+  description: Request to update a toolkit's name, description, and/or enabled state (MCPG-1130). Null fields are
+- name: UpdateUserApiKeyRequest
+  fields: 3
+  description: Request model for updating a user API key.
+- name: UriVariable
+  fields: 9
+  description: Represents a URI variable that can be substituted in remote MCP server URIs.
+- name: UriVariableEffectiveValue
+  fields: 3
+  description: 'One URI variable as the configuration GET reports it for a Personal row:'
+- name: UserAnalyticsTrend
+  fields: 4
+  description: Represents user analytics trends over time.
+- name: UserApiKeyCreatedResponse
+  fields: 5
+  description: Response model for user API key creation (includes the newly created API key).
+- name: UserApiKeyDetailResponse
+  fields: 5
+  description: Response model for user API key detail operations (includes sensitive data).
+- name: UserApiKeyListResponse
+  fields: 5
+  description: Response model for user API key list operations (without sensitive data).
+- name: UserDistribution
+  fields: 4
+  description: Represents the distribution of users across different categories.
+- name: UserGrowthMetrics
+  fields: 6
+  description: Represents user growth metrics over different time periods.
+- name: UserInfoResponse
+  fields: 4
+  description: Represents user information for authenticated users.
+- name: ValidateServerUrlRequest
+  fields: 2
+  description: Request model for URL validation with SSRF protection.
+- name: ValidateServerUrlResponse
+  fields: 5
+  description: Response model for URL validation results.
+- name: ValidationProblemDetails
+  fields: 6
+- name: Video
+  fields: 4
+  description: Video tutorial information.
+relationships:
+- from: ActivityResponse
+  to: ActivityAggregatesResponse
+  type: has_one
+  via: aggregates
+- from: ActivityResponse
+  to: ActivitySeriesPointResponse
+  type: has_many
+  via: series7d
+- from: ActivityResponse
+  to: ActivitySeries24hBucketResponse
+  type: has_many
+  via: series24h
+- from: ActivityResponse
+  to: ActivityBucket20mResponse
+  type: has_many
+  via: buckets20m
+- from: ActivityResponse
+  to: ActivityRecentRowResponse
+  type: has_many
+  via: recent
+- from: AdminToolkitResponse
+  to: AdminToolkitEntryResponse
+  type: has_many
+  via: entries
+- from: AnalyticsResponseOfGatewayActivityResponse
+  to: GatewayActivityResponse
+  type: has_one
+  via: data
+- from: AnalyticsResponseOfGatewayActivityResponse
+  to: AnalyticsMetadata
+  type: has_one
+  via: metadata
+- from: AnalyticsResponseOfUserAnalyticsTrend
+  to: UserAnalyticsTrend
+  type: has_one
+  via: data
+- from: AnalyticsResponseOfUserAnalyticsTrend
+  to: AnalyticsMetadata
+  type: has_one
+  via: metadata
+- from: AnalyticsResponseOfUserDistribution
+  to: UserDistribution
+  type: has_one
+  via: data
+- from: AnalyticsResponseOfUserDistribution
+  to: AnalyticsMetadata
+  type: has_one
+  via: metadata
+- from: AnalyticsResponseOfUserGrowthMetrics
+  to: UserGrowthMetrics
+  type: has_one
+  via: data
+- from: AnalyticsResponseOfUserGrowthMetrics
+  to: AnalyticsMetadata
+  type: has_one
+  via: metadata
+- from: AppConnectionsResponse
+  to: AppTenantConfigurationRow
+  type: has_one
+  via: tenantConfiguration
+- from: AppConnectionsResponse
+  to: AppPersonalConnectionRow
+  type: has_many
+  via: personalConnections
+- from: AppRevokeImpactDeployment
+  to: AppRevokeImpactAgent
+  type: has_many
+  via: agents
+- from: AppRevokeImpactResponse
+  to: AppRevokeImpactGateway
+  type: has_many
+  via: gateways
+- from: AppRevokeImpactResponse
+  to: AppRevokeImpactPersonalConnection
+  type: has_many
+  via: personalConnections
+- from: AppRevokeImpactResponse
+  to: AppRevokeImpactTenantConfiguration
+  type: has_many
+  via: tenantConfigurations
+- from: AppRevokeImpactResponse
+  to: AppRevokeImpactDeployment
+  type: has_many
+  via: deployments
+- from: AppRevokeImpactResponse
+  to: AppRevokeImpactApprovalGrant
+  type: has_many
+  via: approvalGrants
+- from: AssignedToolkitSummaryResponse
+  to: McpConnectionState
+  type: has_one
+  via: connectionRollup
+- from: AuxiliaryGatewayInventoryAppResponse
+  to: AuxiliaryGatewayInventoryToolResponse
+  type: has_many
+  via: tools
+- from: AuxiliaryGatewayInventoryAppResponse
+  to: AuxiliaryGatewayInventoryProvenanceResponse
+  type: has_one
+  via: toolsProvenance
+- from: AuxiliaryGatewayInventoryAppResponse
+  to: AuxiliaryGatewayInventorySkillResponse
+  type: has_many
+  via: skills
+- from: AuxiliaryGatewayInventoryAppResponse
+  to: AuxiliaryGatewayInventoryProvenanceResponse
+  type: has_one
+  via: skillsProvenance
+- from: AuxiliaryGatewayInventoryDetailResponse
+  to: AuxiliaryGatewayInventoryAppResponse
+  type: has_many
+  via: apps
+- from: AuxiliaryGatewayInventoryListResponse
+  to: AuxiliaryGatewayInventoryResponse
+  type: has_many
+  via: items
+- from: AuxiliaryGatewayInventoryResponse
+  to: GatewayInventoryClientResponse
+  type: has_many
+  via: clients
+- from: ClearConnectionsImpactResponse
+  to: AppPersonalConnectionRow
+  type: has_many
+  via: personalRows
+- from: ClearConnectionsImpactResponse
+  to: AppTenantConfigurationRow
+  type: has_one
+  via: tenantRow
+- from: ClearConnectionsImpactResponse
+  to: AppPersonalConnectionRow
+  type: has_many
+  via: removedPersonalRows
+- from: ConnectivityInfo
+  to: ConnectivityTestResult
+  type: has_one
+  via: lastTestResult
+- from: CreateCustomServerRequest
+  to: RemoteServerConfig
+  type: has_one
+  via: remoteConfig
+- from: CreateCustomServerRequest
+  to: UiConfiguration
+  type: has_one
+  via: ui
+- from: CreateCustomServerRequest
+  to: TestEndpointConfig
+  type: has_one
+  via: testEndpoint
+- from: CreateCustomServerRequest
+  to: CreateCustomServerCredentialRequest
+  type: has_one
+  via: credentials
+- from: CreateCustomServerResponse
+  to: RemoteServerConfig
+  type: has_one
+  via: remoteConfig
+- from: CredentialBindingSummaryRow
+  to: McpConnectionState
+  type: has_one
+  via: tenantCallerState
+- from: CredentialBindingSummaryRow
+  to: McpConnectionState
+  type: has_one
+  via: personalCallerState
+- from: CredentialCensusPage
+  to: CredentialCensusCounts
+  type: has_one
+  via: counts
+- from: CredentialCensusPage
+  to: CredentialCensusRow
+  type: has_many
+  via: items
+- from: CustomServerResponse
+  to: RemoteServerConfig
+  type: has_one
+  via: remoteConfig
+- from: CustomServerResponse
+  to: UiConfiguration
+  type: has_one
+  via: ui
+- from: CustomServerResponse
+  to: TestEndpointConfig
+  type: has_one
+  via: testEndpoint
+- from: CustomServerResponse
+  to: CustomServerCredentialInfo
+  type: has_one
+  via: credentialInfo
+- from: CustomServerResponse
+  to: ConnectivityInfo
+  type: has_one
+  via: connectivity
+- from: DynamicGatewayInventoryAppResponse
+  to: DynamicGatewayInventoryToolResponse
+  type: has_many
+  via: tools
+- from: DynamicGatewayInventoryAssignedToolkitResponse
+  to: DynamicGatewayInventoryToolkitMemberResponse
+  type: has_many
+  via: members
+- from: DynamicGatewayInventoryListResponse
+  to: GatewayInventoryClientResponse
+  type: has_many
+  via: clients
+- from: DynamicGatewayInventoryRadarCacheResponse
+  to: DynamicGatewayInventoryRadarCacheEntryResponse
+  type: has_many
+  via: entries
+- from: DynamicGatewayInventoryResponse
+  to: DynamicGatewayInventoryToolkitResponse
+  type: has_many
+  via: toolkits
+- from: DynamicGatewayInventoryResponse
+  to: DynamicGatewayInventoryAssignedToolkitResponse
+  type: has_many
+  via: assignedToolkits
+- from: DynamicGatewayInventoryResponse
+  to: DynamicGatewayInventoryAppResponse
+  type: has_many
+  via: apps
+- from: DynamicGatewayInventoryResponse
+  to: DynamicGatewayInventorySkillsResponse
+  type: has_one
+  via: skills
+- from: DynamicGatewayInventoryResponse
+  to: DynamicGatewayInventoryRadarCacheResponse
+  type: has_one
+  via: radarCache
+- from: DynamicGatewayInventorySkillsResponse
+  to: DynamicGatewayInventorySkillSourceResponse
+  type: has_many
+  via: sources
+- from: DynamicGatewayInventoryToolkitMemberResponse
+  to: DynamicGatewayInventoryToolResponse
+  type: has_many
+  via: tools
+- from: DynamicGatewayInventoryToolkitResponse
+  to: DynamicGatewayInventoryToolkitMemberResponse
+  type: has_many
+  via: members
+- from: DynamicGatewayUserPreferencesResponse
+  to: DynamicGatewayLibraryPreferenceResponse
+  type: has_many
+  via: preferences
+- from: EffectiveApprovalsResponse
+  to: EffectiveLibraryApprovalResponse
+  type: has_many
+  via: libraries
+- from: EffectiveLibraryApprovalResponse
+  to: ApprovalProvenanceResponse
+  type: has_many
+  via: provenance
+- from: EffectiveToolSurfaceResponse
+  to: ResolvedMcpServerResponse
+  type: has_many
+  via: mcpServers
+- from: EffectiveToolSurfaceResponse
+  to: ToolkitSummaryResponse
+  type: has_many
+  via: toolkits
+- from: EffectiveToolSurfaceResponse
+  to: SkillsToolkitSummaryResponse
+  type: has_one
+  via: skillsToolkit
+- from: GatewayActivityPeriod
+  to: GatewayActivityPeriodGateway
+  type: has_many
+  via: gatewayBreakdown
+- from: GatewayActivityResponse
+  to: GatewayActivitySummary
+  type: has_one
+  via: summary
+- from: GatewayActivityResponse
+  to: GatewaySessionDetail
+  type: has_many
+  via: sessions
+- from: GatewayActivityResponse
+  to: GatewayActivityPeriod
+  type: has_many
+  via: activityByPeriod
+- from: GatewayActivitySummary
+  to: TopToolDetail
+  type: has_many
+  via: topTools
+- from: GatewayLibrarySummary
+  to: McpConnectionState
+  type: has_one
+  via: state
+- from: GetCustomServersResponse
+  to: CustomServerResponse
+  type: has_many
+  via: servers
+- from: GetSkillSourceTemplatesResponse
+  to: SkillSourceTemplate
+  type: has_many
+  via: templates
+- from: GetSlotsResponse
+  to: SlotResult
+  type: has_many
+  via: slots
+- from: JsonRpcError
+  to: JsonRpcErrorDetail
+  type: has_one
+  via: error
+- from: KnownMcpServer
+  to: McpDocumentation
+  type: has_one
+  via: documentation
+- from: KnownMcpServer
+  to: McpSystemRequirements
+  type: has_one
+  via: systemRequirements
+- from: KnownMcpServer
+  to: LandingPage
+  type: has_one
+  via: landingPage
+- from: KnownMcpServer
+  to: Links
+  type: has_one
+  via: links
+- from: KnownMcpServer
+  to: UiConfiguration
+  type: has_one
+  via: ui
+- from: KnownMcpServer
+  to: RemoteServerConfig
+  type: has_one
+  via: remoteConfig
+- from: KnownMcpServer
+  to: TestEndpointConfig
+  type: has_one
+  via: testEndpoint
+- from: KnownMcpServerWithStatus
+  to: UiConfiguration
+  type: has_one
+  via: ui
+- from: KnownMcpServerWithStatus
+  to: RemoteServerConfig
+  type: has_one
+  via: remoteConfig
+- from: KnownMcpServerWithStatus
+  to: TestEndpointConfig
+  type: has_one
+  via: testEndpoint
+- from: KnownMcpServerWithStatus
+  to: McpDocumentation
+  type: has_one
+  via: documentation
+- from: KnownMcpServerWithStatus
+  to: McpSystemRequirements
+  type: has_one
+  via: systemRequirements
+- from: KnownMcpServerWithStatus
+  to: LandingPage
+  type: has_one
+  via: landingPage
+- from: KnownMcpServerWithStatus
+  to: Links
+  type: has_one
+  via: links
+- from: KnownMcpServerWithStatus
+  to: McpConnectionState
+  type: has_one
+  via: state
+- from: LibraryApprovalGrantsResponse
+  to: ApprovalGrantResponse
+  type: has_many
+  via: grants
+- from: LibraryApprovalGrantsSummaryResponse
+  to: LibraryApprovalGrantSummaryResponse
+  type: has_many
+  via: libraries
+- from: LibraryServersWithAssignmentStatusResponse
+  to: LibraryServerWithAssignmentStatus
+  type: has_many
+  via: items
+- from: LibraryServerWithAssignmentStatus
+  to: McpServerDefinition
+  type: has_one
+  via: server
+- from: LibraryServerWithAssignmentStatus
+  to: RevokePersonalHolder
+  type: has_many
+  via: personalHolders
+- from: LibraryToolResult
+  to: JsonObject
+  type: has_one
+  via: tools
+- from: McpRegistryServerDetail
+  to: McpRegistryRemote
+  type: has_many
+  via: remotes
+- from: McpRegistryServerListResponse
+  to: McpRegistryServerResponse
+  type: has_many
+  via: servers
+- from: McpRegistryServerListResponse
+  to: McpRegistryListMetadata
+  type: has_one
+  via: metadata
+- from: McpRegistryServerResponse
+  to: McpRegistryServerDetail
+  type: has_one
+  via: server
+- from: McpServerDefinition
+  to: UiConfiguration
+  type: has_one
+  via: ui
+- from: McpServerDefinition
+  to: RemoteServerConfig
+  type: has_one
+  via: remoteConfig
+- from: McpServerDefinition
+  to: TestEndpointConfig
+  type: has_one
+  via: testEndpoint
+- from: OAuthConfigListResponse
+  to: OAuthConfigItem
+  type: has_many
+  via: configurations
+- from: OrganicMemoryAdminRequest
+  to: OrganicMemorySlotRequest
+  type: has_one
+  via: llm
+- from: OrganicMemoryAdminRequest
+  to: OrganicMemorySlotRequest
+  type: has_one
+  via: embedding
+- from: OrganicMemoryAdminResponse
+  to: OrganicMemorySlotResponse
+  type: has_one
+  via: llm
+- from: OrganicMemoryAdminResponse
+  to: OrganicMemorySlotResponse
+  type: has_one
+  via: embedding
+- from: OrganicMemoryPurgedUser
+  to: OrganicMemoryPurgeCounts
+  type: has_one
+  via: purged
+- from: OrganicMemoryPurgeResponse
+  to: OrganicMemoryPurgedUser
+  type: has_many
+  via: users
+- from: PagedResultOfAdminToolkitResponse
+  to: AdminToolkitResponse
+  type: has_many
+  via: items
+- from: PagedResultOfDynamicGatewayInventoryListResponse
+  to: DynamicGatewayInventoryListResponse
+  type: has_many
+  via: items
+- from: PagedResultOfTenantServerAccessResponse
+  to: TenantServerAccessResponse
+  type: has_many
+  via: items
+- from: PersonalCredentialStatusResponse
+  to: McpConnectionState
+  type: has_one
+  via: state
+- from: ProviderIntegrationModelResponse
+  to: GenericProviderConfigurationModel
+  type: has_one
+  via: configuration
+- from: ProviderIntegrationStatusResponse
+  to: McpConnectionState
+  type: has_one
+  via: state
+- from: RadarCacheResponse
+  to: RadarCacheEntryResponse
+  type: has_many
+  via: entries
+- from: RadarToolExecuteRequest
+  to: JsonObject
+  type: has_one
+  via: arguments
+- from: RemoteServerConfig
+  to: OAuthConfig
+  type: has_one
+  via: oAuth
+- from: RequestLogQueryResponse
+  to: RequestLogResponse
+  type: has_many
+  via: items
+- from: ResolvedMcpServerResponse
+  to: McpConnectionState
+  type: has_one
+  via: connectionState
+- from: ResolvedMcpServerResponse
+  to: DynamicGatewayToolPreferenceResponse
+  type: has_one
+  via: toolPreference
+- from: ResolvedMcpServerResponse
+  to: DynamicGatewayToolCountsResponse
+  type: has_one
+  via: toolCounts
+- from: ResolvedMcpServerResponse
+  to: ApprovalClassificationResponse
+  type: has_one
+  via: approval
+- from: SkillsInventoryGroupResponse
+  to: McpConnectionState
+  type: has_one
+  via: credentialStatus
+- from: SkillsInventoryGroupResponse
+  to: SkillsInventorySkillResponse
+  type: has_many
+  via: skills
+- from: SkillsInventoryResponse
+  to: SkillsInventoryGroupResponse
+  type: has_many
+  via: groups
+- from: SkillsPreferenceResponse
+  to: SkillDeselectionResponse
+  type: has_many
+  via: deselections
+- from: SkillsToolkitSummaryResponse
+  to: SkillsToolkitServerGroupResponse
+  type: has_many
+  via: serverGroups
+- from: ToolkitResponse
+  to: ToolkitMemberResponse
+  type: has_many
+  via: members
+- from: ToolkitSummaryResponse
+  to: McpConnectionState
+  type: has_one
+  via: connectionRollup
+- from: UpdateCustomServerRequest
+  to: RemoteServerConfig
+  type: has_one
+  via: remoteConfig
+- from: UpdateCustomServerRequest
+  to: UiConfiguration
+  type: has_one
+  via: ui
+- from: UpdateCustomServerRequest
+  to: TestEndpointConfig
+  type: has_one
+  via: testEndpoint
+- from: UpdateCustomServerRequest
+  to: UpdateCustomServerCredentialRequest
+  type: has_one
+  via: credentials
+- from: UserAnalyticsTrend
+  to: DateRange
+  type: has_one
+  via: period
+- from: UserAnalyticsTrend
+  to: TrendDataPoint
+  type: has_many
+  via: dataPoints
+- from: UserAnalyticsTrend
+  to: TrendSummary
+  type: has_one
+  via: summary
+- from: UserDistribution
+  to: DistributionSegment
+  type: has_many
+  via: segments
+- from: UserDistribution
+  to: DateRange
+  type: has_one
+  via: period
+- from: UserGrowthMetrics
+  to: GrowthMetric
+  type: has_one
+  via: dayOverDay
+- from: UserGrowthMetrics
+  to: GrowthMetric
+  type: has_one
+  via: weekOverWeek
+- from: UserGrowthMetrics
+  to: GrowthMetric
+  type: has_one
+  via: monthOverMonth
+- from: UserGrowthMetrics
+  to: DateRange
+  type: has_one
+  via: period

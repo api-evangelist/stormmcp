@@ -1,0 +1,214 @@
+generated: '2026-10-19'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/stormmcp-openapi.json
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: probed
+note: 'No MCP server was found. The pre-flight posted tools/list to /mcp on api.stormmcp.ai, stormmcp.ai, dev.stormmcp.ai; verdict opaque (https://stormmcp.ai/api/mcp
+  answered 401: the edge authenticates before it routes, which proves nothing either way). Candidate tools below are derived from the 163 operation(s)
+  in the provider''s own OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.'
+tools:
+- name: create_api_custom-remote-servers
+  operationId: POST /api/custom-remote-servers
+  method: POST
+  path: /api/custom-remote-servers
+  description: Creates a new custom remote server.
+- name: get_api_custom-remote-servers
+  operationId: GET /api/custom-remote-servers
+  method: GET
+  path: /api/custom-remote-servers
+  description: Retrieves all custom remote servers for the current tenant with pagination.
+- name: update_api_custom-remote-servers
+  operationId: PUT /api/custom-remote-servers/{id}
+  method: PUT
+  path: /api/custom-remote-servers/{id}
+  description: Updates an existing custom remote server.
+- name: delete_api_custom-remote-servers
+  operationId: DELETE /api/custom-remote-servers/{id}
+  method: DELETE
+  path: /api/custom-remote-servers/{id}
+  description: Deletes a custom remote server and its associated credentials.
+- name: create_custom-remote-servers_validate-url
+  operationId: POST /api/custom-remote-servers/validate-url
+  method: POST
+  path: /api/custom-remote-servers/validate-url
+  description: Validates a server URL for SSRF protection.
+- name: create_custom-remote-servers_test-connectivity
+  operationId: POST /api/custom-remote-servers/test-connectivity
+  method: POST
+  path: /api/custom-remote-servers/test-connectivity
+  description: Tests connectivity to a remote server endpoint.
+- name: create_custom-remote-servers_test-yaml
+  operationId: POST /api/custom-remote-servers/test-yaml
+  method: POST
+  path: /api/custom-remote-servers/test-yaml
+  description: 'Tests a SpecLink (private-spec) YAML: fetches it, parses it via an ephemeral mcp-link session,'
+- name: create_custom-remote-servers_test-skills
+  operationId: POST /api/custom-remote-servers/test-skills
+  method: POST
+  path: /api/custom-remote-servers/test-skills
+  description: Tests and previews a Skills repository without persistence.
+- name: get_custom-remote-servers_skill-source-templates
+  operationId: GET /api/custom-remote-servers/skill-source-templates
+  method: GET
+  path: /api/custom-remote-servers/skill-source-templates
+  description: Retrieves the skill-source template catalog used to drive the streamlined skills-source form.
+- name: get_me_preferences
+  operationId: GET /api/v1/dynamic-gateway/me/preferences
+  method: GET
+  path: /api/v1/dynamic-gateway/me/preferences
+  description: Gets the current user's stored dynamic gateway preferences.
+- name: update_me_libraries
+  operationId: PATCH /api/v1/dynamic-gateway/me/libraries/{libraryId}
+  method: PATCH
+  path: /api/v1/dynamic-gateway/me/libraries/{libraryId}
+  description: Sets or resets the current user's app-level dynamic gateway preference for one library.
+- name: delete_libraries_preference
+  operationId: DELETE /api/v1/dynamic-gateway/me/libraries/{libraryId}/preference
+  method: DELETE
+  path: /api/v1/dynamic-gateway/me/libraries/{libraryId}/preference
+  description: Resets the current user's app-level dynamic gateway preference for one library.
+- name: update_libraries_tools
+  operationId: PUT /api/v1/dynamic-gateway/me/libraries/{libraryId}/tools
+  method: PUT
+  path: /api/v1/dynamic-gateway/me/libraries/{libraryId}/tools
+  description: Sets the current user's upstream tool preference for one dynamic gateway library.
+- name: get_me_summary
+  operationId: GET /api/v1/dynamic-gateway/me/summary
+  method: GET
+  path: /api/v1/dynamic-gateway/me/summary
+  description: Gets the current user's resolved dynamic gateway self-service summary (assigned/optional apps with
+- name: get_me_skills-inventory
+  operationId: GET /api/v1/dynamic-gateway/me/skills-inventory
+  method: GET
+  path: /api/v1/dynamic-gateway/me/skills-inventory
+  description: Gets the on-demand full skill inventory for the Skills toolkit editor (MCPG-1511).
+- name: update_me_skills
+  operationId: PATCH /api/v1/dynamic-gateway/me/skills
+  method: PATCH
+  path: /api/v1/dynamic-gateway/me/skills
+  description: Sets the Skills toolkit master switch (MCPG-1511).
+- name: update_skills_selection
+  operationId: PATCH /api/v1/dynamic-gateway/me/skills/selection
+  method: PATCH
+  path: /api/v1/dynamic-gateway/me/skills/selection
+  description: Selects or deselects one skill (MCPG-1511). Selected true removes the key from
+- name: update_skills_sources
+  operationId: PATCH /api/v1/dynamic-gateway/me/skills/sources
+  method: PATCH
+  path: /api/v1/dynamic-gateway/me/skills/sources
+  description: Enables or disables one SkillLink source (MCPG-1766). Enabling admits every
+- name: update_me_assigned-toolkits
+  operationId: PATCH /api/v1/dynamic-gateway/me/assigned-toolkits/{toolkitId}
+  method: PATCH
+  path: /api/v1/dynamic-gateway/me/assigned-toolkits/{toolkitId}
+  description: Hides or unhides an admin toolkit for the caller (MCPG-1672). Hide is not
+- name: get_me_toolkits
+  operationId: GET /api/v1/dynamic-gateway/me/toolkits
+  method: GET
+  path: /api/v1/dynamic-gateway/me/toolkits
+  description: Gets the current user's toolkits (MCPG-1130).
+- name: create_me_toolkits
+  operationId: POST /api/v1/dynamic-gateway/me/toolkits
+  method: POST
+  path: /api/v1/dynamic-gateway/me/toolkits
+  description: Creates a new toolkit (MCPG-1130).
+- name: update_me_toolkits
+  operationId: PATCH /api/v1/dynamic-gateway/me/toolkits/{toolkitId}
+  method: PATCH
+  path: /api/v1/dynamic-gateway/me/toolkits/{toolkitId}
+  description: Updates a toolkit's name, description, and/or enabled state (MCPG-1130).
+- name: delete_me_toolkits
+  operationId: DELETE /api/v1/dynamic-gateway/me/toolkits/{toolkitId}
+  method: DELETE
+  path: /api/v1/dynamic-gateway/me/toolkits/{toolkitId}
+  description: Deletes a toolkit (MCPG-1130).
+- name: update_toolkits_members
+  operationId: PUT /api/v1/dynamic-gateway/me/toolkits/{toolkitId}/members/{libraryId}
+  method: PUT
+  path: /api/v1/dynamic-gateway/me/toolkits/{toolkitId}/members/{libraryId}
+  description: Adds or updates a toolkit member (MCPG-1130).
+- name: delete_toolkits_members
+  operationId: DELETE /api/v1/dynamic-gateway/me/toolkits/{toolkitId}/members/{libraryId}
+  method: DELETE
+  path: /api/v1/dynamic-gateway/me/toolkits/{toolkitId}/members/{libraryId}
+  description: Removes a toolkit member (MCPG-1130).
+- name: get_me_gateway
+  operationId: GET /api/v1/dynamic-gateway/me/gateway
+  method: GET
+  path: /api/v1/dynamic-gateway/me/gateway
+  description: Gets the current user's dynamic gateway metadata (MCPG-1156).
+- name: get_me_activity
+  operationId: GET /api/v1/dynamic-gateway/me/activity
+  method: GET
+  path: /api/v1/dynamic-gateway/me/activity
+  description: Gets the current user's dynamic gateway activity projection (MCPG-1156).
+- name: get_me_clients
+  operationId: GET /api/v1/dynamic-gateway/me/clients
+  method: GET
+  path: /api/v1/dynamic-gateway/me/clients
+  description: Gets the current user's recent dynamic-gateway client sessions (MCPG-1156).
+- name: get_me_radar-cache
+  operationId: GET /api/v1/dynamic-gateway/me/radar-cache
+  method: GET
+  path: /api/v1/dynamic-gateway/me/radar-cache
+  description: Gets the current user's Radar cache (MCPG-1156).
+- name: update_me_radar-cache
+  operationId: PUT /api/v1/dynamic-gateway/me/radar-cache
+  method: PUT
+  path: /api/v1/dynamic-gateway/me/radar-cache
+  description: Sets the current user's Radar cache size (MCPG-1156).
+- name: update_tools_pin
+  operationId: PUT /api/v1/dynamic-gateway/me/radar-cache/tools/{toolName}/pin
+  method: PUT
+  path: /api/v1/dynamic-gateway/me/radar-cache/tools/{toolName}/pin
+  description: Pins a cached Radar tool (MCPG-1156).
+- name: delete_tools_pin
+  operationId: DELETE /api/v1/dynamic-gateway/me/radar-cache/tools/{toolName}/pin
+  method: DELETE
+  path: /api/v1/dynamic-gateway/me/radar-cache/tools/{toolName}/pin
+  description: Unpins a cached Radar tool (MCPG-1156).
+- name: delete_radar-cache_tools
+  operationId: DELETE /api/v1/dynamic-gateway/me/radar-cache/tools/{toolName}
+  method: DELETE
+  path: /api/v1/dynamic-gateway/me/radar-cache/tools/{toolName}
+  description: Removes a cached Radar tool (MCPG-1156).
+- name: create_dynamic_mcp
+  operationId: POST /gateway/{tenantId}/dynamic/mcp
+  method: POST
+  path: /gateway/{tenantId}/dynamic/mcp
+  description: Handles JSON-RPC requests for the per-tenant Dynamic Gateway endpoint.
+- name: get_dynamic_mcp
+  operationId: GET /gateway/{tenantId}/dynamic/mcp
+  method: GET
+  path: /gateway/{tenantId}/dynamic/mcp
+  description: Establishes a grain-less SSE connection for a legacy Dynamic Gateway session.
+- name: delete_dynamic_mcp
+  operationId: DELETE /gateway/{tenantId}/dynamic/mcp
+  method: DELETE
+  path: /gateway/{tenantId}/dynamic/mcp
+  description: Removes a transport-bound Dynamic Gateway session from the registry.
+- name: create_tools_discover
+  operationId: POST /api/v1/dynamic/tools/discover
+  method: POST
+  path: /api/v1/dynamic/tools/discover
+  description: 'Discovers the authenticated user''s dynamic tool surface for Radar indexing: the executable'
+- name: create_ephemeral_mcp
+  operationId: POST /gateway/ephemeral/mcp
+  method: POST
+  path: /gateway/ephemeral/mcp
+  description: Handles JSON-RPC requests for ephemeral MCP sessions.
+- name: get_ephemeral_mcp
+  operationId: GET /gateway/ephemeral/mcp
+  method: GET
+  path: /gateway/ephemeral/mcp
+  description: Establishes an SSE connection for server-initiated messages (e.g. elicitation/create)
+- name: delete_ephemeral_mcp
+  operationId: DELETE /gateway/ephemeral/mcp
+  method: DELETE
+  path: /gateway/ephemeral/mcp
+  description: Cleans up an ephemeral MCP session.

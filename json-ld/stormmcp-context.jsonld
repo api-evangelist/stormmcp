@@ -1,0 +1,1432 @@
+{
+  "@context": {
+    "@vocab": "https://stormmcp.ai/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "stormmcp": "https://stormmcp.ai/schema#",
+    "ActiveSessionResponse": "stormmcp:ActiveSessionResponse",
+    "sessionId": {
+      "@id": "stormmcp:sessionId",
+      "@type": "xsd:string"
+    },
+    "gatewayId": {
+      "@id": "stormmcp:gatewayId",
+      "@type": "xsd:string"
+    },
+    "registeredAt": {
+      "@id": "stormmcp:registeredAt",
+      "@type": "xsd:dateTime"
+    },
+    "lastActiveAt": {
+      "@id": "stormmcp:lastActiveAt",
+      "@type": "xsd:dateTime"
+    },
+    "durationMinutes": {
+      "@id": "stormmcp:durationMinutes",
+      "@type": "xsd:decimal"
+    },
+    "totalRequests": {
+      "@id": "stormmcp:totalRequests",
+      "@type": "xsd:integer"
+    },
+    "methodCounts": {
+      "@id": "stormmcp:methodCounts"
+    },
+    "toolUsage": {
+      "@id": "stormmcp:toolUsage"
+    },
+    "lastUsedTool": {
+      "@id": "stormmcp:lastUsedTool"
+    },
+    "lastToolUsedAt": {
+      "@id": "stormmcp:lastToolUsedAt",
+      "@type": "xsd:dateTime"
+    },
+    "ActivityAggregatesResponse": "stormmcp:ActivityAggregatesResponse",
+    "calls": {
+      "@id": "stormmcp:calls",
+      "@type": "xsd:integer"
+    },
+    "toolsUsed": {
+      "@id": "stormmcp:toolsUsed",
+      "@type": "xsd:integer"
+    },
+    "failures": {
+      "@id": "stormmcp:failures",
+      "@type": "xsd:integer"
+    },
+    "denied": {
+      "@id": "stormmcp:denied",
+      "@type": "xsd:integer"
+    },
+    "ActivityBucket20mResponse": "stormmcp:ActivityBucket20mResponse",
+    "bucketStart": {
+      "@id": "stormmcp:bucketStart",
+      "@type": "xsd:dateTime"
+    },
+    "succeeded": {
+      "@id": "stormmcp:succeeded",
+      "@type": "xsd:integer"
+    },
+    "failed": {
+      "@id": "stormmcp:failed",
+      "@type": "xsd:integer"
+    },
+    "unknown": {
+      "@id": "stormmcp:unknown",
+      "@type": "xsd:integer"
+    },
+    "toolNames": {
+      "@id": "stormmcp:toolNames",
+      "@container": "@list"
+    },
+    "ActivityDetailResponse": "stormmcp:ActivityDetailResponse",
+    "id": {
+      "@id": "stormmcp:id",
+      "@type": "xsd:string"
+    },
+    "timestamp": {
+      "@id": "stormmcp:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "toolName": {
+      "@id": "stormmcp:toolName"
+    },
+    "outcome": {
+      "@id": "stormmcp:outcome",
+      "@type": "@id"
+    },
+    "requestObject": {
+      "@id": "stormmcp:requestObject"
+    },
+    "responseObject": {
+      "@id": "stormmcp:responseObject"
+    },
+    "client": {
+      "@id": "stormmcp:client"
+    },
+    "ActivityRecentRowResponse": "stormmcp:ActivityRecentRowResponse",
+    "durationMs": {
+      "@id": "stormmcp:durationMs",
+      "@type": "xsd:decimal"
+    },
+    "toolkit": {
+      "@id": "stormmcp:toolkit"
+    },
+    "libraryId": {
+      "@id": "stormmcp:libraryId",
+      "@type": "xsd:string"
+    },
+    "ActivityResponse": "stormmcp:ActivityResponse",
+    "aggregates": {
+      "@id": "stormmcp:aggregates",
+      "@type": "@id"
+    },
+    "series7d": {
+      "@id": "stormmcp:series7d",
+      "@container": "@list"
+    },
+    "series24h": {
+      "@id": "stormmcp:series24h",
+      "@container": "@list"
+    },
+    "buckets20m": {
+      "@id": "stormmcp:buckets20m",
+      "@container": "@list"
+    },
+    "windowStart": {
+      "@id": "stormmcp:windowStart",
+      "@type": "xsd:dateTime"
+    },
+    "windowEnd": {
+      "@id": "stormmcp:windowEnd",
+      "@type": "xsd:dateTime"
+    },
+    "recent": {
+      "@id": "stormmcp:recent",
+      "@container": "@list"
+    },
+    "ActivitySeries24hBucketResponse": "stormmcp:ActivitySeries24hBucketResponse",
+    "ActivitySeriesPointResponse": "stormmcp:ActivitySeriesPointResponse",
+    "day": {
+      "@id": "stormmcp:day",
+      "@type": "xsd:date"
+    },
+    "AdminToolkitEntryRequest": "stormmcp:AdminToolkitEntryRequest",
+    "selectedToolNames": {
+      "@id": "stormmcp:selectedToolNames"
+    },
+    "AdminToolkitEntryResponse": "stormmcp:AdminToolkitEntryResponse",
+    "AdminToolkitResponse": "stormmcp:AdminToolkitResponse",
+    "name": {
+      "@id": "stormmcp:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "stormmcp:description"
+    },
+    "isDraft": {
+      "@id": "stormmcp:isDraft",
+      "@type": "xsd:boolean"
+    },
+    "assignmentMode": {
+      "@id": "stormmcp:assignmentMode",
+      "@type": "@id"
+    },
+    "entries": {
+      "@id": "stormmcp:entries",
+      "@container": "@list"
+    },
+    "userIds": {
+      "@id": "stormmcp:userIds",
+      "@container": "@list"
+    },
+    "groupIds": {
+      "@id": "stormmcp:groupIds",
+      "@container": "@list"
+    },
+    "createdBy": {
+      "@id": "stormmcp:createdBy",
+      "@type": "xsd:string"
+    },
+    "createdAt": {
+      "@id": "stormmcp:createdAt",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "stormmcp:updatedAt",
+      "@type": "xsd:dateTime"
+    },
+    "AnalyticsExportModel": "stormmcp:AnalyticsExportModel",
+    "date": {
+      "@id": "stormmcp:date",
+      "@type": "xsd:dateTime"
+    },
+    "periodType": {
+      "@id": "stormmcp:periodType",
+      "@type": "xsd:string"
+    },
+    "periodLabel": {
+      "@id": "stormmcp:periodLabel",
+      "@type": "xsd:string"
+    },
+    "newUsers": {
+      "@id": "stormmcp:newUsers",
+      "@type": "xsd:integer"
+    },
+    "totalUsers": {
+      "@id": "stormmcp:totalUsers",
+      "@type": "xsd:integer"
+    },
+    "activeUsers": {
+      "@id": "stormmcp:activeUsers",
+      "@type": "xsd:integer"
+    },
+    "growthRate": {
+      "@id": "stormmcp:growthRate"
+    },
+    "dayOverDayChange": {
+      "@id": "stormmcp:dayOverDayChange"
+    },
+    "weekOverWeekChange": {
+      "@id": "stormmcp:weekOverWeekChange"
+    },
+    "monthOverMonthChange": {
+      "@id": "stormmcp:monthOverMonthChange"
+    },
+    "notes": {
+      "@id": "stormmcp:notes"
+    },
+    "AnalyticsMetadata": "stormmcp:AnalyticsMetadata",
+    "generatedAt": {
+      "@id": "stormmcp:generatedAt",
+      "@type": "xsd:dateTime"
+    },
+    "dataSource": {
+      "@id": "stormmcp:dataSource",
+      "@type": "xsd:string"
+    },
+    "queryParameters": {
+      "@id": "stormmcp:queryParameters"
+    },
+    "warnings": {
+      "@id": "stormmcp:warnings",
+      "@container": "@list"
+    },
+    "processingTimeMs": {
+      "@id": "stormmcp:processingTimeMs",
+      "@type": "xsd:integer"
+    },
+    "AnalyticsResponseOfGatewayActivityResponse": "stormmcp:AnalyticsResponseOfGatewayActivityResponse",
+    "data": {
+      "@id": "stormmcp:data",
+      "@type": "@id"
+    },
+    "metadata": {
+      "@id": "stormmcp:metadata",
+      "@type": "@id"
+    },
+    "fromCache": {
+      "@id": "stormmcp:fromCache",
+      "@type": "xsd:boolean"
+    },
+    "cacheAgeMinutes": {
+      "@id": "stormmcp:cacheAgeMinutes"
+    },
+    "AnalyticsResponseOfUserAnalyticsTrend": "stormmcp:AnalyticsResponseOfUserAnalyticsTrend",
+    "AnalyticsResponseOfUserDistribution": "stormmcp:AnalyticsResponseOfUserDistribution",
+    "AnalyticsResponseOfUserGrowthMetrics": "stormmcp:AnalyticsResponseOfUserGrowthMetrics",
+    "AppConnectionsResponse": "stormmcp:AppConnectionsResponse",
+    "tenantConfiguration": {
+      "@id": "stormmcp:tenantConfiguration"
+    },
+    "personalConnections": {
+      "@id": "stormmcp:personalConnections",
+      "@container": "@list"
+    },
+    "AppInstructionResponse": "stormmcp:AppInstructionResponse",
+    "serverId": {
+      "@id": "stormmcp:serverId",
+      "@type": "xsd:string"
+    },
+    "serverName": {
+      "@id": "stormmcp:serverName",
+      "@type": "xsd:string"
+    },
+    "instructions": {
+      "@id": "stormmcp:instructions",
+      "@type": "xsd:string"
+    },
+    "instructionsToolDescription": {
+      "@id": "stormmcp:instructionsToolDescription"
+    },
+    "AppPersonalConnectionRow": "stormmcp:AppPersonalConnectionRow",
+    "userId": {
+      "@id": "stormmcp:userId",
+      "@type": "xsd:string"
+    },
+    "authType": {
+      "@id": "stormmcp:authType"
+    },
+    "source": {
+      "@id": "stormmcp:source",
+      "@type": "xsd:string"
+    },
+    "clearable": {
+      "@id": "stormmcp:clearable",
+      "@type": "xsd:boolean"
+    },
+    "AppRevokeImpactAgent": "stormmcp:AppRevokeImpactAgent",
+    "AppRevokeImpactApprovalGrant": "stormmcp:AppRevokeImpactApprovalGrant",
+    "principalType": {
+      "@id": "stormmcp:principalType",
+      "@type": "@id"
+    },
+    "principalId": {
+      "@id": "stormmcp:principalId",
+      "@type": "xsd:string"
+    },
+    "grantsAppAccess": {
+      "@id": "stormmcp:grantsAppAccess",
+      "@type": "xsd:boolean"
+    },
+    "toolMode": {
+      "@id": "stormmcp:toolMode",
+      "@type": "@id"
+    },
+    "AppRevokeImpactDeployment": "stormmcp:AppRevokeImpactDeployment",
+    "projectId": {
+      "@id": "stormmcp:projectId",
+      "@type": "xsd:string"
+    },
+    "agents": {
+      "@id": "stormmcp:agents",
+      "@container": "@list"
+    },
+    "AppRevokeImpactGateway": "stormmcp:AppRevokeImpactGateway",
+    "nameWithheld": {
+      "@id": "stormmcp:nameWithheld",
+      "@type": "xsd:boolean"
+    },
+    "level": {
+      "@id": "stormmcp:level",
+      "@type": "@id"
+    },
+    "ownerUserId": {
+      "@id": "stormmcp:ownerUserId",
+      "@type": "xsd:string"
+    },
+    "libraryIds": {
+      "@id": "stormmcp:libraryIds",
+      "@container": "@list"
+    },
+    "AppRevokeImpactPersonalConnection": "stormmcp:AppRevokeImpactPersonalConnection",
+    "AppRevokeImpactRequest": "stormmcp:AppRevokeImpactRequest",
+    "AppRevokeImpactResponse": "stormmcp:AppRevokeImpactResponse",
+    "switchesToCustomMode": {
+      "@id": "stormmcp:switchesToCustomMode",
+      "@type": "xsd:boolean"
+    },
+    "gateways": {
+      "@id": "stormmcp:gateways",
+      "@container": "@list"
+    },
+    "tenantConfigurations": {
+      "@id": "stormmcp:tenantConfigurations",
+      "@container": "@list"
+    },
+    "deployments": {
+      "@id": "stormmcp:deployments",
+      "@container": "@list"
+    },
+    "approvalGrants": {
+      "@id": "stormmcp:approvalGrants",
+      "@container": "@list"
+    },
+    "connectionsRetained": {
+      "@id": "stormmcp:connectionsRetained",
+      "@type": "xsd:boolean"
+    },
+    "digest": {
+      "@id": "stormmcp:digest",
+      "@type": "xsd:string"
+    },
+    "AppRevokeImpactTenantConfiguration": "stormmcp:AppRevokeImpactTenantConfiguration",
+    "AppRevokeRequest": "stormmcp:AppRevokeRequest",
+    "acknowledgmentToken": {
+      "@id": "stormmcp:acknowledgmentToken"
+    },
+    "AppRevokeResponse": "stormmcp:AppRevokeResponse",
+    "revocationId": {
+      "@id": "stormmcp:revocationId",
+      "@type": "xsd:string"
+    },
+    "switchedToCustomMode": {
+      "@id": "stormmcp:switchedToCustomMode",
+      "@type": "xsd:boolean"
+    },
+    "strippedGatewayCount": {
+      "@id": "stormmcp:strippedGatewayCount",
+      "@type": "xsd:integer"
+    },
+    "deletedApprovalGrantCount": {
+      "@id": "stormmcp:deletedApprovalGrantCount",
+      "@type": "xsd:integer"
+    },
+    "ApprovalClassificationResponse": "stormmcp:ApprovalClassificationResponse",
+    "approved": {
+      "@id": "stormmcp:approved",
+      "@type": "xsd:boolean"
+    },
+    "ApprovalGrantResponse": "stormmcp:ApprovalGrantResponse",
+    "ApprovalProvenanceResponse": "stormmcp:ApprovalProvenanceResponse",
+    "ApprovalToolScopeRequest": "stormmcp:ApprovalToolScopeRequest",
+    "AppTenantConfigurationRow": "stormmcp:AppTenantConfigurationRow",
+    "AssignedToolkitHiddenResponse": "stormmcp:AssignedToolkitHiddenResponse",
+    "toolkitId": {
+      "@id": "stormmcp:toolkitId",
+      "@type": "xsd:string"
+    },
+    "hidden": {
+      "@id": "stormmcp:hidden",
+      "@type": "xsd:boolean"
+    },
+    "AssignedToolkitSummaryResponse": "stormmcp:AssignedToolkitSummaryResponse",
+    "origin": {
+      "@id": "stormmcp:origin",
+      "@type": "xsd:string"
+    },
+    "memberCount": {
+      "@id": "stormmcp:memberCount",
+      "@type": "xsd:integer"
+    },
+    "effectiveToolCount": {
+      "@id": "stormmcp:effectiveToolCount",
+      "@type": "xsd:integer"
+    },
+    "allToolsMemberCount": {
+      "@id": "stormmcp:allToolsMemberCount",
+      "@type": "xsd:integer"
+    },
+    "connectionRollup": {
+      "@id": "stormmcp:connectionRollup"
+    },
+    "AuxiliaryGatewayInventoryAppResponse": "stormmcp:AuxiliaryGatewayInventoryAppResponse",
+    "longDescription": {
+      "@id": "stormmcp:longDescription"
+    },
+    "iconUrl": {
+      "@id": "stormmcp:iconUrl"
+    },
+    "type": {
+      "@id": "stormmcp:type"
+    },
+    "toolListing": {
+      "@id": "stormmcp:toolListing",
+      "@type": "xsd:string"
+    },
+    "tools": {
+      "@id": "stormmcp:tools",
+      "@container": "@list"
+    },
+    "toolsProvenance": {
+      "@id": "stormmcp:toolsProvenance"
+    },
+    "skillListing": {
+      "@id": "stormmcp:skillListing",
+      "@type": "xsd:string"
+    },
+    "skills": {
+      "@id": "stormmcp:skills",
+      "@container": "@list"
+    },
+    "skillsProvenance": {
+      "@id": "stormmcp:skillsProvenance"
+    },
+    "AuxiliaryGatewayInventoryDetailResponse": "stormmcp:AuxiliaryGatewayInventoryDetailResponse",
+    "tenantId": {
+      "@id": "stormmcp:tenantId",
+      "@type": "xsd:string"
+    },
+    "scope": {
+      "@id": "stormmcp:scope",
+      "@type": "@id"
+    },
+    "assignedUserIds": {
+      "@id": "stormmcp:assignedUserIds"
+    },
+    "assignedGroupIds": {
+      "@id": "stormmcp:assignedGroupIds"
+    },
+    "radarEnabled": {
+      "@id": "stormmcp:radarEnabled",
+      "@type": "xsd:boolean"
+    },
+    "allowedToolsAll": {
+      "@id": "stormmcp:allowedToolsAll",
+      "@type": "xsd:boolean"
+    },
+    "apps": {
+      "@id": "stormmcp:apps",
+      "@container": "@list"
+    },
+    "AuxiliaryGatewayInventoryListResponse": "stormmcp:AuxiliaryGatewayInventoryListResponse",
+    "groupMembershipDegraded": {
+      "@id": "stormmcp:groupMembershipDegraded",
+      "@type": "xsd:boolean"
+    },
+    "items": {
+      "@id": "stormmcp:items",
+      "@container": "@list"
+    },
+    "totalCount": {
+      "@id": "stormmcp:totalCount",
+      "@type": "xsd:integer"
+    },
+    "pageNumber": {
+      "@id": "stormmcp:pageNumber",
+      "@type": "xsd:integer"
+    },
+    "pageSize": {
+      "@id": "stormmcp:pageSize",
+      "@type": "xsd:integer"
+    },
+    "hasMore": {
+      "@id": "stormmcp:hasMore",
+      "@type": "xsd:boolean"
+    },
+    "totalPages": {
+      "@id": "stormmcp:totalPages",
+      "@type": "xsd:integer"
+    },
+    "AuxiliaryGatewayInventoryProvenanceResponse": "stormmcp:AuxiliaryGatewayInventoryProvenanceResponse",
+    "isStamped": {
+      "@id": "stormmcp:isStamped",
+      "@type": "xsd:boolean"
+    },
+    "catalogVersion": {
+      "@id": "stormmcp:catalogVersion"
+    },
+    "sourceRevision": {
+      "@id": "stormmcp:sourceRevision"
+    },
+    "sourceCoordinate": {
+      "@id": "stormmcp:sourceCoordinate"
+    },
+    "catalogGeneration": {
+      "@id": "stormmcp:catalogGeneration"
+    },
+    "revisionIsDerived": {
+      "@id": "stormmcp:revisionIsDerived",
+      "@type": "xsd:boolean"
+    },
+    "AuxiliaryGatewayInventoryResponse": "stormmcp:AuxiliaryGatewayInventoryResponse",
+    "applicationCount": {
+      "@id": "stormmcp:applicationCount",
+      "@type": "xsd:integer"
+    },
+    "clients": {
+      "@id": "stormmcp:clients",
+      "@container": "@list"
+    },
+    "AuxiliaryGatewayInventorySkillResponse": "stormmcp:AuxiliaryGatewayInventorySkillResponse",
+    "url": {
+      "@id": "stormmcp:url",
+      "@type": "xsd:string"
+    },
+    "enabled": {
+      "@id": "stormmcp:enabled",
+      "@type": "xsd:boolean"
+    },
+    "AuxiliaryGatewayInventoryToolResponse": "stormmcp:AuxiliaryGatewayInventoryToolResponse",
+    "CatalogSeedSweepResult": "stormmcp:CatalogSeedSweepResult",
+    "coordinatesObserved": {
+      "@id": "stormmcp:coordinatesObserved",
+      "@type": "xsd:integer"
+    },
+    "coordinatesUnchanged": {
+      "@id": "stormmcp:coordinatesUnchanged",
+      "@type": "xsd:integer"
+    },
+    "coordinatesAdvanced": {
+      "@id": "stormmcp:coordinatesAdvanced",
+      "@type": "xsd:integer"
+    },
+    "failedCoordinates": {
+      "@id": "stormmcp:failedCoordinates",
+      "@container": "@list"
+    },
+    "runStatus": {
+      "@id": "stormmcp:runStatus",
+      "@type": "xsd:string"
+    },
+    "coordinatesUnattempted": {
+      "@id": "stormmcp:coordinatesUnattempted",
+      "@container": "@list"
+    },
+    "runId": {
+      "@id": "stormmcp:runId",
+      "@type": "xsd:string"
+    },
+    "nextCoordinate": {
+      "@id": "stormmcp:nextCoordinate"
+    },
+    "holderTenantIds": {
+      "@id": "stormmcp:holderTenantIds",
+      "@container": "@list"
+    },
+    "holderTenantsAttempted": {
+      "@id": "stormmcp:holderTenantsAttempted",
+      "@container": "@list"
+    },
+    "holderTenantsSkippedDuplicateKey": {
+      "@id": "stormmcp:holderTenantsSkippedDuplicateKey",
+      "@container": "@list"
+    },
+    "holderTenantsSkippedConcurrency": {
+      "@id": "stormmcp:holderTenantsSkippedConcurrency",
+      "@container": "@list"
+    },
+    "ClearConnectionsImpactResponse": "stormmcp:ClearConnectionsImpactResponse",
+    "personalRows": {
+      "@id": "stormmcp:personalRows",
+      "@container": "@list"
+    },
+    "tenantRow": {
+      "@id": "stormmcp:tenantRow"
+    },
+    "removedPersonalRows": {
+      "@id": "stormmcp:removedPersonalRows",
+      "@container": "@list"
+    },
+    "removesPersonalOAuthUnderProvider": {
+      "@id": "stormmcp:removesPersonalOAuthUnderProvider",
+      "@type": "xsd:boolean"
+    },
+    "ClearConnectionsRequest": "stormmcp:ClearConnectionsRequest",
+    "ClearConnectionsResponse": "stormmcp:ClearConnectionsResponse",
+    "clearedCount": {
+      "@id": "stormmcp:clearedCount",
+      "@type": "xsd:integer"
+    },
+    "ClientSessionResponse": "stormmcp:ClientSessionResponse",
+    "kind": {
+      "@id": "stormmcp:kind",
+      "@type": "@id"
+    },
+    "lastSeen": {
+      "@id": "stormmcp:lastSeen",
+      "@type": "xsd:dateTime"
+    },
+    "active": {
+      "@id": "stormmcp:active",
+      "@type": "xsd:boolean"
+    },
+    "ConfiguredAppInstructionsResponse": "stormmcp:ConfiguredAppInstructionsResponse",
+    "serverIds": {
+      "@id": "stormmcp:serverIds",
+      "@container": "@list"
+    },
+    "ConnectivityInfo": "stormmcp:ConnectivityInfo",
+    "status": {
+      "@id": "stormmcp:status",
+      "@type": "xsd:string"
+    },
+    "lastTestAt": {
+      "@id": "stormmcp:lastTestAt",
+      "@type": "xsd:dateTime"
+    },
+    "lastTestResult": {
+      "@id": "stormmcp:lastTestResult"
+    },
+    "ConnectivityTestResult": "stormmcp:ConnectivityTestResult",
+    "isSuccessful": {
+      "@id": "stormmcp:isSuccessful",
+      "@type": "xsd:boolean"
+    },
+    "statusCode": {
+      "@id": "stormmcp:statusCode"
+    },
+    "responseTimeMs": {
+      "@id": "stormmcp:responseTimeMs",
+      "@type": "xsd:integer"
+    },
+    "errorMessage": {
+      "@id": "stormmcp:errorMessage"
+    },
+    "details": {
+      "@id": "stormmcp:details"
+    },
+    "testedAt": {
+      "@id": "stormmcp:testedAt",
+      "@type": "xsd:dateTime"
+    },
+    "ContentResult": "stormmcp:ContentResult",
+    "content": {
+      "@id": "stormmcp:content"
+    },
+    "contentType": {
+      "@id": "stormmcp:contentType"
+    },
+    "CreateAdminToolkitRequest": "stormmcp:CreateAdminToolkitRequest",
+    "CreateCustomServerCredentialRequest": "stormmcp:CreateCustomServerCredentialRequest",
+    "authenticationType": {
+      "@id": "stormmcp:authenticationType",
+      "@type": "@id"
+    },
+    "apiKey": {
+      "@id": "stormmcp:apiKey"
+    },
+    "CreateCustomServerRequest": "stormmcp:CreateCustomServerRequest",
+    "category": {
+      "@id": "stormmcp:category",
+      "@type": "xsd:string"
+    },
+    "authTypes": {
+      "@id": "stormmcp:authTypes",
+      "@container": "@list"
+    },
+    "tags": {
+      "@id": "stormmcp:tags",
+      "@container": "@list"
+    },
+    "remoteConfig": {
+      "@id": "stormmcp:remoteConfig"
+    },
+    "ui": {
+      "@id": "stormmcp:ui"
+    },
+    "testEndpoint": {
+      "@id": "stormmcp:testEndpoint"
+    },
+    "credentials": {
+      "@id": "stormmcp:credentials"
+    },
+    "CreateCustomServerResponse": "stormmcp:CreateCustomServerResponse",
+    "hasCredentials": {
+      "@id": "stormmcp:hasCredentials",
+      "@type": "xsd:boolean"
+    },
+    "sourcePinWarning": {
+      "@id": "stormmcp:sourcePinWarning"
+    },
+    "CreateGatewayConfigurationResult": "stormmcp:CreateGatewayConfigurationResult",
+    "version": {
+      "@id": "stormmcp:version"
+    },
+    "CreateTenantServerAccessRequest": "stormmcp:CreateTenantServerAccessRequest",
+    "CreateToolkitRequest": "stormmcp:CreateToolkitRequest",
+    "CreateUserApiKeyRequest": "stormmcp:CreateUserApiKeyRequest",
+    "CredentialBindingSummaryRequest": "stormmcp:CredentialBindingSummaryRequest",
+    "CredentialBindingSummaryRow": "stormmcp:CredentialBindingSummaryRow",
+    "tenantBinderId": {
+      "@id": "stormmcp:tenantBinderId",
+      "@type": "xsd:string"
+    },
+    "personalBinderId": {
+      "@id": "stormmcp:personalBinderId",
+      "@type": "xsd:string"
+    },
+    "tenantCallerState": {
+      "@id": "stormmcp:tenantCallerState"
+    },
+    "personalCallerState": {
+      "@id": "stormmcp:personalCallerState"
+    },
+    "CredentialCensusCounts": "stormmcp:CredentialCensusCounts",
+    "providerRows": {
+      "@id": "stormmcp:providerRows",
+      "@type": "xsd:integer"
+    },
+    "customServers": {
+      "@id": "stormmcp:customServers",
+      "@type": "xsd:integer"
+    },
+    "gatewayApps": {
+      "@id": "stormmcp:gatewayApps",
+      "@type": "xsd:integer"
+    },
+    "dashboardPreferences": {
+      "@id": "stormmcp:dashboardPreferences",
+      "@type": "xsd:integer"
+    },
+    "legitimate": {
+      "@id": "stormmcp:legitimate",
+      "@type": "xsd:integer"
+    },
+    "unconfigured": {
+      "@id": "stormmcp:unconfigured",
+      "@type": "xsd:integer"
+    },
+    "unmigrated": {
+      "@id": "stormmcp:unmigrated",
+      "@type": "xsd:integer"
+    },
+    "absentEntries": {
+      "@id": "stormmcp:absentEntries",
+      "@type": "xsd:integer"
+    },
+    "CredentialCensusPage": "stormmcp:CredentialCensusPage",
+    "counts": {
+      "@id": "stormmcp:counts",
+      "@type": "@id"
+    },
+    "CredentialCensusRow": "stormmcp:CredentialCensusRow",
+    "rowId": {
+      "@id": "stormmcp:rowId",
+      "@type": "xsd:string"
+    },
+    "binderId": {
+      "@id": "stormmcp:binderId",
+      "@type": "xsd:string"
+    },
+    "resolvable": {
+      "@id": "stormmcp:resolvable"
+    },
+    "eligible": {
+      "@id": "stormmcp:eligible",
+      "@type": "xsd:boolean"
+    },
+    "cutoverClass": {
+      "@id": "stormmcp:cutoverClass"
+    },
+    "shape": {
+      "@id": "stormmcp:shape"
+    },
+    "reason": {
+      "@id": "stormmcp:reason"
+    },
+    "CredentialTestRequest": "stormmcp:CredentialTestRequest",
+    "authToken": {
+      "@id": "stormmcp:authToken"
+    },
+    "CredentialTestResult": "stormmcp:CredentialTestResult",
+    "success": {
+      "@id": "stormmcp:success",
+      "@type": "xsd:boolean"
+    },
+    "responsePreview": {
+      "@id": "stormmcp:responsePreview"
+    },
+    "uriVariableKey": {
+      "@id": "stormmcp:uriVariableKey"
+    },
+    "uriVariableSource": {
+      "@id": "stormmcp:uriVariableSource"
+    },
+    "CustomServerCredentialBindingBackfillResult": "stormmcp:CustomServerCredentialBindingBackfillResult",
+    "pending": {
+      "@id": "stormmcp:pending",
+      "@type": "xsd:integer"
+    },
+    "written": {
+      "@id": "stormmcp:written",
+      "@type": "xsd:integer"
+    },
+    "repaired": {
+      "@id": "stormmcp:repaired",
+      "@type": "xsd:integer"
+    },
+    "noHandle": {
+      "@id": "stormmcp:noHandle",
+      "@type": "xsd:integer"
+    },
+    "unclassified": {
+      "@id": "stormmcp:unclassified",
+      "@type": "xsd:integer"
+    },
+    "familyDisagreement": {
+      "@id": "stormmcp:familyDisagreement",
+      "@type": "xsd:integer"
+    },
+    "personalBinder": {
+      "@id": "stormmcp:personalBinder",
+      "@type": "xsd:integer"
+    },
+    "unconfiguredAuth": {
+      "@id": "stormmcp:unconfiguredAuth",
+      "@type": "xsd:integer"
+    },
+    "v1Origin": {
+      "@id": "stormmcp:v1Origin",
+      "@type": "xsd:integer"
+    },
+    "truncated": {
+      "@id": "stormmcp:truncated",
+      "@type": "xsd:boolean"
+    },
+    "CustomServerCredentialInfo": "stormmcp:CustomServerCredentialInfo",
+    "CustomServerResponse": "stormmcp:CustomServerResponse",
+    "scopes": {
+      "@id": "stormmcp:scopes",
+      "@container": "@list"
+    },
+    "credentialInfo": {
+      "@id": "stormmcp:credentialInfo"
+    },
+    "connectivity": {
+      "@id": "stormmcp:connectivity"
+    },
+    "isEnabledForCustomList": {
+      "@id": "stormmcp:isEnabledForCustomList",
+      "@type": "xsd:boolean"
+    },
+    "DateRange": "stormmcp:DateRange",
+    "from": {
+      "@id": "stormmcp:from",
+      "@type": "xsd:dateTime"
+    },
+    "to": {
+      "@id": "stormmcp:to",
+      "@type": "xsd:dateTime"
+    },
+    "totalDays": {
+      "@id": "stormmcp:totalDays",
+      "@type": "xsd:integer"
+    },
+    "DerivedAnnotationResult": "stormmcp:DerivedAnnotationResult",
+    "hints": {
+      "@id": "stormmcp:hints"
+    },
+    "rationales": {
+      "@id": "stormmcp:rationales"
+    },
+    "adapterId": {
+      "@id": "stormmcp:adapterId",
+      "@type": "xsd:string"
+    },
+    "confidence": {
+      "@id": "stormmcp:confidence",
+      "@type": "xsd:decimal"
+    },
+    "inputHash": {
+      "@id": "stormmcp:inputHash",
+      "@type": "xsd:string"
+    },
+    "DiscoverDynamicToolsRequest": "stormmcp:DiscoverDynamicToolsRequest",
+    "DistributionSegment": "stormmcp:DistributionSegment",
+    "label": {
+      "@id": "stormmcp:label",
+      "@type": "xsd:string"
+    },
+    "count": {
+      "@id": "stormmcp:count",
+      "@type": "xsd:integer"
+    },
+    "percentage": {
+      "@id": "stormmcp:percentage",
+      "@type": "xsd:decimal"
+    },
+    "DynamicGatewayInventoryAppResponse": "stormmcp:DynamicGatewayInventoryAppResponse",
+    "enabledOverride": {
+      "@id": "stormmcp:enabledOverride"
+    },
+    "DynamicGatewayInventoryAssignedToolkitResponse": "stormmcp:DynamicGatewayInventoryAssignedToolkitResponse",
+    "members": {
+      "@id": "stormmcp:members",
+      "@container": "@list"
+    },
+    "DynamicGatewayInventoryListResponse": "stormmcp:DynamicGatewayInventoryListResponse",
+    "radarCacheSize": {
+      "@id": "stormmcp:radarCacheSize",
+      "@type": "xsd:integer"
+    },
+    "radarCacheUsed": {
+      "@id": "stormmcp:radarCacheUsed",
+      "@type": "xsd:integer"
+    },
+    "DynamicGatewayInventoryRadarCacheEntryResponse": "stormmcp:DynamicGatewayInventoryRadarCacheEntryResponse",
+    "pinned": {
+      "@id": "stormmcp:pinned",
+      "@type": "xsd:boolean"
+    },
+    "useCount": {
+      "@id": "stormmcp:useCount",
+      "@type": "xsd:integer"
+    },
+    "lastUsedAt": {
+      "@id": "stormmcp:lastUsedAt",
+      "@type": "xsd:dateTime"
+    },
+    "DynamicGatewayInventoryRadarCacheResponse": "stormmcp:DynamicGatewayInventoryRadarCacheResponse",
+    "size": {
+      "@id": "stormmcp:size",
+      "@type": "xsd:integer"
+    },
+    "DynamicGatewayInventoryResponse": "stormmcp:DynamicGatewayInventoryResponse",
+    "toolkits": {
+      "@id": "stormmcp:toolkits",
+      "@container": "@list"
+    },
+    "assignedToolkits": {
+      "@id": "stormmcp:assignedToolkits",
+      "@container": "@list"
+    },
+    "radarCache": {
+      "@id": "stormmcp:radarCache",
+      "@type": "@id"
+    },
+    "DynamicGatewayInventorySkillSourceResponse": "stormmcp:DynamicGatewayInventorySkillSourceResponse",
+    "DynamicGatewayInventorySkillsResponse": "stormmcp:DynamicGatewayInventorySkillsResponse",
+    "sources": {
+      "@id": "stormmcp:sources",
+      "@container": "@list"
+    },
+    "DynamicGatewayInventoryToolkitMemberResponse": "stormmcp:DynamicGatewayInventoryToolkitMemberResponse",
+    "DynamicGatewayInventoryToolkitResponse": "stormmcp:DynamicGatewayInventoryToolkitResponse",
+    "DynamicGatewayInventoryToolResponse": "stormmcp:DynamicGatewayInventoryToolResponse",
+    "DynamicGatewayLibraryPreferenceResponse": "stormmcp:DynamicGatewayLibraryPreferenceResponse",
+    "DynamicGatewayToolCountsResponse": "stormmcp:DynamicGatewayToolCountsResponse",
+    "available": {
+      "@id": "stormmcp:available",
+      "@type": "xsd:integer"
+    },
+    "selected": {
+      "@id": "stormmcp:selected",
+      "@type": "xsd:integer"
+    },
+    "DynamicGatewayToolPreferenceResponse": "stormmcp:DynamicGatewayToolPreferenceResponse",
+    "mode": {
+      "@id": "stormmcp:mode",
+      "@type": "@id"
+    },
+    "DynamicGatewayUserPreferencesResponse": "stormmcp:DynamicGatewayUserPreferencesResponse",
+    "preferences": {
+      "@id": "stormmcp:preferences",
+      "@container": "@list"
+    },
+    "EffectiveApprovalsResponse": "stormmcp:EffectiveApprovalsResponse",
+    "libraries": {
+      "@id": "stormmcp:libraries",
+      "@container": "@list"
+    },
+    "membershipDegraded": {
+      "@id": "stormmcp:membershipDegraded",
+      "@type": "xsd:boolean"
+    },
+    "EffectiveLibraryApprovalResponse": "stormmcp:EffectiveLibraryApprovalResponse",
+    "effectiveToolMode": {
+      "@id": "stormmcp:effectiveToolMode",
+      "@type": "@id"
+    },
+    "provenance": {
+      "@id": "stormmcp:provenance",
+      "@container": "@list"
+    },
+    "EffectiveToolSurfaceResponse": "stormmcp:EffectiveToolSurfaceResponse",
+    "dynamicMcpUrl": {
+      "@id": "stormmcp:dynamicMcpUrl",
+      "@type": "xsd:string"
+    },
+    "resolvedAt": {
+      "@id": "stormmcp:resolvedAt",
+      "@type": "xsd:dateTime"
+    },
+    "snapshotHash": {
+      "@id": "stormmcp:snapshotHash",
+      "@type": "xsd:string"
+    },
+    "mcpServers": {
+      "@id": "stormmcp:mcpServers",
+      "@container": "@list"
+    },
+    "skillsToolkit": {
+      "@id": "stormmcp:skillsToolkit"
+    },
+    "FlaggedToolWithholdAllowRequest": "stormmcp:FlaggedToolWithholdAllowRequest",
+    "FlaggedToolWithholdSettingRequest": "stormmcp:FlaggedToolWithholdSettingRequest",
+    "GatewayActivityPeriod": "stormmcp:GatewayActivityPeriod",
+    "periodStart": {
+      "@id": "stormmcp:periodStart",
+      "@type": "xsd:dateTime"
+    },
+    "periodEnd": {
+      "@id": "stormmcp:periodEnd",
+      "@type": "xsd:dateTime"
+    },
+    "activeSessions": {
+      "@id": "stormmcp:activeSessions",
+      "@type": "xsd:integer"
+    },
+    "uniqueUsers": {
+      "@id": "stormmcp:uniqueUsers",
+      "@type": "xsd:integer"
+    },
+    "assetUsageCounts": {
+      "@id": "stormmcp:assetUsageCounts"
+    },
+    "gatewayCounts": {
+      "@id": "stormmcp:gatewayCounts"
+    },
+    "gatewayBreakdown": {
+      "@id": "stormmcp:gatewayBreakdown",
+      "@container": "@list"
+    },
+    "totalCalls": {
+      "@id": "stormmcp:totalCalls",
+      "@type": "xsd:integer"
+    },
+    "failedCalls": {
+      "@id": "stormmcp:failedCalls",
+      "@type": "xsd:integer"
+    },
+    "errorRate": {
+      "@id": "stormmcp:errorRate",
+      "@type": "xsd:decimal"
+    },
+    "GatewayActivityPeriodGateway": "stormmcp:GatewayActivityPeriodGateway",
+    "sessionType": {
+      "@id": "stormmcp:sessionType"
+    },
+    "gatewayName": {
+      "@id": "stormmcp:gatewayName",
+      "@type": "xsd:string"
+    },
+    "GatewayActivityResponse": "stormmcp:GatewayActivityResponse",
+    "summary": {
+      "@id": "stormmcp:summary",
+      "@type": "@id"
+    },
+    "sessions": {
+      "@id": "stormmcp:sessions",
+      "@container": "@list"
+    },
+    "activityByPeriod": {
+      "@id": "stormmcp:activityByPeriod",
+      "@container": "@list"
+    },
+    "GatewayActivitySummary": "stormmcp:GatewayActivitySummary",
+    "totalActiveSessions": {
+      "@id": "stormmcp:totalActiveSessions",
+      "@type": "xsd:integer"
+    },
+    "uniqueGateways": {
+      "@id": "stormmcp:uniqueGateways",
+      "@type": "xsd:integer"
+    },
+    "totalGatewaysAvailable": {
+      "@id": "stormmcp:totalGatewaysAvailable",
+      "@type": "xsd:integer"
+    },
+    "averageSessionDurationMinutes": {
+      "@id": "stormmcp:averageSessionDurationMinutes",
+      "@type": "xsd:decimal"
+    },
+    "p50LatencyMs": {
+      "@id": "stormmcp:p50LatencyMs",
+      "@type": "xsd:decimal"
+    },
+    "p95LatencyMs": {
+      "@id": "stormmcp:p95LatencyMs",
+      "@type": "xsd:decimal"
+    },
+    "p99LatencyMs": {
+      "@id": "stormmcp:p99LatencyMs",
+      "@type": "xsd:decimal"
+    },
+    "previousPeriodTotalCalls": {
+      "@id": "stormmcp:previousPeriodTotalCalls"
+    },
+    "previousPeriodErrorRate": {
+      "@id": "stormmcp:previousPeriodErrorRate"
+    },
+    "previousPeriodP95LatencyMs": {
+      "@id": "stormmcp:previousPeriodP95LatencyMs"
+    },
+    "topTools": {
+      "@id": "stormmcp:topTools",
+      "@container": "@list"
+    },
+    "GatewayConfigurationRequest": "stormmcp:GatewayConfigurationRequest",
+    "allowedTools": {
+      "@id": "stormmcp:allowedTools",
+      "@container": "@list"
+    },
+    "allowedToolsByLibrary": {
+      "@id": "stormmcp:allowedToolsByLibrary"
+    },
+    "allowedSkillsByLibrary": {
+      "@id": "stormmcp:allowedSkillsByLibrary"
+    },
+    "sharedCredentials": {
+      "@id": "stormmcp:sharedCredentials"
+    },
+    "organicMemoryEnabled": {
+      "@id": "stormmcp:organicMemoryEnabled",
+      "@type": "xsd:boolean"
+    },
+    "storedToolDefinitions": {
+      "@id": "stormmcp:storedToolDefinitions"
+    },
+    "storedSkillDefinitions": {
+      "@id": "stormmcp:storedSkillDefinitions"
+    },
+    "expectedVersion": {
+      "@id": "stormmcp:expectedVersion"
+    },
+    "GatewayConfigurationResponse": "stormmcp:GatewayConfigurationResponse",
+    "hasStoredTools": {
+      "@id": "stormmcp:hasStoredTools",
+      "@type": "xsd:boolean"
+    },
+    "hasStoredSkills": {
+      "@id": "stormmcp:hasStoredSkills",
+      "@type": "xsd:boolean"
+    },
+    "GatewayInventoryClientResponse": "stormmcp:GatewayInventoryClientResponse",
+    "GatewayLibrarySummary": "stormmcp:GatewayLibrarySummary",
+    "currentAuthType": {
+      "@id": "stormmcp:currentAuthType"
+    },
+    "state": {
+      "@id": "stormmcp:state",
+      "@type": "@id"
+    },
+    "oauthProviderConfigId": {
+      "@id": "stormmcp:oauthProviderConfigId",
+      "@type": "xsd:string"
+    },
+    "GatewayMetadataResponse": "stormmcp:GatewayMetadataResponse",
+    "endpoint": {
+      "@id": "stormmcp:endpoint",
+      "@type": "xsd:string"
+    },
+    "GatewaySessionDetail": "stormmcp:GatewaySessionDetail",
+    "isActive": {
+      "@id": "stormmcp:isActive",
+      "@type": "xsd:boolean"
+    },
+    "GenericProviderConfigurationModel": "stormmcp:GenericProviderConfigurationModel",
+    "properties": {
+      "@id": "stormmcp:properties"
+    },
+    "oAuthCreationMethod": {
+      "@id": "stormmcp:oAuthCreationMethod"
+    },
+    "GenericProviderPropertyModel": "stormmcp:GenericProviderPropertyModel",
+    "key": {
+      "@id": "stormmcp:key",
+      "@type": "xsd:string"
+    },
+    "friendlyName": {
+      "@id": "stormmcp:friendlyName",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "stormmcp:value"
+    },
+    "required": {
+      "@id": "stormmcp:required",
+      "@type": "xsd:boolean"
+    },
+    "helpText": {
+      "@id": "stormmcp:helpText"
+    },
+    "placeholder": {
+      "@id": "stormmcp:placeholder"
+    },
+    "enumValues": {
+      "@id": "stormmcp:enumValues"
+    },
+    "enumLabels": {
+      "@id": "stormmcp:enumLabels"
+    },
+    "dependsOn": {
+      "@id": "stormmcp:dependsOn"
+    },
+    "showWhenValue": {
+      "@id": "stormmcp:showWhenValue"
+    },
+    "GenericProviderPropertyType": "stormmcp:GenericProviderPropertyType",
+    "GetCustomServersResponse": "stormmcp:GetCustomServersResponse",
+    "servers": {
+      "@id": "stormmcp:servers",
+      "@container": "@list"
+    },
+    "page": {
+      "@id": "stormmcp:page",
+      "@type": "xsd:integer"
+    },
+    "hasNextPage": {
+      "@id": "stormmcp:hasNextPage",
+      "@type": "xsd:boolean"
+    },
+    "hasPreviousPage": {
+      "@id": "stormmcp:hasPreviousPage",
+      "@type": "xsd:boolean"
+    },
+    "GetSkillSourceTemplatesResponse": "stormmcp:GetSkillSourceTemplatesResponse",
+    "templates": {
+      "@id": "stormmcp:templates",
+      "@container": "@list"
+    },
+    "GetSlotsRequest": "stormmcp:GetSlotsRequest",
+    "GetSlotsResponse": "stormmcp:GetSlotsResponse",
+    "slots": {
+      "@id": "stormmcp:slots",
+      "@container": "@list"
+    },
+    "GetStoredToolsResponse": "stormmcp:GetStoredToolsResponse",
+    "pendingCatalogChanges": {
+      "@id": "stormmcp:pendingCatalogChanges"
+    },
+    "GetToolsRequest": "stormmcp:GetToolsRequest",
+    "includeRecoveryAffordances": {
+      "@id": "stormmcp:includeRecoveryAffordances"
+    },
+    "forceRefresh": {
+      "@id": "stormmcp:forceRefresh"
+    },
+    "GetToolsResponse": "stormmcp:GetToolsResponse",
+    "results": {
+      "@id": "stormmcp:results"
+    },
+    "sourceRefreshRateLimited": {
+      "@id": "stormmcp:sourceRefreshRateLimited",
+      "@type": "xsd:boolean"
+    },
+    "GrowthMetric": "stormmcp:GrowthMetric",
+    "currentPeriodUsers": {
+      "@id": "stormmcp:currentPeriodUsers",
+      "@type": "xsd:integer"
+    },
+    "previousPeriodUsers": {
+      "@id": "stormmcp:previousPeriodUsers",
+      "@type": "xsd:integer"
+    },
+    "absoluteChange": {
+      "@id": "stormmcp:absoluteChange",
+      "@type": "xsd:integer"
+    },
+    "percentageChange": {
+      "@id": "stormmcp:percentageChange",
+      "@type": "xsd:decimal"
+    },
+    "rate": {
+      "@id": "stormmcp:rate",
+      "@type": "@id"
+    },
+    "HubConnectionTicketResponse": "stormmcp:HubConnectionTicketResponse",
+    "ticket": {
+      "@id": "stormmcp:ticket",
+      "@type": "xsd:string"
+    },
+    "expiresInSeconds": {
+      "@id": "stormmcp:expiresInSeconds",
+      "@type": "xsd:integer"
+    },
+    "JsonRpcError": "stormmcp:JsonRpcError",
+    "error": {
+      "@id": "stormmcp:error",
+      "@type": "@id"
+    },
+    "jsonrpc": {
+      "@id": "stormmcp:jsonrpc",
+      "@type": "xsd:string"
+    },
+    "JsonRpcErrorDetail": "stormmcp:JsonRpcErrorDetail",
+    "code": {
+      "@id": "stormmcp:code",
+      "@type": "xsd:integer"
+    },
+    "message": {
+      "@id": "stormmcp:message",
+      "@type": "xsd:string"
+    },
+    "KnownMcpServer": "stormmcp:KnownMcpServer",
+    "images": {
+      "@id": "stormmcp:images"
+    },
+    "documentation": {
+      "@id": "stormmcp:documentation"
+    },
+    "systemRequirements": {
+      "@id": "stormmcp:systemRequirements"
+    },
+    "addedDate": {
+      "@id": "stormmcp:addedDate"
+    },
+    "permissionDescriptions": {
+      "@id": "stormmcp:permissionDescriptions"
+    },
+    "landingPage": {
+      "@id": "stormmcp:landingPage"
+    },
+    "videos": {
+      "@id": "stormmcp:videos"
+    },
+    "links": {
+      "@id": "stormmcp:links"
+    },
+    "credentialProviderConfigIds": {
+      "@id": "stormmcp:credentialProviderConfigIds"
+    },
+    "provider": {
+      "@id": "stormmcp:provider",
+      "@type": "@id"
+    },
+    "availability": {
+      "@id": "stormmcp:availability",
+      "@type": "@id"
+    },
+    "featured": {
+      "@id": "stormmcp:featured",
+      "@type": "xsd:boolean"
+    },
+    "features": {
+      "@id": "stormmcp:features"
+    },
+    "requestTimeoutSeconds": {
+      "@id": "stormmcp:requestTimeoutSeconds",
+      "@type": "xsd:integer"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Storm MCP API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Storm MCP's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-19) from openapi/stormmcp-openapi.json.",
+  "dcterms:created": "2026-10-19",
+  "dcterms:source": [
+    "openapi/stormmcp-openapi.json"
+  ]
+}
