@@ -1,7 +1,6 @@
 aid: stormmcp
 name: Storm MCP
-description: 'Storm MCP is a company surfaced via the API Evangelist harvest backlog (source: g2-catalog)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Storm MCP provides a modern Managed Cloud Platform (MCP) that enables enterprises to integrate, orchestrate, and monitor their SaaS and on‑premise applications through a unified API layer. The platform offers robust data pipelines, real‑time event streaming, and comprehensive security controls, allowing businesses to automate workflows, enforce compliance, and gain actionable insights across their software ecosystem. With a focus on scalability, low‑code integration, and developer-friendly tooling, Storm MCP aims to simplify complex multi‑cloud environments and accelerate digital transformation initiatives for organizations of all sizes.'
 url: https://raw.githubusercontent.com/api-evangelist/stormmcp/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:g2-catalog
@@ -19,5 +18,7 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/stormmcp-domain-security.yml
 - type: Website
   url: https://stormmcp.ai/
