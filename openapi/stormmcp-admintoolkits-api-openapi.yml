@@ -1,0 +1,931 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Admin Toolkits API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: AdminToolkits
+paths:
+  /api/v1/dynamic-gateway/admin/toolkits:
+    get:
+      tags:
+      - AdminToolkits
+      summary: Lists live admin toolkits for the current tenant
+      parameters:
+      - name: pageNumber
+        in: query
+        description: 'The page number (1-based, default: 1).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: 'The number of items per page (default: 20, max: 1000).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfAdminToolkitResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfAdminToolkitResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfAdminToolkitResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfAdminToolkitResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfAdminToolkitResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayAdminToolkits
+      x-operation-id-source: derived
+    post:
+      tags:
+      - AdminToolkits
+      summary: Creates an admin toolkit as a draft (no entries, no assignments).
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdminToolkitRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdminToolkitRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateAdminToolkitRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1DynamicGatewayAdminToolkits
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/admin/toolkits/{id}:
+    get:
+      tags:
+      - AdminToolkits
+      summary: Gets one live admin toolkit
+      parameters:
+      - name: id
+        in: path
+        description: The toolkit identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayAdminToolkitsById
+      x-operation-id-source: derived
+    put:
+      tags:
+      - AdminToolkits
+      summary: Replaces name, description, and entries. Assignments are unchanged
+      parameters:
+      - name: id
+        in: path
+        description: The toolkit identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAdminToolkitRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAdminToolkitRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UpdateAdminToolkitRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1DynamicGatewayAdminToolkitsById
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - AdminToolkits
+      summary: Soft-deletes an admin toolkit. The name becomes reusable
+      parameters:
+      - name: id
+        in: path
+        description: The toolkit identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1DynamicGatewayAdminToolkitsById
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/admin/toolkits/{id}/assignments:
+    put:
+      tags:
+      - AdminToolkits
+      summary: Replaces the full assignment set with `userIds` and `groupIds`.
+      parameters:
+      - name: id
+        in: path
+        description: The toolkit identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceAdminToolkitAssignmentsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceAdminToolkitAssignmentsRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ReplaceAdminToolkitAssignmentsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AdminToolkitResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1DynamicGatewayAdminToolkitsByIdAssignments
+      x-operation-id-source: derived
+components:
+  schemas:
+    AdminToolkitEntryRequest:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        selectedToolNames:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: Gets or sets the selected original upstream tool names. Null means all tools.
+      description: One library's membership in an admin toolkit.
+    ReplaceAdminToolkitAssignmentsRequest:
+      type: object
+      properties:
+        userIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the user identifiers. An empty list is allowed.
+        groupIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the group identifiers. An empty list is allowed.
+      description: Request to replace an admin toolkit's assignments (MCPG-1671).
+    AdminToolkitEntryResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        selectedToolNames:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: Gets or sets the selected original upstream tool names. Null means all tools.
+      description: One library's membership in an admin toolkit.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    PagedResultOfAdminToolkitResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminToolkitResponse'
+          description: Gets or sets the items in the current page.
+        totalCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total count of items across all pages.
+          format: int32
+        pageNumber:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the current page number (1-based).
+          format: int32
+        pageSize:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of items per page.
+          format: int32
+        hasMore:
+          type: boolean
+          description: Gets a value indicating whether there are more pages available.
+        totalPages:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the total number of pages.
+          format: int32
+      description: Generic paged result wrapper for API responses.
+    CreateAdminToolkitRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Gets or sets the toolkit name. Create allocates `{Name} ({n})`
+
+            when this value is already used in the tenant so a stale-list
+
+            default-name POST still succeeds (MCPG-1734).'
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional description.
+        assignmentMode:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the assignment mode. Omitted is
+
+              AdminToolkitAssignmentMode.Editable. Numeric tokens and
+
+              unknown names are 400 (MCPG-1699).'
+            $ref: '#/components/schemas/AdminToolkitAssignmentMode'
+      description: Request to create an admin toolkit (MCPG-1671).
+    AdminToolkitAssignmentMode:
+      description: 'How assignees may change an admin-assigned toolkit (MCPG-1699).
+
+        Existing rows default to AdminToolkitAssignmentMode.Editable.'
+    AdminToolkitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the toolkit identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the toolkit name.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional description.
+        isDraft:
+          type: boolean
+          description: Gets or sets a value indicating whether this toolkit has zero assignments (draft).
+        assignmentMode:
+          description: Gets or sets the assignment mode (MCPG-1699).
+          $ref: '#/components/schemas/AdminToolkitAssignmentMode'
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminToolkitEntryResponse'
+          description: Gets or sets the included servers.
+        userIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the assigned user identifiers.
+        groupIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the assigned group identifiers.
+        createdBy:
+          type: string
+          description: Gets or sets the user who created this toolkit.
+          format: uuid
+        createdAt:
+          type: string
+          description: Gets or sets the creation timestamp.
+          format: date-time
+        updatedAt:
+          type: string
+          description: Gets or sets the update timestamp.
+          format: date-time
+      description: An admin toolkit with entries and assignments (MCPG-1671).
+    UpdateAdminToolkitRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets or sets the toolkit name.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional description.
+        assignmentMode:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the assignment mode. Null keeps the persisted value (stacked
+
+              clients that have not yet sent the field). A provided value replaces it.
+
+              Numeric tokens and unknown names are 400 (MCPG-1699).'
+            $ref: '#/components/schemas/AdminToolkitAssignmentMode'
+        entries:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/AdminToolkitEntryRequest'
+          description: 'Gets or sets the replacement entry set. An empty list is allowed. Explicit JSON
+
+            `null` is treated as empty (STJ invokes the setter with `null`).'
+      description: Request to replace an admin toolkit's name, description, and entries (MCPG-1671).

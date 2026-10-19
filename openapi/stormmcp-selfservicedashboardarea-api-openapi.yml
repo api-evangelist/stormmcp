@@ -1,0 +1,97 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Self Service Dashboard Area API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: SelfServiceDashboardArea
+paths:
+  /api/v1/dynamic-gateway/me/self-service-dashboard:
+    get:
+      tags:
+      - SelfServiceDashboardArea
+      summary: Gets the caller's area toggles, including whether the Memory area is shown
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaViewResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaViewResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaViewResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaViewResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaViewResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMeSelfServiceDashboard
+      x-operation-id-source: derived
+components:
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    SelfServiceDashboardAreaViewResponse:
+      type: object
+      properties:
+        aiGatewayArea:
+          type: boolean
+          description: Gets a value indicating whether the AI Gateway area is on.
+        memoryArea:
+          type: boolean
+          description: Gets a value indicating whether the Memory area toggle is on.
+        memoryAreaEffective:
+          type: boolean
+          description: 'Gets a value indicating whether the Memory area is shown.
+
+            True only when bool SelfServiceDashboardAreaViewResponse.MemoryArea is on and organic memory is enabled for the tenant.'
+      description: The area toggles the end-user hub reads. bool SelfServiceDashboardAreaViewResponse.MemoryAreaEffective is the value the hub uses.

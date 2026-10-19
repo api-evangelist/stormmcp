@@ -1,0 +1,881 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Approvals API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: Approvals
+paths:
+  /api/v1/admin/approvals/libraries/{libraryId}/grants:
+    get:
+      tags:
+      - Approvals
+      summary: Gets every approval grant on one library, per principal
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library identifier (catalog or custom).
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AdminApprovalsLibrariesByLibraryIdGrants
+      x-operation-id-source: derived
+  /api/v1/admin/approvals/libraries/grants-summary:
+    post:
+      tags:
+      - Approvals
+      summary: 'Summarizes the grants on the supplied libraries (MCPG-1890): per library, who…'
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LibraryApprovalGrantsSummaryRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/LibraryApprovalGrantsSummaryRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/LibraryApprovalGrantsSummaryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsSummaryResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsSummaryResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsSummaryResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsSummaryResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsSummaryResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1AdminApprovalsLibrariesGrantsSummary
+      x-operation-id-source: derived
+  /api/v1/admin/approvals/users/{userId}/effective:
+    get:
+      tags:
+      - Approvals
+      summary: Resolves a user's effective approvals — the union of the AllUsers, group, and…
+      parameters:
+      - name: userId
+        in: path
+        description: The subject platform user id.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EffectiveApprovalsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EffectiveApprovalsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EffectiveApprovalsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/EffectiveApprovalsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/EffectiveApprovalsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AdminApprovalsUsersByUserIdEffective
+      x-operation-id-source: derived
+  /api/v1/admin/approvals/libraries/{libraryId}/grants/app:
+    put:
+      tags:
+      - Approvals
+      summary: 'Replaces a library''s app-approval principal set (MCPG-1649, PRD SM2): added…'
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library identifier (catalog or custom).
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceAppApprovalsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceAppApprovalsRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ReplaceAppApprovalsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1AdminApprovalsLibrariesByLibraryIdGrantsApp
+      x-operation-id-source: derived
+  /api/v1/admin/approvals/libraries/{libraryId}/grants/{principalType}/{principalId}/tools:
+    put:
+      tags:
+      - Approvals
+      summary: Sets one principal's tool scope on a library (MCPG-1649, PRD AS5).
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library identifier (catalog or custom).
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: principalType
+        in: path
+        description: The target principal kind.
+        required: true
+        schema:
+          $ref: '#/components/schemas/ApprovalPrincipalType'
+      - name: principalId
+        in: path
+        description: "The target principal id (the empty GUID iff\n    principalType is AllUsers)."
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalToolScopeRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalToolScopeRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ApprovalToolScopeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryApprovalGrantsResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1AdminApprovalsLibrariesByLibraryIdGrantsByPrincipalTypeByPrincipalIdTools
+      x-operation-id-source: derived
+components:
+  schemas:
+    LibraryApprovalGrantsResponse:
+      required:
+      - libraryId
+      - grants
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets the library id.
+          format: uuid
+        grants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApprovalGrantResponse'
+          description: Gets the grant rows, ordered by principal.
+      description: 'Every approval grant on one library, per principal — the PRD AS4 principal list and the
+
+        per-library half of AS6 inherited rendering (MCPG-1547).'
+    ApprovalToolScopeRequest:
+      required:
+      - toolMode
+      type: object
+      properties:
+        toolMode:
+          description: 'Gets the tool scope. ApprovalToolMode.All is symbolic and must carry an
+
+            empty IReadOnlyList&lt;string&gt; ApprovalToolScopeRequest.SelectedToolNames.'
+          $ref: '#/components/schemas/ApprovalToolMode'
+        selectedToolNames:
+          type: array
+          items:
+            type: string
+          description: 'Gets the selected upstream tool names — canonicalized (trim / dedupe / sort) at the
+
+            write boundary; meaningful only when ApprovalToolMode ApprovalToolScopeRequest.ToolMode is
+
+            ApprovalToolMode.Selected.'
+      description: 'One principal''s tool scope on a library (MCPG-1649, PRD AS5): the App Settings tool
+
+        selector''s per-view save. The enum reaches the TypeScript client by DTO reference —
+
+        deliberately NOT registered in `StandaloneEnumSchemaProcessor`.'
+    ReplaceAppApprovalsRequest:
+      required:
+      - allUsers
+      type: object
+      properties:
+        allUsers:
+          type: boolean
+          description: 'Gets a value indicating whether the library is approved for everyone (the D6
+
+            app-approved population is then tenant-wide).'
+        userIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets the individually approved Platform user ids (never the Identity token
+
+            `sub`). Duplicates and Guid Guid.Empty are rejected.'
+        groupIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets the approved Platform group ids (never Keycloak group ids or paths).
+
+            Duplicates and Guid Guid.Empty are rejected.'
+      description: 'The app-approval replace-set (MCPG-1649, PRD SM2): the full principal set the Server
+
+        Management permissions modal submits, diffed server-side. Principals added receive the D7
+
+        default grant (`ToolMode = All`); retained principals are untouched (a modal save
+
+        never resets a tool narrowing); removed principals lose their row; bool ReplaceAppApprovalsRequest.AllUsers
+
+        transitions follow the everyone-revoke lifecycle.'
+    ApprovalPrincipalType:
+      type: integer
+      description: 'The principal an approval grant row is scoped to (MCPG-1547). Feature-prefixed —
+
+        deliberately not shared with GatewayAccessPrincipalType or
+
+        AdminToolkitPrincipalType so the member sets can evolve independently.
+
+        Stored as a string through the strict `ApprovalPrincipalTypeConverter` (unknown
+
+        store values throw; never bare `HasConversion&lt;string&gt;()`).'
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    EffectiveLibraryApprovalResponse:
+      required:
+      - libraryId
+      - effectiveToolMode
+      - selectedToolNames
+      - provenance
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets the library id.
+          format: uuid
+        effectiveToolMode:
+          description: 'Gets the effective tool scope. ApprovalToolMode.All is symbolic — the
+
+            consuming surface expands it against its own live tool inventory.'
+          $ref: '#/components/schemas/ApprovalToolMode'
+        selectedToolNames:
+          type: array
+          items:
+            type: string
+          description: 'Gets the union of the covering selections (empty when
+
+            ApprovalToolMode EffectiveLibraryApprovalResponse.EffectiveToolMode is ApprovalToolMode.All).'
+        provenance:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApprovalProvenanceResponse'
+          description: Gets the covering grants, one per principal.
+      description: A user's effective approval on one library (MCPG-1547 admin read).
+    EffectiveApprovalsResponse:
+      required:
+      - userId
+      - libraries
+      - membershipDegraded
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Gets the subject user id.
+          format: uuid
+        libraries:
+          type: array
+          items:
+            $ref: '#/components/schemas/EffectiveLibraryApprovalResponse'
+          description: Gets the approved libraries with effective tool scopes and provenance.
+        membershipDegraded:
+          type: boolean
+          description: 'Gets a value indicating whether group membership resolution was degraded when this
+
+            set was computed: group grants contributed nothing (fail-closed), so provenance is
+
+            incomplete rather than an authoritative empty list. Render accordingly.'
+      description: 'A user''s effective approvals — the union of the AllUsers, group, and individual grants
+
+        covering them (MCPG-1547 admin read).'
+    ApprovalProvenanceResponse:
+      required:
+      - principalType
+      - principalId
+      - toolMode
+      - selectedToolNames
+      - grantsAppAccess
+      type: object
+      properties:
+        principalType:
+          description: Gets the covering principal's kind.
+          $ref: '#/components/schemas/ApprovalPrincipalType'
+        principalId:
+          type: string
+          description: Gets the covering principal's id (Guid Guid.Empty for AllUsers).
+          format: uuid
+        toolMode:
+          description: Gets the covering grant's tool scope.
+          $ref: '#/components/schemas/ApprovalToolMode'
+        selectedToolNames:
+          type: array
+          items:
+            type: string
+          description: Gets the covering grant's selection (empty for symbolic All).
+        grantsAppAccess:
+          type: boolean
+          description: 'Gets a value indicating whether the row confers app access (AllUsers rows only;
+
+            Group/User rows always report `true`).'
+      description: 'One covering grant in an effective-approval result — the PRD D1 "Already approved
+
+        for: …" provenance (AS6), reported per `(library, principal)` so the caller never
+
+        re-derives membership.'
+    ApprovalGrantResponse:
+      required:
+      - libraryId
+      - principalType
+      - principalId
+      - grantsAppAccess
+      - toolMode
+      - selectedToolNames
+      - createdAt
+      - updatedAt
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets the library the grant targets.
+          format: uuid
+        principalType:
+          description: Gets the principal kind.
+          $ref: '#/components/schemas/ApprovalPrincipalType'
+        principalId:
+          type: string
+          description: 'Gets the principal id — Guid Guid.Empty for AllUsers, else the platform
+
+            group/user GUID.'
+          format: uuid
+        grantsAppAccess:
+          type: boolean
+          description: 'Gets a value indicating whether the row confers app access (meaningful on AllUsers
+
+            rows only — Group/User rows confer by definition).'
+        toolMode:
+          description: Gets the tool scope.
+          $ref: '#/components/schemas/ApprovalToolMode'
+        selectedToolNames:
+          type: array
+          items:
+            type: string
+          description: 'Gets the selected canonical upstream tool names (empty when ApprovalToolMode ApprovalGrantResponse.ToolMode is
+
+            ApprovalToolMode.All — symbolic, never materialized).'
+        createdAt:
+          type: string
+          description: Gets the row creation time.
+          format: date-time
+        updatedAt:
+          type: string
+          description: Gets the row's last update time.
+          format: date-time
+      description: 'One principal-scoped approval grant row (MCPG-1547 admin read). The enums reach the
+
+        TypeScript client by DTO reference — deliberately NOT registered in
+
+        `StandaloneEnumSchemaProcessor` (a string-constant-class registrar; registering a C#
+
+        enum there clobbers NSwag''s schema into an untyped string).'
+    LibraryApprovalGrantSummaryResponse:
+      required:
+      - libraryId
+      - appAccessCoverage
+      - userCount
+      - groupCount
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets the library id.
+          format: uuid
+        appAccessCoverage:
+          description: Gets who the library's app access covers.
+          $ref: '#/components/schemas/AppAccessCoverage'
+        userCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of individually approved users (`User` grant rows).
+          format: int32
+        groupCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of approved groups (`Group` grant rows).
+          format: int32
+      description: 'One library''s app-access coverage plus the principal counts behind it ("3 users,
+
+        2 groups") — enough for the Server Management grid''s badge and tooltip without a per-row
+
+        grants read (MCPG-1890).'
+    LibraryApprovalGrantsSummaryRequest:
+      type: object
+      properties:
+        libraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets the library ids (catalog or custom) to summarize. At most
+
+            `ApprovalAdminReadService.MaxLibrariesPerSummary` (500) — over it the read is a 400
+
+            (`Approvals.LibraryLimitExceeded`), never a truncated answer. Duplicates collapse
+
+            to one summary; Guid Guid.Empty is rejected (`Approvals.ValidationFailed`).'
+      description: 'The page-scoped bulk grants-summary request (MCPG-1890): the library ids visible in the
+
+        Server Management grid. A POST body rather than a query string because a page can name
+
+        hundreds of GUIDs.'
+    AppAccessCoverage:
+      type: integer
+      description: 'Who a library''s app access covers, derived from its approval grant rows (MCPG-1890). A
+
+        domain classification rather than a UI state: only the gateway knows that a scope-only
+
+        `AllUsers` row confers nothing, so the answer is computed here and consumers render
+
+        it as they like (Server Management shows Approved / Limited / Not Approved). Deliberately
+
+        not named "scope", which across this feature means a principal''s <em>tool</em> scope.
+
+        Reaches the TypeScript client by DTO reference — deliberately NOT registered in
+
+        `StandaloneEnumSchemaProcessor` (see ApprovalGrantResponse).
+
+        AppAccessCoverage.None is the zero member so a defaulted value is the narrowest reading.'
+    LibraryApprovalGrantsSummaryResponse:
+      required:
+      - libraries
+      type: object
+      properties:
+        libraries:
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryApprovalGrantSummaryResponse'
+          description: Gets the per-library summaries, in request order.
+      description: 'The bulk grants summary (MCPG-1890): one entry per distinct requested library, in
+
+        request order, including libraries with no grant rows (reported
+
+        AppAccessCoverage.None), so a consumer never has to treat an absent entry
+
+        as a state.'
+    ApprovalToolMode:
+      type: integer

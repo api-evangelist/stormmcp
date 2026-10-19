@@ -1,0 +1,2421 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Custom Remote Servers API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: CustomRemoteServers
+paths:
+  /api/custom-remote-servers:
+    post:
+      tags:
+      - CustomRemoteServers
+      summary: Creates a new custom remote server
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomServerRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomServerRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomServerRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CreateCustomServerResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomServerResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomServerResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/CreateCustomServerResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/CreateCustomServerResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiCustomRemoteServers
+      x-operation-id-source: derived
+    get:
+      tags:
+      - CustomRemoteServers
+      summary: Retrieves all custom remote servers for the current tenant with pagination
+      parameters:
+      - name: page
+        in: query
+        description: 'The page number (default: 1).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: 'The page size (default: 20, max: 100).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 20
+      - name: nameFilter
+        in: query
+        description: Optional name filter.
+        schema:
+          type: string
+      - name: searchTerm
+        in: query
+        description: Optional search term (alias for nameFilter).
+        schema:
+          type: string
+      - name: statusFilter
+        in: query
+        description: Optional status filter.
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Optional status (alias for statusFilter).
+        schema:
+          type: string
+      - name: typeFilter
+        in: query
+        description: Optional type filter — any McpServerType member (e.g. Remote, McpLink, SkillLink).
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Optional type (alias for typeFilter).
+        schema:
+          type: string
+      - name: categoryFilter
+        in: query
+        description: Optional category filter (e.g., Data &amp; Analytics).
+        schema:
+          type: string
+      - name: category
+        in: query
+        description: Optional category (alias for categoryFilter).
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        description: 'Sort field (default: Name).'
+        schema:
+          type: string
+          default: Name
+      - name: sortDirection
+        in: query
+        description: 'Sort direction (default: Asc).'
+        schema:
+          type: string
+          default: Asc
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GetCustomServersResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCustomServersResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GetCustomServersResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/GetCustomServersResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/GetCustomServersResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiCustomRemoteServers
+      x-operation-id-source: derived
+  /api/custom-remote-servers/{id}:
+    get:
+      tags:
+      - CustomRemoteServers
+      summary: Retrieves a custom remote server by ID
+      parameters:
+      - name: id
+        in: path
+        description: The server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CustomServerResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomServerResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CustomServerResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/CustomServerResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/CustomServerResponse'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiCustomRemoteServersById
+      x-operation-id-source: derived
+    put:
+      tags:
+      - CustomRemoteServers
+      summary: Updates an existing custom remote server
+      parameters:
+      - name: id
+        in: path
+        description: The server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomServerRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomServerRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomServerRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CustomServerResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomServerResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CustomServerResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/CustomServerResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/CustomServerResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '412':
+          description: Precondition Failed
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '501':
+          description: Not Implemented
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '504':
+          description: Gateway Timeout
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiCustomRemoteServersById
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - CustomRemoteServers
+      summary: Deletes a custom remote server and its associated credentials.
+      parameters:
+      - name: id
+        in: path
+        description: The server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '412':
+          description: Precondition Failed
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '501':
+          description: Not Implemented
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '504':
+          description: Gateway Timeout
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiCustomRemoteServersById
+      x-operation-id-source: derived
+  /api/custom-remote-servers/validate-url:
+    post:
+      tags:
+      - CustomRemoteServers
+      summary: Validates a server URL for SSRF protection
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateServerUrlRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ValidateServerUrlRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ValidateServerUrlRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ValidateServerUrlResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateServerUrlResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ValidateServerUrlResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ValidateServerUrlResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ValidateServerUrlResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiCustomRemoteServersValidateUrl
+      x-operation-id-source: derived
+  /api/custom-remote-servers/test-connectivity:
+    post:
+      tags:
+      - CustomRemoteServers
+      summary: Tests connectivity to a remote server endpoint
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestServerConnectivityRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TestServerConnectivityRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TestServerConnectivityRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TestServerConnectivityResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestServerConnectivityResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TestServerConnectivityResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/TestServerConnectivityResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/TestServerConnectivityResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiCustomRemoteServersTestConnectivity
+      x-operation-id-source: derived
+  /api/custom-remote-servers/test-yaml:
+    post:
+      tags:
+      - CustomRemoteServers
+      summary: 'Tests a SpecLink (private-spec) YAML: fetches it, parses it via an ephemeral…'
+      description: 'Deliberately does not require the custom-server write gate (MCPG-1793): the probe
+
+        fetches and parses a caller-supplied YAML through an ephemeral session and persists nothing,
+
+        so it previews the caller''s own input rather than mutating tenant state. It still
+
+        admits either manage permission, because the create and edit flow this probe belongs
+
+        to is what PRD section 3 grants `mcp:custom-server:manage`.'
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestYamlRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TestYamlRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TestYamlRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TestYamlResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestYamlResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TestYamlResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/TestYamlResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/TestYamlResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiCustomRemoteServersTestYaml
+      x-operation-id-source: derived
+  /api/custom-remote-servers/test-skills:
+    post:
+      tags:
+      - CustomRemoteServers
+      summary: Tests and previews a Skills repository without persistence
+      description: 'Same deliberate decision as `test-yaml` above: a non-persisting preview, so manage is
+
+        admitted but not required (MCPG-1793).'
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestSkillsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TestSkillsRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TestSkillsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TestSkillsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestSkillsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TestSkillsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/TestSkillsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/TestSkillsResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiCustomRemoteServersTestSkills
+      x-operation-id-source: derived
+  /api/custom-remote-servers/skill-source-templates:
+    get:
+      tags:
+      - CustomRemoteServers
+      summary: Retrieves the skill-source template catalog used to drive the streamlined…
+      description: 'Read-only seed metadata. A template confers no authority: every value a client echoes back is
+
+        re-validated on create, and a `ComingSoon` provider is rejected there by design.'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GetSkillSourceTemplatesResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSkillSourceTemplatesResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GetSkillSourceTemplatesResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/GetSkillSourceTemplatesResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/GetSkillSourceTemplatesResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiCustomRemoteServersSkillSourceTemplates
+      x-operation-id-source: derived
+components:
+  schemas:
+    ValidateServerUrlRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Gets or sets the URL to validate.
+        testConnectivity:
+          type: boolean
+          description: Gets or sets a value indicating whether to perform connectivity test.
+      description: Request model for URL validation with SSRF protection.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    CustomServerCredentialInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'Gets or sets the UCS binder id for a static credential. Never a provider-configuration
+
+            id, and never the legacy V1 credential id once the row has been backfilled (MCPG-1823).'
+          format: uuid
+        authenticationType:
+          description: Gets or sets the authentication type.
+          $ref: '#/components/schemas/McpServerAuthType'
+        createdAt:
+          type: string
+          description: Gets or sets the creation timestamp.
+          format: date-time
+      description: Credential information model (without sensitive data).
+    ValidationProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    McpServerStatus:
+      enum:
+      - Available
+      - ComingSoon
+      - Beta
+      - Deprecated
+      - Custom
+      description: Availability status for MCP servers.
+    OAuthConfig:
+      type: object
+      properties:
+        authorizationEndpoint:
+          type: string
+          description: Gets or sets the OAuth authorization endpoint URL.
+        tokenEndpoint:
+          type: string
+          description: Gets or sets the OAuth token endpoint URL.
+        revokeEndpoint:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the OAuth token revocation endpoint URL (optional).
+        refreshTokenEndpoint:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the OAuth refresh token endpoint URL (optional).
+
+            WARNING: User Credential Store currently does not support separate refresh endpoints.'
+        grantType:
+          type: string
+          description: 'Gets or sets the grant type (default: Authorization Code with PKCE).'
+        scopeSeparator:
+          type: string
+          description: 'Gets or sets the scope separator character (default: space).'
+        tokenEndpointAuthMethod:
+          type: string
+          description: Gets or sets the token endpoint authentication method.
+        grantTypesSupported:
+          type: array
+          items:
+            type: string
+          description: 'Gets or sets the grant types supported (default: ["authorization_code"]).'
+        responseTypesSupported:
+          type: array
+          items:
+            type: string
+          description: 'Gets or sets the response types supported (default: ["code"]).'
+        codeChallengeMethodsSupported:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the code challenge methods supported for PKCE (e.g., "S256", "plain").
+        authorizationParameters:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: Gets or sets additional parameters to include in authorization requests.
+        tokenParameters:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: Gets or sets additional parameters to include in token requests.
+        tokenHeaders:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: Gets or sets additional headers to include in token requests.
+      description: 'OAuth-specific configuration for Manual OAuth providers.
+
+        Contains OAuth endpoint URLs and behavior configuration.'
+    UriVariable:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Gets or sets the human-readable description of this variable.
+        required:
+          type: boolean
+          description: Gets or sets a value indicating whether this variable is required.
+        options:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: 'Gets or sets the available options for this variable (e.g., ["eu", "us"] for region).
+
+            Only applicable for variables with predefined choices.'
+        defaultValue:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the default value for this variable.
+        placeholder:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the placeholder text to show in the UI.
+        helpText:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets additional help text for this variable.
+        type:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the variable type hint for UI rendering (e.g., "string", "integer", "url").
+
+            Used for UI validation and input control selection, but all values are ultimately strings.'
+        scope:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: 'Gets or sets the authentication types this variable applies to.
+
+            If null or empty, the variable applies to all authentication types (backward compatible).
+
+            If specified, the variable is only shown/validated for the listed auth types (e.g., ["ApiKey"], ["OAuth"], or ["ApiKey", "OAuth"]).'
+        sharing:
+          description: 'Gets or sets a value indicating whether this variable may be inherited onto another
+
+            user''s Personal overlay at read time (MCPG-1609). The overlay runs only for OAuth/Fhir
+
+            Personal target rows. Omitted / default is UriVariableSharing.Shared.
+
+            Only UriVariableSharing.Personal is written in the seed.
+
+            Does not constrain a Tenant-level row, which is shared by design.
+
+            The name Scope is taken on this model for auth-type filtering.'
+          $ref: '#/components/schemas/UriVariableSharing'
+      description: 'Represents a URI variable that can be substituted in remote MCP server URIs.
+
+        Used for dynamic parameterization of server endpoints (e.g., region, API keys).
+
+        All variables are treated as strings for URL substitution.'
+    CreateCustomServerCredentialRequest:
+      type: object
+      properties:
+        authenticationType:
+          description: Gets or sets the authentication type.
+          $ref: '#/components/schemas/McpServerAuthType'
+        apiKey:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the API key value (used when AuthenticationType is ApiKey).
+      description: 'Request model for creating server credentials.
+
+        Credentials are stored in User Credential Store (not locally).'
+    RemoteServerConfig:
+      type: object
+      properties:
+        transport:
+          type: string
+          description: Gets or sets the transport protocol (e.g., "sse" for Server-Sent Events).
+        connectionTimeoutSeconds:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the connection timeout in seconds.
+          format: int32
+        autoReconnect:
+          type: boolean
+          description: Gets or sets a value indicating whether to automatically reconnect on disconnect.
+        maxReconnectAttempts:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the maximum number of reconnection attempts.
+          format: int32
+        endpointConfig:
+          type: object
+          additionalProperties:
+            type: string
+          description: Gets or sets additional endpoint-specific configuration.
+        uri:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the remote server URI.
+        uriVariables:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            $ref: '#/components/schemas/UriVariable'
+          description: 'Gets or sets the URI variables that can be substituted in the URI.
+
+            Used for dynamic parameterization (e.g., {zone} for region, {token} for API keys).'
+        headers:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets HTTP headers to be sent with requests.
+
+            Supports both static headers and dynamic placeholders like {AuthToken} and {BasicAuth:VarName}.
+
+            For auth-type-specific headers (e.g., different Authorization formats), use AuthHeaders instead.'
+        oAuth:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets OAuth-specific configuration for Manual OAuth providers.
+
+              Contains OAuth endpoints and behavior configuration.'
+            $ref: '#/components/schemas/OAuthConfig'
+        authHeaders:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: string
+          description: 'Gets or sets auth-type-specific HTTP headers.
+
+            Keys are auth types (e.g., "ApiKey", "OAuth"), values are header dictionaries.
+
+            When a specific auth type is selected, headers from AuthHeaders[authType] are merged with/override base Headers.
+
+            This allows different Authorization header formats per auth type (e.g., "Basic {AuthToken}" for ApiKey, "Bearer {AuthToken}" for OAuth).'
+        bodyParams:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets parameters to inject into request bodies for MCP-Link servers.
+
+            Used for APIs that require authentication in the request body (e.g., Canny''s apiKey parameter).
+
+            Supports {AuthToken} placeholder for dynamic auth token injection.
+
+            Only applies to McpLink server types - regular remote servers ignore this property.'
+        oAuthResourceUrl:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the OAuth protected resource URL for DCR registration.
+
+            When set, this URL is sent as `ResourceUrl` to UCS instead of string? RemoteServerConfig.Uri,
+
+            enabling RFC 9728 (Protected Resource Metadata) discovery against an external OAuth provider
+
+            (e.g., Atlassian) while routing MCP traffic through the internal mcp-link service.'
+        useAcc:
+          type: boolean
+          description: 'Gets or sets a value indicating whether to route traffic through the ACC connector.
+
+            When true, the gateway routes traffic for this server through the tenant''s on-premise
+
+            ACC connector instead of direct HTTP. Transport mechanism TBD (MCPG-455 Phase 3).'
+        schemaHeaders:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets HTTP headers serialized into mcp-link''s `?sh=` query parameter for
+
+            OpenAPI spec fetching at session start (MCPG-756). Values may contain
+
+            `{SchemaCredential:FieldName}` placeholders, resolved at factory time against the
+
+            binder declared by string? RemoteServerConfig.SchemaCredentialProviderName and the per-tenant
+
+            SchemaCredentialBinderId on the integration row. Only applies to McpLink server types.'
+        schemaCredentialProviderName:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the UCS provider name used to resolve the secondary spec-fetch credential
+
+            (e.g. `"GithubPersonalAccessToken"`). Free-form string matching a provider in UCS
+
+            provider-definitions.json. The binder ID is selected per-tenant at integration-config
+
+            time and stored on the ProviderIntegration row, sibling to `CredentialProviderConfigId`.
+
+            Only meaningful when Dictionary&lt;string, string&gt;? RemoteServerConfig.SchemaHeaders contains a `{SchemaCredential:*}`
+
+            placeholder. Only applies to McpLink server types.'
+        accGroupId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the ACC connector group to route traffic through when bool RemoteServerConfig.UseAcc is true.
+
+            Null means "any connector for this tenant" (tenant-default routing).
+
+            Ignored when bool RemoteServerConfig.UseAcc is false.'
+          format: uuid
+        openApiYamlUrl:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the customer-supplied OpenAPI YAML URL for SpecLink (private-spec) custom servers (MCPG-803).
+
+            When set, the gateway infers `Type = McpLink` server-side and builds the canonical mcp-link URI
+
+            from this value + string? RemoteServerConfig.UpstreamApiBaseUrl. Ignored when both are null. Only meaningful on
+
+            custom servers created via the SpecLink wizard; seed entries use string? RemoteServerConfig.Uri directly.'
+        upstreamApiBaseUrl:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the upstream API base URL that the YAML at string? RemoteServerConfig.OpenApiYamlUrl describes (MCPG-803).
+
+            May contain `{Variable}` placeholders (e.g. `https://{Domain}.atlassian.net`) whose values are
+
+            stored in Dictionary&lt;string, string&gt;? RemoteServerConfig.UpstreamVariableValues and substituted gateway-side at connection-build time
+
+            (mcp-link does not expand base-URL variables). Used together with string? RemoteServerConfig.OpenApiYamlUrl to build
+
+            the canonical mcp-link URI server-side.'
+        upstreamVariableValues:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets the values for the `{Variable}` placeholders in string? RemoteServerConfig.UpstreamApiBaseUrl
+
+            (MCPG-803), keyed by variable name without braces (e.g. `{"CloudId": "abc-123"}`). Unlike the
+
+            URL fields these <b>are persisted</b> — the stored string? RemoteServerConfig.Uri only carries the unresolved
+
+            template, so the values are not derivable from it. Substituted into the canonical URI at
+
+            connection-build time by `SpecLinkUriResolver`. Only meaningful for SpecLink (McpLink) servers.'
+        skillRepoUrl:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the repository URL exposed through mcp-link skills mode.
+
+            The current mcp-link contract accepts public github.com URLs.
+
+            Transport-only: re-derived from string? RemoteServerConfig.Uri on responses and not persisted.'
+        skillRepoRef:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the optional Git ref used for skill discovery.
+
+            When omitted, mcp-link resolves the repository''s default branch.
+
+            Transport-only: re-derived from string? RemoteServerConfig.Uri on responses and not persisted.'
+        skillRepoPath:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the optional repository-relative subpath used for skill discovery.
+
+            Transport-only: re-derived from string? RemoteServerConfig.Uri on responses and not persisted.'
+        skillRepoProvider:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the repository host backing a SkillLink server, from
+
+            SkillRepoProviders. Defaults to
+
+            string SkillRepoProviders.GitHub when a SkillLink shape is saved without one.'
+        sourceRef:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the source ref the administrator configured for a SpecLink or SkillLink server
+
+            (MCPG-1891): the branch or tag name (for example `main`) that string? RemoteServerConfig.SourceRevision
+
+            was resolved from. Null for a content-hash pin (a non-GitHub spec URL) and for an unpinned row.'
+        sourceRevision:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the pinned source revision (MCPG-1891): the full 40-hex commit SHA for a GitHub
+
+            source, or the lowercase hex SHA-256 of the fetched document for any other https spec URL.
+
+            The canonical string? RemoteServerConfig.Uri embeds this value (as `ref=` inside `s=`, as the
+
+            skills `ref=`, or as the `v=` query parameter), which is what makes an explicit
+
+            refresh a guaranteed cache miss on every mcp-link replica. Null when the row is unpinned.'
+        sourceResolvedAt:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the instant string? RemoteServerConfig.SourceRevision was last resolved (MCPG-1891).
+
+            Null when the row is unpinned.'
+          format: date-time
+      description: Template configuration for remote MCP servers, loaded from known-mcp-servers.json.
+    TestYamlToolPreview:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets or sets the tool name.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the tool description (may be truncated for the preview).
+      description: A single tool in the test-yaml preview.
+    McpServerType:
+      type: integer
+      description: An mcp server type enumeration.
+    UriVariableSharing:
+      enum:
+      - Shared
+      - Personal
+      description: 'Whether a catalog URI variable may be inherited onto another user''s Personal overlay
+
+        at read time (MCPG-1609). The overlay runs only for OAuth/Fhir Personal target rows.
+
+        Absent / default is UriVariableSharing.Shared so hostname and instance variables inherit
+
+        without marking every seed entry. Only UriVariableSharing.Personal is written in seed.
+
+        Does not constrain a Tenant-level row, which is shared by design.'
+    ConnectivityTestResult:
+      type: object
+      properties:
+        isSuccessful:
+          type: boolean
+          description: Gets or sets a value indicating whether the test was successful.
+        statusCode:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the HTTP status code returned by the server.
+          format: int32
+        responseTimeMs:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the response time in milliseconds.
+          format: int64
+        errorMessage:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the error message if the test failed.
+        details:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets additional details about the test result.
+        testedAt:
+          type: string
+          description: Gets or sets the timestamp when the test was performed.
+          format: date-time
+      description: Represents the detailed result of a connectivity test.
+    TestEndpointConfig:
+      type: object
+      properties:
+        uri:
+          type: string
+          description: 'Gets or sets the URI of the test endpoint.
+
+            Supports variable substitution (e.g., {AuthToken}).'
+        method:
+          type: string
+          description: Gets or sets the HTTP method to use (GET, POST, etc.).
+        headers:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets the headers to include in the request.
+
+            Supports variable substitution in values (e.g., "Bearer {AuthToken}").'
+        expectedStatusCodes:
+          type: array
+          items:
+            pattern: ^-?(?:0|[1-9]\d*)$
+            type:
+            - integer
+            - string
+            format: int32
+          description: Gets or sets the expected HTTP status codes that indicate success.
+      description: 'Configuration for testing credentials against an external API endpoint.
+
+        Used to validate authentication before establishing a full MCP connection.'
+    ConnectivityInfo:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Gets or sets the current connectivity status of the server.
+        lastTestAt:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the timestamp when the last connectivity test was performed.
+          format: date-time
+        lastTestResult:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the detailed result of the last connectivity test.
+            $ref: '#/components/schemas/ConnectivityTestResult'
+      description: Represents connectivity information for a custom server.
+    GetCustomServersResponse:
+      type: object
+      properties:
+        servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomServerResponse'
+          description: Gets or sets the list of servers for the current page.
+        page:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the current page number.
+          format: int32
+        pageSize:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the page size.
+          format: int32
+        totalCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of servers.
+          format: int32
+        totalPages:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of pages.
+          format: int32
+        hasNextPage:
+          type: boolean
+          description: Gets or sets a value indicating whether there is a next page.
+        hasPreviousPage:
+          type: boolean
+          description: Gets or sets a value indicating whether there is a previous page.
+      description: Response model for paginated custom server list.
+    UpdateCustomServerCredentialRequest:
+      type: object
+      properties:
+        authenticationType:
+          description: Gets or sets the authentication type.
+          $ref: '#/components/schemas/McpServerAuthType'
+        apiKey:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the API key value (used when AuthenticationType is ApiKey).
+      description: 'Request model for updating server credentials.
+
+        Credentials are stored in User Credential Store (not locally).'
+    ValidateServerUrlResponse:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+          description: Gets or sets a value indicating whether the URL is valid.
+        errorMessage:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the validation error message if invalid.
+        normalizedUrl:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the normalized URL if valid.
+        hasSsrfRisk:
+          type: boolean
+          description: Gets or sets a value indicating whether SSRF risk was detected.
+        ssrfRiskDetails:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the SSRF risk details if detected.
+      description: Response model for URL validation results.
+    SkillSourceTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets the display name for the source picker, for example "GitHub Skills Repository".
+        provider:
+          type: string
+          description: 'Gets the repository host this template describes, from SkillSourceProviders.
+
+            Doubles as the template''s stable identity and is the value a client echoes back as
+
+            string? RemoteServerConfig.SkillRepoProvider.'
+        description:
+          type: string
+          description: Gets the one-line description shown beneath the display name.
+        status:
+          description: 'Gets whether the host is connectable. McpServerStatus.Available means a save
+
+            will succeed; McpServerStatus.ComingSoon means the entry is informational and
+
+            the create API will reject its string SkillSourceTemplate.Provider.'
+          $ref: '#/components/schemas/McpServerStatus'
+        authTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerAuthType'
+          description: Gets the authentication types offered for this source, in the order they should be presented.
+      description: 'Immutable description of one skills-repository host, as loaded from
+
+        `skill-source-templates.json`. Lets a client build a skills-source form from the two
+
+        questions that actually matter — repository URL and authentication type — instead of walking the
+
+        full custom-server surface, of which only four RemoteServerConfig fields apply.'
+    McpServerAuthType:
+      type: integer
+      description: An enumeration representing the authentication types for MCP servers.
+    TestSkillsRequest:
+      type: object
+      properties:
+        repoUrl:
+          type: string
+          description: Gets or sets the repository URL accepted by the current mcp-link skills contract.
+        repoRef:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional Git ref.
+        repoPath:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional repository-relative discovery subpath.
+        authValue:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional repository credential. It is held in memory only.
+      description: Request model for the pre-save Skills repository test operation.
+    TestSkillPreview:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets or sets the skill display name.
+        url:
+          type: string
+          description: Gets or sets the published skill URI.
+      description: A single entry in the Skills repository test preview.
+    TestSkillsResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          description: Gets or sets a value indicating whether the index was read successfully.
+        stage:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the safe failure stage from TestSkillsStage.
+        skillCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the total number of valid skill entries.
+          format: int32
+        preview:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/TestSkillPreview'
+          description: Gets or sets a bounded preview of the skill index.
+        previewTruncatedAt:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the preview cap when the response was truncated.
+          format: int32
+        error:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets safe error detail.
+      description: Response model for a pre-save Skills repository test.
+    GetSkillSourceTemplatesResponse:
+      type: object
+      properties:
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillSourceTemplate'
+          description: 'Gets or sets the available templates, ordered connectable-first and then by display name, so a
+
+            client can render them in the order received. The seed file itself is sorted by provider for
+
+            diff stability, which is not a presentation order.'
+      description: Response carrying the skill-source template catalog.
+    CreateCustomServerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the unique identifier of the created server.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the server name.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the server description.
+        category:
+          type: string
+          description: Gets or sets the category.
+        type:
+          description: 'Gets or sets the server type (e.g. McpServerType.Remote for direct remote servers,
+
+            McpServerType.McpLink for SpecLink private-spec servers). Server-side discriminator
+
+            — clients should not infer this from the URI shape or the presence of SpecLink fields.
+
+            Defaults to McpServerType.Remote so an unset value never falls to the obsolete
+
+            `Public = 0`.'
+          $ref: '#/components/schemas/McpServerType'
+        authTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerAuthType'
+          description: Gets or sets the supported authentication types.
+        remoteConfig:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the remote server configuration.
+            $ref: '#/components/schemas/RemoteServerConfig'
+        status:
+          type: string
+          description: Gets or sets the server status.
+        createdAt:
+          type: string
+          description: Gets or sets the creation timestamp.
+          format: date-time
+        hasCredentials:
+          type: boolean
+          description: Gets or sets a value indicating whether the server has associated credentials.
+        sourcePinWarning:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets a warning when the source was saved without a pin. Present only on the
+
+            mutating response that acknowledged the unpinned save. Same wording as
+
+            `CustomServerResponse.SourcePinWarning`.'
+      description: Response model for server creation operations.
+    UiConfiguration:
+      type: object
+      properties:
+        icon:
+          type: string
+          description: Gets or sets the React Icons component name.
+        colorClass:
+          type: string
+          description: Gets or sets the Tailwind CSS text color class.
+        bgGradient:
+          type: string
+          description: Gets or sets the Tailwind CSS gradient classes.
+      description: UI configuration for the MCP server display.
+    TestServerConnectivityRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Gets or sets the server URL to test.
+        timeoutSeconds:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the timeout in seconds for the test.
+          format: int32
+        headers:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: Gets or sets the optional headers for the test request.
+        serverId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the optional server ID to store connectivity test results.
+
+            If provided, the test results will be persisted to the specified server''s connectivity information.'
+          format: uuid
+      description: Request model for testing server connectivity.
+    TestServerConnectivityResponse:
+      type: object
+      properties:
+        isSuccessful:
+          type: boolean
+          description: Gets or sets a value indicating whether the connection was successful.
+        statusCode:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the HTTP status code if applicable.
+          format: int32
+        responseTimeMs:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the response time in milliseconds.
+          format: int64
+        errorMessage:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the error message if the test failed.
+        details:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets additional details about the test.
+      description: Response model for server connectivity test results.
+    CustomServerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the unique identifier of the server.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the server name.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the server description.
+        longDescription:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the detailed description.
+        category:
+          type: string
+          description: Gets or sets the category.
+        type:
+          description: 'Gets or sets the server type (e.g. McpServerType.Remote for direct remote servers,
+
+            McpServerType.McpLink for SpecLink private-spec servers). Server-side discriminator
+
+            — clients should not infer this from the URI shape or the presence of SpecLink fields.
+
+            Defaults to McpServerType.Remote so an unset value never falls to the obsolete
+
+            `Public = 0`.'
+          $ref: '#/components/schemas/McpServerType'
+        authTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerAuthType'
+          description: Gets or sets the supported authentication types.
+        tags:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the tags.
+        scopes:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the OAuth scopes configured for the server (used by manual OAuth).
+        remoteConfig:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the remote server configuration.
+            $ref: '#/components/schemas/RemoteServerConfig'
+        ui:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the UI display configuration.
+            $ref: '#/components/schemas/UiConfiguration'
+        testEndpoint:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the test endpoint configuration.
+            $ref: '#/components/schemas/TestEndpointConfig'
+        status:
+          type: string
+          description: Gets or sets the server status.
+        createdAt:
+          type: string
+          description: Gets or sets the creation timestamp.
+          format: date-time
+        updatedAt:
+          type: string
+          description: Gets or sets the last update timestamp.
+          format: date-time
+        hasCredentials:
+          type: boolean
+          description: Gets or sets a value indicating whether the server has associated credentials.
+        authenticationType:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the authentication type actually configured for this server.
+
+              Published independently of CustomServerCredentialInfo? CustomServerResponse.CredentialInfo so an OAuth row can omit that
+
+              carrier and still report how it is configured (MCPG-1823). Null when the entity has
+
+              none; a single declared auth type may be inferred onto the entity at create.'
+            $ref: '#/components/schemas/McpServerAuthType'
+        credentialInfo:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets credential information for a static credential (without sensitive data).
+
+              Omitted for OAuth rows: no catalog server-level surface publishes a credential id, and
+
+              the caller-scoped carrier already serves custom rows, so a server-level admin field must
+
+              not carry a caller-scoped binder id. When present, Guid CustomServerCredentialInfo.Id
+
+              is the UCS binder id, never the legacy V1 id once that row has been backfilled.'
+            $ref: '#/components/schemas/CustomServerCredentialInfo'
+        connectivity:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the connectivity information for the server.
+            $ref: '#/components/schemas/ConnectivityInfo'
+        isEnabledForCustomList:
+          type: boolean
+          description: Gets or sets a value indicating whether this server is enabled for the tenant's custom list.
+        sourcePinWarning:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets a warning when the source was saved without a pin. Present only on the
+
+            mutating response that acknowledged the unpinned save.'
+      description: Response model for custom server details.
+    TestYamlRequest:
+      type: object
+      properties:
+        yamlUrl:
+          type: string
+          description: Gets or sets the OpenAPI YAML location (must be a concrete absolute URL — placeholders are rejected at fetch time).
+        upstreamApiBaseUrl:
+          type: string
+          description: Gets or sets the upstream API base URL the spec targets.
+        authValue:
+          type: string
+          description: Gets or sets the auth secret (e.g. a GitHub PAT) used to fetch the YAML. In-memory only — never persisted or logged.
+        authHeaderName:
+          type: string
+          description: Gets or sets the name of the auth header to send (defaults to `Authorization`).
+        authHeaderTemplate:
+          type: string
+          description: Gets or sets the header value template; `{value}` is replaced with string TestYamlRequest.AuthValue (defaults to `token {value}`).
+      description: 'Request model for the SpecLink test-yaml endpoint. Powers the Add Custom Server "Test" modal:
+
+        validate that Airia can fetch the YAML, that mcp-link can parse it, and preview the resulting
+
+        tools — synchronous, no persistence. The auth value is held in memory only.'
+    UpdateCustomServerRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the server name (must be unique per tenant).
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the server description.
+        longDescription:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the detailed description.
+        category:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the category.
+        authTypes:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/McpServerAuthType'
+          description: Gets or sets the supported authentication types.
+        tags:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: Gets or sets the tags.
+        remoteConfig:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the remote server configuration.
+            $ref: '#/components/schemas/RemoteServerConfig'
+        ui:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the UI display configuration.
+            $ref: '#/components/schemas/UiConfiguration'
+        testEndpoint:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the test endpoint configuration.
+            $ref: '#/components/schemas/TestEndpointConfig'
+        status:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the server status.
+        credentials:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the credentials update (optional).
+
+              If provided, will replace existing credentials.'
+            $ref: '#/components/schemas/UpdateCustomServerCredentialRequest'
+      description: 'Request model for updating an existing custom remote server.
+
+        All fields are optional — only provided fields are updated.'
+    TestYamlResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          description: Gets or sets a value indicating whether the YAML was fetched, parsed, and previewed successfully.
+        stage:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the failure stage when bool TestYamlResponse.Ok is false: `validation`, `fetch`, or `parse`. Null on success.'
+        toolCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the total number of tools the spec produced (success only).
+          format: int32
+        preview:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/TestYamlToolPreview'
+          description: Gets or sets the first N tools as a preview (success only).
+        previewTruncatedAt:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the cap the preview was truncated to (e.g. 10), when int? TestYamlResponse.ToolCount exceeds it.
+          format: int32
+        httpStatus:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the upstream HTTP status code on a `fetch` failure.
+          format: int32
+        hint:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets an actionable hint on a `fetch` failure (e.g. token scope / repo access).
+        error:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the error detail on a `validation` or `parse` failure.
+        sourceRevision:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the source revision the preview was produced from (success only): the full
+
+            commit SHA for a GitHub-hosted spec, or the SHA-256 of the fetched document for any other
+
+            URL (MCPG-1891). Lets the UI show which commit was tested.'
+      description: 'Response model for the SpecLink test-yaml endpoint. Flat shape with an bool TestYamlResponse.Ok
+
+        discriminator: on failure string? TestYamlResponse.Stage identifies where it failed and the matching
+
+        nullable fields carry the detail; on success the preview fields are populated.'
+    CreateCustomServerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets or sets the server name (must be unique per tenant).
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional server description.
+        longDescription:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the detailed description.
+        category:
+          type: string
+          description: Gets or sets the category. Defaults to "Custom".
+        authTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerAuthType'
+          description: Gets or sets the supported authentication types.
+        tags:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the tags.
+        remoteConfig:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the remote server configuration (URI, transport, etc.).
+            $ref: '#/components/schemas/RemoteServerConfig'
+        ui:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the UI display configuration.
+            $ref: '#/components/schemas/UiConfiguration'
+        testEndpoint:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the test endpoint configuration for credential validation.
+            $ref: '#/components/schemas/TestEndpointConfig'
+        status:
+          type: string
+          description: Gets or sets the server status (Active/Inactive).
+        credentials:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the credentials for the server (optional).
+
+              Will be encrypted before storage.'
+            $ref: '#/components/schemas/CreateCustomServerCredentialRequest'
+      description: Request model for creating a new custom remote server.

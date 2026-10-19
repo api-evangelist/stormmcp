@@ -1,0 +1,67 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway MCP SSE API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: McpSSE
+paths:
+  /gateway/{id}/sse:
+    get:
+      tags:
+      - McpSSE
+      summary: Establishes a Server-Sent Events (SSE) connection for real-time updates
+      parameters:
+      - name: id
+        in: path
+        description: The gateway configuration ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A IActionResult.
+      operationId: getGatewayByIdSse
+      x-operation-id-source: derived
+  /gateway/{id}/message:
+    post:
+      tags:
+      - McpSSE
+      summary: Handles incoming messages for a specific session
+      parameters:
+      - name: id
+        in: path
+        description: The gateway configuration ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: sessionId
+        in: query
+        description: The session id.
+        schema:
+          type: string
+      requestBody:
+        description: The message.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcMessage'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcMessage'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcMessage'
+        required: true
+      responses:
+        '200':
+          description: A IActionResult.
+      operationId: postGatewayByIdMessage
+      x-operation-id-source: derived
+components:
+  schemas:
+    JsonRpcMessage: {}

@@ -1,0 +1,226 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway MCP Registry API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: McpRegistry
+paths:
+  /mcp-registry/{tenantId}/v0.1/servers:
+    get:
+      tags:
+      - McpRegistry
+      summary: Lists the route tenant's registry-eligible gateways
+      parameters:
+      - name: tenantId
+        in: path
+        description: The route tenant identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: limit
+        in: query
+        description: The optional page limit.
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+      - name: cursor
+        in: query
+        description: The optional opaque cursor.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The registry list response.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerListResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerListResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerListResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerListResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerListResponse'
+      operationId: getMcpRegistryByTenantIdV01Servers
+      x-operation-id-source: derived
+  /mcp-registry/{tenantId}/v0.1/servers/{namespace}/{name}/versions:
+    get:
+      tags:
+      - McpRegistry
+      summary: Lists a registry server's synthetic versions (MCP Registry `ServerList` shape)
+      parameters:
+      - name: tenantId
+        in: path
+        description: The route tenant identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: namespace
+        in: path
+        description: The reverse-DNS namespace segment (e.g. `ai.airia`).
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: The server name segment (e.g. `gateway-{id:N}`).
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The synthetic version-list response.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerListResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerListResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerListResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerListResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerListResponse'
+      operationId: getMcpRegistryByTenantIdV01ServersByNamespaceByNameVersions
+      x-operation-id-source: derived
+  /mcp-registry/{tenantId}/v0.1/servers/{namespace}/{name}/versions/{version}:
+    get:
+      tags:
+      - McpRegistry
+      summary: Gets a registry server's synthetic version detail
+      parameters:
+      - name: tenantId
+        in: path
+        description: The route tenant identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: namespace
+        in: path
+        description: The reverse-DNS namespace segment (e.g. `ai.airia`).
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: The server name segment (e.g. `gateway-{id:N}`).
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        description: The synthetic version or latest alias.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The registry server response.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/McpRegistryServerResponse'
+      operationId: getMcpRegistryByTenantIdV01ServersByNamespaceByNameVersionsByVersion
+      x-operation-id-source: derived
+components:
+  schemas:
+    McpRegistryServerDetail:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets or sets the stable registry name.
+        title:
+          type: string
+          description: Gets or sets the gateway display title.
+        description:
+          type: string
+          description: Gets or sets the public description.
+        version:
+          type: string
+          description: Gets or sets the synthetic registry version.
+        remotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpRegistryRemote'
+          description: Gets or sets remote transport definitions.
+      description: MCP Registry server detail.
+    McpRegistryServerListResponse:
+      type: object
+      properties:
+        servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpRegistryServerResponse'
+          description: Gets or sets the returned servers.
+        metadata:
+          description: Gets or sets pagination metadata.
+          $ref: '#/components/schemas/McpRegistryListMetadata'
+      description: MCP Registry server-list response.
+    McpRegistryServerResponse:
+      type: object
+      properties:
+        server:
+          description: Gets or sets the server detail.
+          $ref: '#/components/schemas/McpRegistryServerDetail'
+        _meta:
+          description: Gets or sets non-sensitive registry metadata.
+      description: MCP Registry server envelope.
+    McpRegistryListMetadata:
+      type: object
+      properties:
+        count:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the count of returned records.
+          format: int32
+        nextCursor:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the opaque cursor for the next page.
+      description: Server-list pagination metadata.
+    McpRegistryRemote:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Gets or sets the remote transport type.
+        url:
+          type: string
+          description: Gets or sets the remote transport URL.
+      description: MCP Registry remote transport definition.

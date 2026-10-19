@@ -1,0 +1,437 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Request Log API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: RequestLog
+paths:
+  /api/v1/RequestLog:
+    get:
+      tags:
+      - RequestLog
+      summary: Gets paginated request logs with optional filtering
+      parameters:
+      - name: gatewayId
+        in: query
+        description: Optional gateway ID to filter by.
+        schema:
+          type: string
+          format: uuid
+      - name: sessionId
+        in: query
+        description: Optional session ID to filter by.
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        description: Optional start date for filtering.
+        schema:
+          type: string
+          format: date-time
+      - name: endDate
+        in: query
+        description: Optional end date for filtering.
+        schema:
+          type: string
+          format: date-time
+      - name: skip
+        in: query
+        description: Number of records to skip for pagination.
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 0
+      - name: take
+        in: query
+        description: Number of records to take for pagination.
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 50
+      - name: requestMethod
+        in: query
+        description: Optional JSON-RPC method to filter by (e.g. tools/call).
+        schema:
+          type: string
+      - name: toolName
+        in: query
+        description: Optional tool/asset name to filter by.
+        schema:
+          type: string
+      - name: userId
+        in: query
+        description: Optional user ID to filter by (admin only).
+        schema:
+          type: string
+          format: uuid
+      - name: status
+        in: query
+        description: Optional status to filter by (success, error, denied).
+        schema:
+          type: string
+      - name: sessionType
+        in: query
+        description: Optional session type to filter by. Combine with the nil gatewayId to select row-less Dynamic or Ephemeral sessions.
+        schema:
+          $ref: '#/components/schemas/McpSessionType'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/RequestLogQueryResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestLogQueryResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/RequestLogQueryResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/RequestLogQueryResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/RequestLogQueryResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1RequestLog
+      x-operation-id-source: derived
+  /api/v1/RequestLog/{id}:
+    get:
+      tags:
+      - RequestLog
+      summary: Gets a single request log by its ID
+      parameters:
+      - name: id
+        in: path
+        description: The request log ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/RequestLogResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestLogResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/RequestLogResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/RequestLogResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/RequestLogResponse'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1RequestLogById
+      x-operation-id-source: derived
+components:
+  schemas:
+    RequestLogResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the unique identifier for the request log.
+          format: uuid
+        userId:
+          type: string
+          description: Gets or sets the user identifier.
+          format: uuid
+        gatewayId:
+          type: string
+          description: Gets or sets the gateway identifier.
+          format: uuid
+        sessionId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the session identifier. Null when the row has no session. The gRPC
+
+            mapping leaves that field unset, and proto3 renders the unset string as empty.'
+        gatewayName:
+          type: string
+          description: Gets or sets the gateway name.
+        correlationId:
+          type: string
+          description: Gets or sets the correlation identifier for the request.
+          format: uuid
+        startTime:
+          type: string
+          description: Gets or sets the start time of the request.
+          format: date-time
+        duration:
+          pattern: ^-?(\d+\.)?\d{2}:\d{2}:\d{2}(\.\d{1,7})?$
+          type: string
+          description: Gets or sets the duration of the request.
+        requestMethod:
+          type: string
+          description: Gets or sets the request method.
+        requestObject:
+          type: string
+          description: Gets or sets the request object.
+        responseObject:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the response object.
+        requestType:
+          description: Gets or sets the request type.
+          $ref: '#/components/schemas/McpRequestType'
+        assetName:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the asset name associated with the request log.
+        status:
+          type: string
+          description: Gets or sets the status classification of the request (success, error, or denied).
+        serverName:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the name of the upstream MCP server that handled the request.
+        durationMs:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the duration of the request in milliseconds.
+          format: double
+        sessionType:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the entry-point class of the session that produced this row (MCPG-2042), or null for a
+
+              legacy row written before it was persisted. A McpSessionType.Dynamic or
+
+              McpSessionType.Ephemeral row carries Guid Guid.Empty as its
+
+              Guid RequestLogResponse.GatewayId; this field is the structural signal a client should key on instead of
+
+              matching the string RequestLogResponse.GatewayName text. Null means unknown, and a client should fall back to the
+
+              name as given.'
+            $ref: '#/components/schemas/McpSessionType'
+      description: Response model for a single request log entry.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    McpRequestType:
+      type: integer
+      description: Request type classification for MCP methods.
+    McpSessionType:
+      type: integer
+    RequestLogQueryResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequestLogResponse'
+          description: Gets or sets the list of request logs.
+        totalCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total count of matching records.
+          format: int32
+        skip:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of records skipped.
+          format: int32
+        take:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of records taken.
+          format: int32
+        hasMore:
+          type: boolean
+          description: Gets a value indicating whether there are more records available.
+      description: Response model for paginated request log queries.

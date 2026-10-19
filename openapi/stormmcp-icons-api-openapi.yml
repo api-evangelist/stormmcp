@@ -1,0 +1,27 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Icons API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: Icons
+paths:
+  /api/v1/Icons/app-icons/{fileName}:
+    get:
+      tags:
+      - Icons
+      summary: Fetches an app-icon SVG from the Airia asset host and returns its raw bytes
+      parameters:
+      - name: fileName
+        in: path
+        description: "The icon basename, e.g. `GitHub_light_dark.svg`. Must match\n    `^[A-Za-z0-9._-]+\\.svg$` — anything else (path separators, traversal, query strings,\n    non-SVG extensions) is rejected with 400."
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: "200 with the raw SVG bytes on success, 400 for an invalid filename, 404 when the\n    upstream asset is missing, or 502 on an upstream timeout/transport error."
+      operationId: getApiV1IconsAppIconsByFileName
+      x-operation-id-source: derived

@@ -1,0 +1,57 @@
+{
+  "provider": "stormmcp",
+  "sources": [
+    "stormmcp-openapi.json"
+  ],
+  "outputs": [
+    "stormmcp-activesessions-api-openapi.yml",
+    "stormmcp-admintoolkits-api-openapi.yml",
+    "stormmcp-apikey-api-openapi.yml",
+    "stormmcp-appinstructions-api-openapi.yml",
+    "stormmcp-approvals-api-openapi.yml",
+    "stormmcp-auth-api-openapi.yml",
+    "stormmcp-catalogseedsweep-api-openapi.yml",
+    "stormmcp-credentialcensus-api-openapi.yml",
+    "stormmcp-customremoteservers-api-openapi.yml",
+    "stormmcp-customservercredentialbindingbackfill-api-openapi.yml",
+    "stormmcp-dynamicgateway-api-openapi.yml",
+    "stormmcp-dynamicmcp-api-openapi.yml",
+    "stormmcp-dynamictoolsdiscovery-api-openapi.yml",
+    "stormmcp-flaggedtoolwithholdadmin-api-openapi.yml",
+    "stormmcp-gatewayactivity-api-openapi.yml",
+    "stormmcp-gatewayconfiguration-api-openapi.yml",
+    "stormmcp-hubconnectiontickets-api-openapi.yml",
+    "stormmcp-icons-api-openapi.yml",
+    "stormmcp-integrations-api-openapi.yml",
+    "stormmcp-library-api-openapi.yml",
+    "stormmcp-librarycataloginvalidation-api-openapi.yml",
+    "stormmcp-mcpephemeralstreamablehttp-api-openapi.yml",
+    "stormmcp-mcpgatewayinventory-api-openapi.yml",
+    "stormmcp-mcpregistry-api-openapi.yml",
+    "stormmcp-mcpsse-api-openapi.yml",
+    "stormmcp-mcpstreamablehttp-api-openapi.yml",
+    "stormmcp-oauth-api-openapi.yml",
+    "stormmcp-organicmemoryadmin-api-openapi.yml",
+    "stormmcp-organicmemorycompartment-api-openapi.yml",
+    "stormmcp-organicmemorypreference-api-openapi.yml",
+    "stormmcp-organicmemorypurgeadmin-api-openapi.yml",
+    "stormmcp-radar-api-openapi.yml",
+    "stormmcp-register-api-openapi.yml",
+    "stormmcp-requestlog-api-openapi.yml",
+    "stormmcp-selfservicedashboardarea-api-openapi.yml",
+    "stormmcp-selfservicedashboardareaadmin-api-openapi.yml",
+    "stormmcp-tenantserveraccess-api-openapi.yml",
+    "stormmcp-useranalytics-api-openapi.yml",
+    "stormmcp-wellknown-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/stormmcp-openapi.json"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "stormmcp-openapi.json: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+39 apis, 39 total)"
+  ],
+  "skipped": []
+}

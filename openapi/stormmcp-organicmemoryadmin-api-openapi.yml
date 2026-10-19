@@ -1,0 +1,300 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Organic Memory Admin API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: OrganicMemoryAdmin
+paths:
+  /api/v1/admin/organic-memory:
+    get:
+      tags:
+      - OrganicMemoryAdmin
+      summary: Gets the tenant organic memory configuration
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryAdminResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryAdminResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryAdminResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryAdminResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryAdminResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AdminOrganicMemory
+      x-operation-id-source: derived
+    put:
+      tags:
+      - OrganicMemoryAdmin
+      summary: Stores the tenant organic memory configuration
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganicMemoryAdminRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/OrganicMemoryAdminRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/OrganicMemoryAdminRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryAdminResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryAdminResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryAdminResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryAdminResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryAdminResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1AdminOrganicMemory
+      x-operation-id-source: derived
+components:
+  schemas:
+    OrganicMemoryProviderSlotMode:
+      enum:
+      - Unset
+      - UseAiriaApiKey
+      - Binder
+      description: 'How one organic memory provider slot is filled. OrganicMemoryProviderSlotMode.Unset is the zero value
+
+        so an omitted choice cannot become a live key. The wire value is the member name.'
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    OrganicMemoryAdminResponse:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether organic memory is enabled.
+        llm:
+          description: Gets or sets the language-model slot.
+          $ref: '#/components/schemas/OrganicMemorySlotResponse'
+        embedding:
+          description: Gets or sets the embedding slot.
+          $ref: '#/components/schemas/OrganicMemorySlotResponse'
+        aiGatewayBinderId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the stored AI Gateway binder id. Null when none is stored.
+
+            The binder secret is not on this response.'
+          format: uuid
+      description: The stored organic memory configuration for the caller's tenant.
+    OrganicMemoryAdminRequest:
+      required:
+      - enabled
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether organic memory is enabled for the tenant.
+        llm:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the language-model slot. Null on a disable keeps the stored slot.
+            $ref: '#/components/schemas/OrganicMemorySlotRequest'
+        embedding:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the embedding slot. Null on a disable keeps the stored slot.
+            $ref: '#/components/schemas/OrganicMemorySlotRequest'
+        aiGatewayBinderId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the tenant ApiKey binder that holds the AI Gateway key.
+
+            Null keeps the stored id. A supplied id is stored after it resolves as a Ready tenant ApiKey binder.'
+          format: uuid
+      description: 'Admin write for the tenant organic memory setting. Enabling requires both slots.
+
+        Disabling with the slots omitted keeps the stored references.'
+    OrganicMemorySlotRequest:
+      required:
+      - mode
+      type: object
+      properties:
+        mode:
+          description: 'Gets or sets the slot mode. A present slot accepts OrganicMemoryProviderSlotMode.UseAiriaApiKey
+
+            or OrganicMemoryProviderSlotMode.Binder.'
+          $ref: '#/components/schemas/OrganicMemoryProviderSlotMode'
+        binderId:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the tenant ApiKey binder id when OrganicMemoryProviderSlotMode OrganicMemorySlotRequest.Mode is `Binder`.
+          format: uuid
+      description: 'One provider slot on an organic memory admin write. The body carries a mode
+
+        name and, for a binder, the binder id. It never carries the key.'
+    OrganicMemorySlotResponse:
+      type: object
+      properties:
+        mode:
+          description: Gets or sets the stored slot mode.
+          $ref: '#/components/schemas/OrganicMemoryProviderSlotMode'
+        binderId:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the binder id when the mode is `Binder`.
+          format: uuid
+      description: One stored provider slot. The response names the mode and the binder id, never the key.

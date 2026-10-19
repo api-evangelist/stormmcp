@@ -1,0 +1,278 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Organic Memory Purge Admin API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: OrganicMemoryPurgeAdmin
+paths:
+  /api/v1/admin/organic-memory/purge/users:
+    post:
+      tags:
+      - OrganicMemoryPurgeAdmin
+      summary: Hard-deletes the users' organic memory data in the caller's tenant
+      parameters:
+      - name: x-correlation-id
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganicMemoryPurgeRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/OrganicMemoryPurgeRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/OrganicMemoryPurgeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryPurgeResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryPurgeResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryPurgeResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryPurgeResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryPurgeResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '502':
+          description: Bad Gateway
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1AdminOrganicMemoryPurgeUsers
+      x-operation-id-source: derived
+components:
+  schemas:
+    OrganicMemoryPurgeCounts:
+      type: object
+      properties:
+        users:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of memory accounts removed.
+          format: int32
+        compartments:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of compartments removed.
+          format: int32
+        memories:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of memories removed.
+          format: int32
+        documents:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of documents removed.
+          format: int32
+        filesRemoved:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of uploaded originals removed from storage.
+          format: int32
+        filesFailed:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of uploaded originals the memory service could not remove.
+          format: int32
+        filesPending:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of the tenant's uploaded originals still waiting for removal.
+          format: int32
+        complete:
+          type:
+          - 'null'
+          - boolean
+          description: 'Gets a value indicating whether the memory service reports the erasure complete.
+
+            Null from a memory service that does not report it.'
+        isIncomplete:
+          type: boolean
+          description: 'Gets a value indicating whether the erasure is not confirmed done: bool? OrganicMemoryPurgeCounts.Complete is
+
+            not true (AO-3583), or an original is pending or failed.'
+      description: What the memory service removed for one user. Counts only, safe to log.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    OrganicMemoryPurgeRequest:
+      required:
+      - userIds
+      type: object
+      properties:
+        userIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the Platform ids of the users to purge, 1 to 100. Only their accounts in the
+
+            caller''s tenant are purged. The count is checked by the controller, so an empty or oversized
+
+            list gets its coded 400 (`OrganicMemory.PurgeInvalidUsers`) rather than the framework''s
+
+            model-validation 400.'
+      description: Admin request to hard-delete users' organic memory data in the caller's tenant (MCPG-2873).
+    OrganicMemoryPurgedUser:
+      required:
+      - userId
+      - purged
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The Platform user id.
+          format: uuid
+        purged:
+          description: What the memory service removed.
+          $ref: '#/components/schemas/OrganicMemoryPurgeCounts'
+      description: The purge outcome for one user.
+    OrganicMemoryPurgeResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganicMemoryPurgedUser'
+          description: Gets the outcome for each requested user, in request order.
+      description: 'The outcome of an organic memory purge: counts per user, no content.'

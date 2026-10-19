@@ -1,0 +1,769 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway OAuth API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: OAuth
+paths:
+  /api/v1/OAuth/{libraryId}/redirect:
+    post:
+      tags:
+      - OAuth
+      summary: Creates an OAuth redirect URL for a library integration
+      parameters:
+      - name: libraryId
+        in: path
+        description: The ID of the library integration.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The OAuth redirect request containing the redirect URL.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuthRedirectRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/OAuthRedirectRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/OAuthRedirectRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OAuthRedirectResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthRedirectResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OAuthRedirectResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/OAuthRedirectResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/OAuthRedirectResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1OAuthByLibraryIdRedirect
+      x-operation-id-source: derived
+  /api/v1/OAuth/callback:
+    post:
+      tags:
+      - OAuth
+      summary: Handles OAuth callback with authorization code
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuthCallbackRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/OAuthCallbackRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/OAuthCallbackRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OAuthCallbackResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthCallbackResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OAuthCallbackResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/OAuthCallbackResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/OAuthCallbackResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1OAuthCallback
+      x-operation-id-source: derived
+    get:
+      tags:
+      - OAuth
+      summary: Handles OAuth callback from the global OAuth proxy (auth.airia.ai).
+      parameters:
+      - name: state
+        in: query
+        description: The OAuth state parameter.
+        schema:
+          type: string
+      - name: code
+        in: query
+        description: The authorization code.
+        schema:
+          type: string
+      - name: error
+        in: query
+        description: The RFC 6749 §4.1.2.1 error token, present when the authorization server rejected the request.
+        schema:
+          type: string
+      - name: error_description
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ContentResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ContentResult'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ContentResult'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ContentResult'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1OAuthCallback
+      x-operation-id-source: derived
+  /api/v1/OAuth/custom-server/{serverId}/redirect:
+    post:
+      tags:
+      - OAuth
+      summary: Creates an OAuth redirect URL for a custom remote server using DCR (Dynamic…
+      description: 'Obsolete: use `POST api/v1/OAuth/{libraryId}/redirect`, which resolves both server kinds.'
+      parameters:
+      - name: serverId
+        in: path
+        description: The ID of the custom remote server.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuthRedirectRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/OAuthRedirectRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/OAuthRedirectRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OAuthRedirectResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthRedirectResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OAuthRedirectResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/OAuthRedirectResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/OAuthRedirectResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1OAuthCustomServerByServerIdRedirect
+      x-operation-id-source: derived
+  /api/v1/OAuth/configs:
+    get:
+      tags:
+      - OAuth
+      summary: Lists OAuth provider configurations from UCS.
+      parameters:
+      - name: oauthProvider
+        in: query
+        description: Optional OAuth provider name (e.g. "MicrosoftGraph", "GoogleSuite").
+        schema:
+          type: string
+      - name: provider
+        in: query
+        description: Optional provider name filter (case-insensitive contains match).
+        schema:
+          type: string
+      - name: level
+        in: query
+        description: Optional access level filter (Personal or Tenant).
+        schema:
+          $ref: '#/components/schemas/Level'
+      - name: credentialLevel
+        in: query
+        description: Optional credential level filter (Personal or Tenant).
+        schema:
+          $ref: '#/components/schemas/Level'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OAuthConfigListResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthConfigListResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OAuthConfigListResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/OAuthConfigListResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/OAuthConfigListResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1OAuthConfigs
+      x-operation-id-source: derived
+components:
+  schemas:
+    ContentResult:
+      type: object
+      properties:
+        content:
+          type:
+          - 'null'
+          - string
+        contentType:
+          type:
+          - 'null'
+          - string
+        statusCode:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+    OAuthConfigItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the provider configuration ID.
+        name:
+          type: string
+          description: Gets or sets the display name of the configuration.
+        providerType:
+          type: string
+          description: Gets or sets the OAuth provider type (e.g. "MicrosoftGraph", "GoogleSuite").
+        level:
+          type: string
+          description: Gets or sets the access level (Personal or Tenant).
+        authenticationType:
+          type: string
+          description: Gets or sets the authentication type for this configuration.
+        supportedScopes:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the supported OAuth scopes.
+        totalActiveCredentials:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of active credentials using this configuration.
+          format: int32
+        createdVia:
+          type: string
+          description: Gets or sets how this configuration was created (e.g. "Manual", "Dcr", "Seed").
+        isSystem:
+          type: boolean
+          description: Gets or sets a value indicating whether this is a system-seeded (Airia Managed) configuration.
+      description: A single OAuth provider configuration item returned from UCS.
+    OAuthConfigListResponse:
+      type: object
+      properties:
+        totalCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of configurations returned.
+          format: int32
+        hasMore:
+          type: boolean
+          description: 'Gets or sets a value indicating whether UCS had more results than the page size.
+
+            When true, the returned list may be incomplete.'
+        configurations:
+          type: array
+          items:
+            $ref: '#/components/schemas/OAuthConfigItem'
+          description: Gets or sets the list of OAuth provider configurations.
+      description: Response model for listing OAuth provider configurations.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    Level:
+      enum:
+      - Personal
+      - Tenant
+    OAuthRedirectResponse:
+      type: object
+      properties:
+        provider:
+          description: Gets or sets the well-known provider for the OAuth flow.
+          $ref: '#/components/schemas/KnownMcpProvider'
+        redirectUrl:
+          type: string
+          description: Gets or sets the redirect URL that the browser should redirect to.
+      description: Response model for OAuth redirect URL generation.
+    OAuthRedirectRequest:
+      type: object
+      properties:
+        redirectUrl:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the redirect URL where the user should be sent after OAuth completion.
+
+            When empty or null, the backend uses Global OAuth (auth.airia.ai) with the callback URL
+
+            derived from the current request''s host. When provided, the frontend-relay pattern is used.'
+        level:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the target level for the OAuth configuration.
+
+              If not specified, defaults to Personal.'
+            $ref: '#/components/schemas/Level'
+        credentialProviderConfigId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the UCS OAuth Provider Configuration ID to use for this redirect.
+
+            When provided, overrides the CredentialProviderConfigId stored on the Gateway
+
+            ProviderConfiguration. This supports scenarios where multiple OAuth apps exist
+
+            for the same library and the caller needs to target a specific one.'
+          format: uuid
+        replaceExistingConfig:
+          type:
+          - 'null'
+          - boolean
+          description: "    Gets or sets a value indicating whether the existing DCR registration should be\n    replaced with a fresh one for DCR-style providers. When `true` and the integration\n    already has a `CredentialProviderConfigId`, the redirect flow skips the\n    \"reuse existing DCR\" branch and falls through to fresh DCR registration. The\n    existing name-collision recovery (PersonalNameAlreadyExists / TenantNameAlreadyExists)\n    then retires the stale UCS provider configuration before re-registering, which is\n    the equivalent of a Disconnect + Reconnect performed in a single click.\n    Recovery affordance for the case where an upstream OAuth provider has rotated or\ninvalidated a DCR client registration server-side (e.g., Atlassian's hosted MCP):\nthe stored CredentialProviderConfigId is still present in UCS but its\nunderlying client_id no longer authenticates, so a standard \"reuse\" reconnect\nis doomed to fail. Setting this flag forces the gateway to issue a new registration.\n    Has no effect for Manual OAuth integrations (the user-managed\nRemoteManualOAuthConfiguration), since the OAuth client is owned by the user\nand cannot be auto-rotated. Has no effect when no existing integration is present\n(fresh DCR is already the default in that branch).\n    Nullable to defend against under-posting: an absent value is treated as\nfalse (the safe default), distinguishable from an explicit false in\nfuture behavior if needed."
+        uriVariableValues:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets personal URI variable values supplied with a reauthenticate
+
+            (bool? OAuthRedirectRequest.ReplaceExistingConfig). A personal key here replaces the stored
+
+            value on the new DCR row. Shared keys are left on the stored row.'
+        scopes:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: 'Gets or sets the scopes to request instead of the stored Manual OAuth scopes (MCPG-2016). Lets
+
+            the scopes editor try an unsaved list. Honoured only when bool? OAuthRedirectRequest.ValidateOnly is set: an
+
+            ordinary connect always uses the saved row, so a caller cannot widen an admin-saved scope set.
+
+            Ignored when null or empty.'
+        validateOnly:
+          type:
+          - 'null'
+          - boolean
+          description: 'Gets or sets a value indicating whether this redirect is a validate-only consent (MCPG-2016):
+
+            the provider''s consent screen is the scope check, and on success the callback deliberately does
+
+            not exchange the authorization code, so no credential is stored and the current connection is
+
+            untouched. Requires a saved Manual OAuth configuration with an interactive grant.'
+      description: Request model for OAuth redirect URL generation.
+    OAuthCallbackResponse:
+      type: object
+      properties:
+        provider:
+          description: Gets or sets the provider type.
+          $ref: '#/components/schemas/KnownMcpProvider'
+        libraryId:
+          type: string
+          description: Gets or sets the library ID.
+          format: uuid
+        providerName:
+          type: string
+          description: Gets or sets the provider name.
+        isElicitationFlow:
+          type: boolean
+          description: 'Gets or sets a value indicating whether this OAuth callback was part of a credential elicitation flow.
+
+            When true, the callback HTML should show a standalone success page instead of trying to close a popup.'
+        isValidateOnly:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the callback completed a validate-only consent
+
+            (MCPG-2016): the provider accepted the scopes and no code was exchanged, so nothing was stored.'
+        requestedScopes:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: Gets or sets the scopes the validate-only redirect asked for, as the credential store recorded them.
+      description: Response model for OAuth callback completion.
+    KnownMcpProvider:
+      type: integer
+      description: An MCP Server provider type.
+    OAuthCallbackRequest:
+      required:
+      - code
+      - redirectUrl
+      type: object
+      properties:
+        code:
+          type: string
+          description: Gets or sets the authorization code received from the OAuth provider.
+        state:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the state parameter for CSRF protection.
+        redirectUrl:
+          type: string
+          description: 'Gets or sets the redirect URL that was used in the initial OAuth request.
+
+            This must match exactly for the token exchange to succeed.'
+          format: uri
+      description: Request model for OAuth callback handling.

@@ -1,0 +1,2342 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Library API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: Library
+paths:
+  /api/v1/Library:
+    get:
+      tags:
+      - Library
+      summary: Gets the unified list of MCP servers (library + custom servers) for the current…
+      parameters:
+      - name: status
+        in: query
+        description: 'Filter by status (comma-separated). Only applies to unauthenticated requests. Available values: Available, Beta, ComingSoon, Deprecated, Custom.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownMcpServer'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownMcpServer'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownMcpServer'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownMcpServer'
+            application/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownMcpServer'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1Library
+      x-operation-id-source: derived
+  /api/v1/Library/status:
+    get:
+      tags:
+      - Library
+      summary: Gets the list of known MCP providers with status, scoped to the tenant's…
+      parameters:
+      - name: status
+        in: query
+        schema:
+          type: string
+      - name: includeNotConfigured
+        in: query
+        description: 'When `true`, returns the full catalog including servers
+
+          whose per-tenant integration status is `NotConfigured`. Default
+
+          `false` preserves the historical "hide unconnected
+
+          servers" behavior expected by existing admin / gateway-card consumers.
+
+          The Platform self-service portal opts in to this flag so users can see
+
+          catalog servers they haven''t connected yet (the recovery deep-link flow
+
+          lands on that surface specifically to drive a connect action on
+
+          `NotConfigured` libraries).'
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownMcpServerWithStatus'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownMcpServerWithStatus'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownMcpServerWithStatus'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownMcpServerWithStatus'
+            application/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownMcpServerWithStatus'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1LibraryStatus
+      x-operation-id-source: derived
+  /api/v1/Library/{libraryId}:
+    get:
+      tags:
+      - Library
+      summary: Gets a specific MCP server by ID.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The catalog library ID or custom server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/KnownMcpServer'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnownMcpServer'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/KnownMcpServer'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/KnownMcpServer'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/KnownMcpServer'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1LibraryByLibraryId
+      x-operation-id-source: derived
+  /api/v1/Library/{libraryId}/status:
+    get:
+      tags:
+      - Library
+      summary: Gets a specific known MCP provider with its integration status by library ID.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap or custom server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/KnownMcpServerWithStatus'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnownMcpServerWithStatus'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/KnownMcpServerWithStatus'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/KnownMcpServerWithStatus'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/KnownMcpServerWithStatus'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1LibraryByLibraryIdStatus
+      x-operation-id-source: derived
+  /api/v1/Library/configuration:
+    get:
+      tags:
+      - Library
+      summary: Gets the library configuration for the current tenant
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TenantLibraryConfigurationEntity'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantLibraryConfigurationEntity'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TenantLibraryConfigurationEntity'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/TenantLibraryConfigurationEntity'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/TenantLibraryConfigurationEntity'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1LibraryConfiguration
+      x-operation-id-source: derived
+    put:
+      tags:
+      - Library
+      summary: Updates the library configuration mode for the current tenant
+      requestBody:
+        description: The configuration update request containing the desired mode.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLibraryConfigurationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLibraryConfigurationRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UpdateLibraryConfigurationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TenantLibraryConfigurationEntity'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantLibraryConfigurationEntity'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TenantLibraryConfigurationEntity'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/TenantLibraryConfigurationEntity'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/TenantLibraryConfigurationEntity'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1LibraryConfiguration
+      x-operation-id-source: derived
+  /api/v1/Library/gateways-using/{libraryId}:
+    get:
+      tags:
+      - Library
+      summary: Gets the list of gateways that are currently using a specific server
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID of the server to check.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ServerUsageInfo'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerUsageInfo'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ServerUsageInfo'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ServerUsageInfo'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ServerUsageInfo'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1LibraryGatewaysUsingByLibraryId
+      x-operation-id-source: derived
+  /api/v1/Library/admin/servers-with-assignment-status:
+    get:
+      tags:
+      - Library
+      summary: Gets all servers (library + custom) with their assignment status for the…
+      parameters:
+      - name: search
+        in: query
+        description: Optional search term to filter servers by name or description.
+        schema:
+          type: string
+      - name: category
+        in: query
+        description: Optional category to filter servers (e.g., "Productivity", "Development").
+        schema:
+          type: string
+      - name: availability
+        in: query
+        description: Optional availability filter (General, Restricted).
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Optional server type filter (Hosted, Sandbox, Remote, McpLink).
+        schema:
+          type: string
+      - name: featured
+        in: query
+        description: Optional filter to return only featured servers when true.
+        schema:
+          type: boolean
+      - name: pageNumber
+        in: query
+        description: 'The page number (1-based, default: 1).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: 'The number of items per page (default: 20, max: 100).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 20
+      - name: sortBy
+        in: query
+        description: 'Optional sort field (name, category, status, gatewayCount). Default: name.'
+        schema:
+          type: string
+      - name: sortDirection
+        in: query
+        description: 'Optional sort direction (ASC, DESC). Default: ASC.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LibraryServersWithAssignmentStatusResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LibraryServersWithAssignmentStatusResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LibraryServersWithAssignmentStatusResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryServersWithAssignmentStatusResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryServersWithAssignmentStatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1LibraryAdminServersWithAssignmentStatus
+      x-operation-id-source: derived
+  /api/v1/Library/admin/custom-servers/{serverId}/assignment:
+    put:
+      tags:
+      - Library
+      summary: Toggles the assignment status of a custom server for the tenant's custom list.
+      description: 'Turning an approved server off is an admin revoke (MCPG-2330) and goes through the same
+
+        acknowledged entrance as `POST api/v1/admin/TenantServerAccess/revoke`:
+
+        `acknowledgmentToken` is the digest the preflight returned for this server, and a missing or
+
+        stale token answers 409 `Gateway.RevokeNotAcknowledged` with the current impact and changes
+
+        nothing. Turning off a server that is not approved has nothing to revoke and needs no token.
+
+        Turning a server on needs no token.'
+      parameters:
+      - name: serverId
+        in: path
+        description: The custom server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetCustomServerAssignmentRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SetCustomServerAssignmentRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SetCustomServerAssignmentRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1LibraryAdminCustomServersByServerIdAssignment
+      x-operation-id-source: derived
+  /api/v1/Library/admin/servers/{serverId}/featured:
+    patch:
+      tags:
+      - Library
+      summary: Sets the featured status of a library server for the current tenant.
+      parameters:
+      - name: serverId
+        in: path
+        description: The library server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetServerFeaturedRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SetServerFeaturedRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SetServerFeaturedRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: patchApiV1LibraryAdminServersByServerIdFeatured
+      x-operation-id-source: derived
+components:
+  schemas:
+    SetCustomServerAssignmentRequest:
+      required:
+      - isAssigned
+      type: object
+      properties:
+        isAssigned:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the custom server should be assigned (enabled) for the tenant.
+
+            When true, the server appears in the unified list in Custom Mode.
+
+            When false, the server is hidden from the unified list in Custom Mode.'
+        acknowledgmentToken:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the digest `POST api/v1/admin/TenantServerAccess/revoke-impact` returned for
+
+            this server (MCPG-2330). Required to turn an approved server off; ignored when turning it on.'
+      description: 'Request model for setting the assignment status of a custom server.
+
+        Controls whether the custom server appears in the unified server list when in Custom Mode.'
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    SetServerFeaturedRequest:
+      required:
+      - isFeatured
+      type: object
+      properties:
+        isFeatured:
+          type: boolean
+          description: Gets or sets a value indicating whether the server should be featured for this tenant.
+      description: Request model for setting the featured status of a server for the current tenant.
+    McpSystemRequirements:
+      type: object
+      properties:
+        os:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the supported operating systems.
+        runtime:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the required runtime.
+        minVersion:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the minimum runtime version.
+      description: System requirements for locally installed applications.
+    McpServerStatus:
+      enum:
+      - Available
+      - ComingSoon
+      - Beta
+      - Deprecated
+      - Custom
+      description: Availability status for MCP servers.
+    McpImage:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Gets or sets the image URL.
+        alt:
+          type: string
+          description: Gets or sets the alt text for the image.
+        caption:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional caption for the image.
+      description: Image for the MCP server gallery.
+    McpConnectionOutcome:
+      type: integer
+      description: "            Coarse outcome of an MCP server's connection state — the FE-aligned ubiquitous\n            language used end-to-end across BE and FE to drive UI affordances.\n            One outcome per state; string? McpConnectionState.Reason refines an\nMcpConnectionOutcome.Error outcome with a machine-readable code from\nMcpConnectionReasons."
+    LibraryServersWithAssignmentStatusResponse:
+      type: object
+      properties:
+        mode:
+          type: string
+          description: Gets or sets the current library configuration mode.
+        assignedCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of assigned (enabled) servers.
+          format: int32
+        unassignedCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of unassigned (disabled) servers.
+          format: int32
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryServerWithAssignmentStatus'
+          description: Gets or sets the items in the current page.
+        totalCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total count of items across all pages.
+          format: int32
+        pageNumber:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the current page number (1-based).
+          format: int32
+        pageSize:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of items per page.
+          format: int32
+        hasMore:
+          type: boolean
+          description: Gets a value indicating whether there are more pages available.
+        totalPages:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the total number of pages.
+          format: int32
+      description: 'Paginated response containing all library servers with their assignment status for the current tenant.
+
+        Optimized for Custom Mode administration - shows all servers with enable/disable state in a single request.'
+    OAuthConfig:
+      type: object
+      properties:
+        authorizationEndpoint:
+          type: string
+          description: Gets or sets the OAuth authorization endpoint URL.
+        tokenEndpoint:
+          type: string
+          description: Gets or sets the OAuth token endpoint URL.
+        revokeEndpoint:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the OAuth token revocation endpoint URL (optional).
+        refreshTokenEndpoint:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the OAuth refresh token endpoint URL (optional).
+
+            WARNING: User Credential Store currently does not support separate refresh endpoints.'
+        grantType:
+          type: string
+          description: 'Gets or sets the grant type (default: Authorization Code with PKCE).'
+        scopeSeparator:
+          type: string
+          description: 'Gets or sets the scope separator character (default: space).'
+        tokenEndpointAuthMethod:
+          type: string
+          description: Gets or sets the token endpoint authentication method.
+        grantTypesSupported:
+          type: array
+          items:
+            type: string
+          description: 'Gets or sets the grant types supported (default: ["authorization_code"]).'
+        responseTypesSupported:
+          type: array
+          items:
+            type: string
+          description: 'Gets or sets the response types supported (default: ["code"]).'
+        codeChallengeMethodsSupported:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the code challenge methods supported for PKCE (e.g., "S256", "plain").
+        authorizationParameters:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: Gets or sets additional parameters to include in authorization requests.
+        tokenParameters:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: Gets or sets additional parameters to include in token requests.
+        tokenHeaders:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: Gets or sets additional headers to include in token requests.
+      description: 'OAuth-specific configuration for Manual OAuth providers.
+
+        Contains OAuth endpoint URLs and behavior configuration.'
+    UriVariable:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Gets or sets the human-readable description of this variable.
+        required:
+          type: boolean
+          description: Gets or sets a value indicating whether this variable is required.
+        options:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: 'Gets or sets the available options for this variable (e.g., ["eu", "us"] for region).
+
+            Only applicable for variables with predefined choices.'
+        defaultValue:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the default value for this variable.
+        placeholder:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the placeholder text to show in the UI.
+        helpText:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets additional help text for this variable.
+        type:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the variable type hint for UI rendering (e.g., "string", "integer", "url").
+
+            Used for UI validation and input control selection, but all values are ultimately strings.'
+        scope:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: 'Gets or sets the authentication types this variable applies to.
+
+            If null or empty, the variable applies to all authentication types (backward compatible).
+
+            If specified, the variable is only shown/validated for the listed auth types (e.g., ["ApiKey"], ["OAuth"], or ["ApiKey", "OAuth"]).'
+        sharing:
+          description: 'Gets or sets a value indicating whether this variable may be inherited onto another
+
+            user''s Personal overlay at read time (MCPG-1609). The overlay runs only for OAuth/Fhir
+
+            Personal target rows. Omitted / default is UriVariableSharing.Shared.
+
+            Only UriVariableSharing.Personal is written in the seed.
+
+            Does not constrain a Tenant-level row, which is shared by design.
+
+            The name Scope is taken on this model for auth-type filtering.'
+          $ref: '#/components/schemas/UriVariableSharing'
+      description: 'Represents a URI variable that can be substituted in remote MCP server URIs.
+
+        Used for dynamic parameterization of server endpoints (e.g., region, API keys).
+
+        All variables are treated as strings for URL substitution.'
+    LibraryServerWithAssignmentStatus:
+      type: object
+      properties:
+        server:
+          description: Gets or sets the server information including id, name, description, icon, etc.
+          $ref: '#/components/schemas/McpServerDefinition'
+        isAssigned:
+          type: boolean
+          description: Gets or sets a value indicating whether this server is currently assigned to the tenant (enabled).
+        assignmentId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the assignment ID if the server is assigned, null otherwise.
+
+            Used for DELETE operations when disabling the server.'
+          format: uuid
+        assignedAt:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the date when the assignment was created (if assigned).
+
+            The DateTime is in UTC.'
+          format: date-time
+        isCustomServer:
+          type: boolean
+          description: 'Gets or sets a value indicating whether this server is a custom server.
+
+            Custom servers use a different toggle mechanism (IsEnabledForCustomList flag)
+
+            vs library servers (TenantServerAccess entity).'
+        gatewayUsageCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets or sets the caller-visible gateway count. Sort and pagination use this value,
+
+            so a revoke-capable listing does not replace it.'
+          format: int32
+        tenantGatewayUsageCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets or sets the tenant-wide live gateway count, including another user''s Personal gateway.
+
+            Zero unless the caller can revoke. This does not replace int LibraryServerWithAssignmentStatus.GatewayUsageCount.'
+          format: int32
+        deploymentUsageCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets or sets the number of provider configurations (deployments) referencing this server
+
+            in the current tenant, across all users and configuration levels.
+
+            Populated from a single aggregated query, not per-server lookups.'
+          format: int32
+        deploymentTenantLevelCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets how many of int LibraryServerWithAssignmentStatus.DeploymentUsageCount are Tenant-level configurations.
+          format: int32
+        deploymentPersonalCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets how many of int LibraryServerWithAssignmentStatus.DeploymentUsageCount are Personal configurations, any user's.
+          format: int32
+        deploymentIncludesMine:
+          type: boolean
+          description: Gets or sets a value indicating whether one of the Personal configurations belongs to the caller.
+        isFeatured:
+          type: boolean
+          description: 'Gets or sets a value indicating whether this server is featured for the current tenant.
+
+            Reflects the tenant-level override if set, otherwise the global catalog default.'
+        gatewayNames:
+          type: array
+          items:
+            type: string
+          description: 'Gets or sets gateway names for this server. The catalog fills caller-visible names.
+
+            When the caller can revoke, that list is replaced with the tenant-wide names, which
+
+            include another user''s Personal gateway.'
+        hasTenantConfiguration:
+          type: boolean
+          description: Gets or sets a value indicating whether a Tenant-level configuration references this server.
+        personalHolders:
+          type: array
+          items:
+            $ref: '#/components/schemas/RevokePersonalHolder'
+          description: 'Gets or sets personal holders. Empty unless the caller can revoke. Then at most the
+
+            holder listing cap of Platform user ids, with the id as the display name and no email.
+
+            Never credential material.'
+        personalHolderCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets or sets the distinct personal holder total. Zero unless the caller can revoke.
+
+            This is not the deployment row count and it is not capped at IReadOnlyList&lt;RevokePersonalHolder&gt; LibraryServerWithAssignmentStatus.PersonalHolders.'
+          format: int32
+      description: 'Response model that combines library server information with its assignment status for the current tenant.
+
+        Used in Custom Mode administration to show all available servers with their enable/disable state.'
+    RemoteServerConfig:
+      type: object
+      properties:
+        transport:
+          type: string
+          description: Gets or sets the transport protocol (e.g., "sse" for Server-Sent Events).
+        connectionTimeoutSeconds:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the connection timeout in seconds.
+          format: int32
+        autoReconnect:
+          type: boolean
+          description: Gets or sets a value indicating whether to automatically reconnect on disconnect.
+        maxReconnectAttempts:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the maximum number of reconnection attempts.
+          format: int32
+        endpointConfig:
+          type: object
+          additionalProperties:
+            type: string
+          description: Gets or sets additional endpoint-specific configuration.
+        uri:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the remote server URI.
+        uriVariables:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            $ref: '#/components/schemas/UriVariable'
+          description: 'Gets or sets the URI variables that can be substituted in the URI.
+
+            Used for dynamic parameterization (e.g., {zone} for region, {token} for API keys).'
+        headers:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets HTTP headers to be sent with requests.
+
+            Supports both static headers and dynamic placeholders like {AuthToken} and {BasicAuth:VarName}.
+
+            For auth-type-specific headers (e.g., different Authorization formats), use AuthHeaders instead.'
+        oAuth:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets OAuth-specific configuration for Manual OAuth providers.
+
+              Contains OAuth endpoints and behavior configuration.'
+            $ref: '#/components/schemas/OAuthConfig'
+        authHeaders:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: string
+          description: 'Gets or sets auth-type-specific HTTP headers.
+
+            Keys are auth types (e.g., "ApiKey", "OAuth"), values are header dictionaries.
+
+            When a specific auth type is selected, headers from AuthHeaders[authType] are merged with/override base Headers.
+
+            This allows different Authorization header formats per auth type (e.g., "Basic {AuthToken}" for ApiKey, "Bearer {AuthToken}" for OAuth).'
+        bodyParams:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets parameters to inject into request bodies for MCP-Link servers.
+
+            Used for APIs that require authentication in the request body (e.g., Canny''s apiKey parameter).
+
+            Supports {AuthToken} placeholder for dynamic auth token injection.
+
+            Only applies to McpLink server types - regular remote servers ignore this property.'
+        oAuthResourceUrl:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the OAuth protected resource URL for DCR registration.
+
+            When set, this URL is sent as `ResourceUrl` to UCS instead of string? RemoteServerConfig.Uri,
+
+            enabling RFC 9728 (Protected Resource Metadata) discovery against an external OAuth provider
+
+            (e.g., Atlassian) while routing MCP traffic through the internal mcp-link service.'
+        useAcc:
+          type: boolean
+          description: 'Gets or sets a value indicating whether to route traffic through the ACC connector.
+
+            When true, the gateway routes traffic for this server through the tenant''s on-premise
+
+            ACC connector instead of direct HTTP. Transport mechanism TBD (MCPG-455 Phase 3).'
+        schemaHeaders:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets HTTP headers serialized into mcp-link''s `?sh=` query parameter for
+
+            OpenAPI spec fetching at session start (MCPG-756). Values may contain
+
+            `{SchemaCredential:FieldName}` placeholders, resolved at factory time against the
+
+            binder declared by string? RemoteServerConfig.SchemaCredentialProviderName and the per-tenant
+
+            SchemaCredentialBinderId on the integration row. Only applies to McpLink server types.'
+        schemaCredentialProviderName:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the UCS provider name used to resolve the secondary spec-fetch credential
+
+            (e.g. `"GithubPersonalAccessToken"`). Free-form string matching a provider in UCS
+
+            provider-definitions.json. The binder ID is selected per-tenant at integration-config
+
+            time and stored on the ProviderIntegration row, sibling to `CredentialProviderConfigId`.
+
+            Only meaningful when Dictionary&lt;string, string&gt;? RemoteServerConfig.SchemaHeaders contains a `{SchemaCredential:*}`
+
+            placeholder. Only applies to McpLink server types.'
+        accGroupId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the ACC connector group to route traffic through when bool RemoteServerConfig.UseAcc is true.
+
+            Null means "any connector for this tenant" (tenant-default routing).
+
+            Ignored when bool RemoteServerConfig.UseAcc is false.'
+          format: uuid
+        openApiYamlUrl:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the customer-supplied OpenAPI YAML URL for SpecLink (private-spec) custom servers (MCPG-803).
+
+            When set, the gateway infers `Type = McpLink` server-side and builds the canonical mcp-link URI
+
+            from this value + string? RemoteServerConfig.UpstreamApiBaseUrl. Ignored when both are null. Only meaningful on
+
+            custom servers created via the SpecLink wizard; seed entries use string? RemoteServerConfig.Uri directly.'
+        upstreamApiBaseUrl:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the upstream API base URL that the YAML at string? RemoteServerConfig.OpenApiYamlUrl describes (MCPG-803).
+
+            May contain `{Variable}` placeholders (e.g. `https://{Domain}.atlassian.net`) whose values are
+
+            stored in Dictionary&lt;string, string&gt;? RemoteServerConfig.UpstreamVariableValues and substituted gateway-side at connection-build time
+
+            (mcp-link does not expand base-URL variables). Used together with string? RemoteServerConfig.OpenApiYamlUrl to build
+
+            the canonical mcp-link URI server-side.'
+        upstreamVariableValues:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets the values for the `{Variable}` placeholders in string? RemoteServerConfig.UpstreamApiBaseUrl
+
+            (MCPG-803), keyed by variable name without braces (e.g. `{"CloudId": "abc-123"}`). Unlike the
+
+            URL fields these <b>are persisted</b> — the stored string? RemoteServerConfig.Uri only carries the unresolved
+
+            template, so the values are not derivable from it. Substituted into the canonical URI at
+
+            connection-build time by `SpecLinkUriResolver`. Only meaningful for SpecLink (McpLink) servers.'
+        skillRepoUrl:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the repository URL exposed through mcp-link skills mode.
+
+            The current mcp-link contract accepts public github.com URLs.
+
+            Transport-only: re-derived from string? RemoteServerConfig.Uri on responses and not persisted.'
+        skillRepoRef:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the optional Git ref used for skill discovery.
+
+            When omitted, mcp-link resolves the repository''s default branch.
+
+            Transport-only: re-derived from string? RemoteServerConfig.Uri on responses and not persisted.'
+        skillRepoPath:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the optional repository-relative subpath used for skill discovery.
+
+            Transport-only: re-derived from string? RemoteServerConfig.Uri on responses and not persisted.'
+        skillRepoProvider:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the repository host backing a SkillLink server, from
+
+            SkillRepoProviders. Defaults to
+
+            string SkillRepoProviders.GitHub when a SkillLink shape is saved without one.'
+        sourceRef:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the source ref the administrator configured for a SpecLink or SkillLink server
+
+            (MCPG-1891): the branch or tag name (for example `main`) that string? RemoteServerConfig.SourceRevision
+
+            was resolved from. Null for a content-hash pin (a non-GitHub spec URL) and for an unpinned row.'
+        sourceRevision:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the pinned source revision (MCPG-1891): the full 40-hex commit SHA for a GitHub
+
+            source, or the lowercase hex SHA-256 of the fetched document for any other https spec URL.
+
+            The canonical string? RemoteServerConfig.Uri embeds this value (as `ref=` inside `s=`, as the
+
+            skills `ref=`, or as the `v=` query parameter), which is what makes an explicit
+
+            refresh a guaranteed cache miss on every mcp-link replica. Null when the row is unpinned.'
+        sourceResolvedAt:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the instant string? RemoteServerConfig.SourceRevision was last resolved (MCPG-1891).
+
+            Null when the row is unpinned.'
+          format: date-time
+      description: Template configuration for remote MCP servers, loaded from known-mcp-servers.json.
+    ServerUsageInfo:
+      type: object
+      properties:
+        count:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of gateways using this server.
+          format: int32
+        gatewayNames:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the list of gateway names using this server.
+      description: Response model for server usage information by gateways.
+    McpServerType:
+      type: integer
+      description: An mcp server type enumeration.
+    UriVariableSharing:
+      enum:
+      - Shared
+      - Personal
+      description: 'Whether a catalog URI variable may be inherited onto another user''s Personal overlay
+
+        at read time (MCPG-1609). The overlay runs only for OAuth/Fhir Personal target rows.
+
+        Absent / default is UriVariableSharing.Shared so hostname and instance variables inherit
+
+        without marking every seed entry. Only UriVariableSharing.Personal is written in seed.
+
+        Does not constrain a Tenant-level row, which is shared by design.'
+    TestEndpointConfig:
+      type: object
+      properties:
+        uri:
+          type: string
+          description: 'Gets or sets the URI of the test endpoint.
+
+            Supports variable substitution (e.g., {AuthToken}).'
+        method:
+          type: string
+          description: Gets or sets the HTTP method to use (GET, POST, etc.).
+        headers:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets the headers to include in the request.
+
+            Supports variable substitution in values (e.g., "Bearer {AuthToken}").'
+        expectedStatusCodes:
+          type: array
+          items:
+            pattern: ^-?(?:0|[1-9]\d*)$
+            type:
+            - integer
+            - string
+            format: int32
+          description: Gets or sets the expected HTTP status codes that indicate success.
+      description: 'Configuration for testing credentials against an external API endpoint.
+
+        Used to validate authentication before establishing a full MCP connection.'
+    UpdateLibraryConfigurationRequest:
+      required:
+      - useCustomList
+      type: object
+      properties:
+        useCustomList:
+          type: boolean
+          description: 'Gets or sets a value indicating whether to use custom list mode.
+
+            When false (default), tenant sees all General servers plus assigned Restricted servers.
+
+            When true, tenant sees ONLY explicitly assigned servers.'
+      description: Request model for updating the tenant's library configuration mode.
+    RecoveryCommand:
+      type: integer
+    McpServerAuthType:
+      type: integer
+      description: An enumeration representing the authentication types for MCP servers.
+    OAuthCreationMethod:
+      type: integer
+    McpConnectionState:
+      type: object
+      properties:
+        outcome:
+          description: Gets the coarse outcome — the ubiquitous language shared across BE and FE.
+          $ref: '#/components/schemas/McpConnectionOutcome'
+        disabled:
+          type: boolean
+          description: 'Gets a value indicating whether an admin has disabled this integration at
+
+            the tenant level. Orthogonal to McpConnectionOutcome McpConnectionState.Outcome: the outcome still
+
+            reflects the underlying connection readiness, so re-enabling needs no
+
+            re-derivation. Only a configured row can be disabled.'
+        reason:
+          type:
+          - 'null'
+          - string
+          description: 'Gets the machine-readable reason from McpConnectionReasons,
+
+            or null when none applies. Set for McpConnectionOutcome.Error,
+
+            for Connected plus string McpConnectionReasons.RefreshPending, and
+
+            for NeedsSetup plus
+
+            string McpConnectionReasons.SchemaCredentialNotConfigured.'
+        reasonDetails:
+          type:
+          - 'null'
+          - string
+          description: 'Gets optional developer-facing detail refining the reason (e.g. UCS error
+
+            code, exception message). May be surfaced in logs and ProblemDetails but
+
+            must not be used for end-user UI strings.'
+        interactiveAvailable:
+          type:
+          - 'null'
+          - boolean
+          description: 'Gets a value indicating whether an interactive personal-OAuth connect,
+
+            setup, or reconnect can clear this classification. Present as
+
+            `true` only for `not_configured`,
+
+            `awaiting_credentials`, `credential_invalid`, and
+
+            `misconfigured` when the primary credential of an interactive
+
+            personal-OAuth source is the cause. Absent (`null`) for
+
+            non-interactive sources, Connected results, and reasons a primary
+
+            connect cannot clear. Never `false`.'
+        recoveryCommand:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets the recovery action for this classification. Null on an unstamped
+
+              singleton (omitted from JSON and gRPC). A stamped wire state always
+
+              carries a value other than RecoveryCommand.Unspecified.
+
+              Absent means the client keeps today''s derivation. Present is authoritative
+
+              and replaces reading string? McpConnectionState.Reason to choose Connect, Reconnect,
+
+              Configure, or Save credential.'
+            $ref: '#/components/schemas/RecoveryCommand'
+      description: "            State-only view of an MCP server connection — the wire-shape primitive that\n            every transport (REST, gRPC, SignalR push, future Orleans grain messages)\n            can carry without dragging the entire `McpServerConfiguration`\n            along. The build-outcome wrapper `McpConnectionResult` composes a\n            state with the optional built configuration.\n            Shape contract:* McpConnectionOutcome McpConnectionState.Outcome is always set.\n* string? McpConnectionState.Reason is set when\n                McpConnectionOutcome McpConnectionState.Outcome is McpConnectionOutcome.Error (from\n                McpConnectionReasons), when McpConnectionOutcome McpConnectionState.Outcome is\n                McpConnectionOutcome.Connected and the value is\n                string McpConnectionReasons.RefreshPending, or when\n                McpConnectionOutcome McpConnectionState.Outcome is McpConnectionOutcome.NeedsSetup\n                and the value is\n                string McpConnectionReasons.SchemaCredentialNotConfigured. Other\n                Connected and NeedsSetup results keep string? McpConnectionState.Reason null.\n                Unknown non-error reasons are informational and never a gate.\n* string? McpConnectionState.ReasonDetails is an optional human-readable refinement\n                (UCS error code, exception message) intended for logs and developer-facing\n                diagnostics — not for end-user UI strings.\n* Exception? McpConnectionState.Error is the original exception when the outcome was\n                caused by one. Internal use only — never serialized.\n* bool McpConnectionState.Disabled is an orthogonal admin-disable flag — it can\n                be true alongside any McpConnectionOutcome McpConnectionState.Outcome (a Connected or NeedsAuth\n                server can still be admin-disabled), so it does not collapse into the\n                readiness outcome.\n* bool? McpConnectionState.InteractiveAvailable is present (`true`)\n                only for a user-recoverable classification of an interactive personal-OAuth\n                source. It is omitted (`null`) otherwise and is never\n                `false`.\n* RecoveryCommand? McpConnectionState.RecoveryCommand is the recovery action. It is omitted\n                (`null`) on an unstamped singleton so an old payload stays\n                absent. A present value is authoritative. RecoveryCommand.Unspecified\n                is never stored."
+    LandingPage:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Gets or sets the URL of the landing page.
+        screenshot:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the screenshot URL for the landing page.
+      description: Landing page information for the MCP server.
+    McpServerDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the unique identifier for the server.
+          format: uuid
+        provider:
+          description: Gets or sets the known MCP server provider identifier.
+          $ref: '#/components/schemas/KnownMcpProvider'
+        type:
+          description: Gets or sets the server type (Remote, Sandbox, Hosted, McpLink).
+          $ref: '#/components/schemas/McpServerType'
+        name:
+          type: string
+          description: Gets or sets the display name of the server.
+        description:
+          type: string
+          description: Gets or sets the brief description of the server.
+        scopes:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the OAuth scopes required by the server.
+        authType:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerAuthType'
+          description: Gets or sets the supported authentication types.
+        tags:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the tags associated with the server.
+        category:
+          type: string
+          description: Gets or sets the category of the server.
+        status:
+          description: Gets or sets the catalog status of the server.
+          $ref: '#/components/schemas/McpServerStatus'
+        availability:
+          description: 'Gets or sets the availability of the server.
+
+            Defaults to General if not specified.'
+          $ref: '#/components/schemas/ServerAvailability'
+        featured:
+          type: boolean
+          description: 'Gets or sets a value indicating whether this server is featured.
+
+            Featured servers are curated, high-profile integrations highlighted in the catalog.'
+        longDescription:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the detailed description of the server.
+        features:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: Gets or sets the list of key features.
+        ui:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the UI configuration for the server.
+            $ref: '#/components/schemas/UiConfiguration'
+        remoteConfig:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the remote server configuration.
+
+              Contains Uri, Transport, and other remote-specific settings.'
+            $ref: '#/components/schemas/RemoteServerConfig'
+        requestTimeoutSeconds:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets or sets the request timeout in seconds for waiting for responses from the server.
+
+            Default: 60 seconds. Set higher for servers that may take longer to process requests.'
+          format: int32
+        testEndpoint:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the test endpoint configuration for credential validation.
+            $ref: '#/components/schemas/TestEndpointConfig'
+      description: 'Base server definition shared by both catalog servers (KnownMcpServer)
+
+        and custom tenant servers (`CustomRemoteServerEntity`).
+
+        Contains the core fields needed for server resolution, configuration, and runtime operation.'
+    KnownMcpServerWithStatus:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets the unique identifier for the server.
+          format: uuid
+        provider:
+          description: Gets the known MCP server provider identifier.
+          $ref: '#/components/schemas/KnownMcpProvider'
+        type:
+          description: Gets the server type (Remote, Sandbox, Hosted, McpLink).
+          $ref: '#/components/schemas/McpServerType'
+        name:
+          type: string
+          description: Gets the display name of the server.
+        description:
+          type: string
+          description: Gets the brief description of the server.
+        scopes:
+          type: array
+          items:
+            type: string
+          description: Gets the OAuth scopes required by the server.
+        authType:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerAuthType'
+          description: Gets the supported authentication types.
+        tags:
+          type: array
+          items:
+            type: string
+          description: Gets the tags associated with the server.
+        category:
+          type: string
+          description: Gets the category of the server.
+        status:
+          description: Gets the catalog status of the server.
+          $ref: '#/components/schemas/McpServerStatus'
+        availability:
+          description: Gets the availability of the server.
+          $ref: '#/components/schemas/ServerAvailability'
+        featured:
+          type: boolean
+          description: Gets a value indicating whether this server is featured.
+        longDescription:
+          type:
+          - 'null'
+          - string
+          description: Gets the detailed description of the server.
+        features:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: Gets the list of key features.
+        ui:
+          oneOf:
+          - type: 'null'
+          - description: Gets the UI configuration for the server.
+            $ref: '#/components/schemas/UiConfiguration'
+        remoteConfig:
+          oneOf:
+          - type: 'null'
+          - description: Gets the remote server configuration.
+            $ref: '#/components/schemas/RemoteServerConfig'
+        requestTimeoutSeconds:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the request timeout in seconds.
+          format: int32
+        testEndpoint:
+          oneOf:
+          - type: 'null'
+          - description: Gets the test endpoint configuration for credential validation.
+            $ref: '#/components/schemas/TestEndpointConfig'
+        oAuthCreationMethod:
+          oneOf:
+          - type: 'null'
+          - description: Gets the OAuth creation method.
+            $ref: '#/components/schemas/OAuthCreationMethod'
+        images:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/McpImage'
+          description: Gets the images for the MCP server.
+        documentation:
+          oneOf:
+          - type: 'null'
+          - description: Gets the documentation links for the MCP server.
+            $ref: '#/components/schemas/McpDocumentation'
+        systemRequirements:
+          oneOf:
+          - type: 'null'
+          - description: Gets the system requirements for locally installed apps.
+            $ref: '#/components/schemas/McpSystemRequirements'
+        addedDate:
+          type:
+          - 'null'
+          - string
+          description: Gets the date when the app was added to the catalog.
+        permissionDescriptions:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: Gets the permission descriptions.
+        landingPage:
+          oneOf:
+          - type: 'null'
+          - description: Gets the landing page information.
+            $ref: '#/components/schemas/LandingPage'
+        videos:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/Video'
+          description: Gets the tutorial videos.
+        links:
+          oneOf:
+          - type: 'null'
+          - description: Gets the various links related to the app.
+            $ref: '#/components/schemas/Links'
+        currentAuthType:
+          oneOf:
+          - type: 'null'
+          - description: Gets the authentication type currently configured for the calling tenant, if any.
+            $ref: '#/components/schemas/McpServerAuthType'
+        state:
+          description: 'Gets the unified connection state — the FE-aligned ubiquitous-language
+
+            projection of (integration row state, personal-cred presence,
+
+            catalog requirements). Single source of truth for connection state
+
+            across REST and gRPC. Always present on the wire; defaults to
+
+            McpConnectionState McpConnectionState.NeedsSetup.'
+          $ref: '#/components/schemas/McpConnectionState'
+      description: 'Wire-shape DTO returned by the `/library/.../status` REST endpoints.
+
+        Carries the catalog metadata for a server (from
+
+        KnownMcpServerCatalog or a custom-server source) plus the
+
+        per-request integration status (from KnownMcpServerStatusInfo).'
+    KnownMcpServer:
+      type: object
+      properties:
+        oAuthCreationMethod:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the OAuth creation method for OAuth-enabled servers.
+
+              Determines whether OAuth credentials are obtained via DCR (automatic) or Manual (user-provided).'
+            $ref: '#/components/schemas/OAuthCreationMethod'
+        images:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/McpImage'
+          description: Gets or sets the images for the MCP server.
+        documentation:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the documentation links for the MCP server.
+            $ref: '#/components/schemas/McpDocumentation'
+        systemRequirements:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the system requirements for locally installed apps.
+            $ref: '#/components/schemas/McpSystemRequirements'
+        addedDate:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the date when the app was added to the catalog.
+        permissionDescriptions:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: Gets or sets the permission descriptions mapping permission names to their descriptions.
+        landingPage:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the landing page information.
+            $ref: '#/components/schemas/LandingPage'
+        videos:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/Video'
+          description: Gets or sets the tutorial videos.
+        links:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the various links related to the app.
+            $ref: '#/components/schemas/Links'
+        credentialProviderConfigIds:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+            format: uuid
+          description: 'Gets or sets the seeded `CredentialProviderConfigId`s for this server,
+
+            keyed by UCS realm name (e.g. `storm-mcp`, `airia-platform`).
+
+            MCPG-816: source of truth for the running realm''s
+
+            `CredentialProviderConfigId` for the legacy hosted providers
+
+            (MicrosoftGraph, GoogleSuite, Slack, Atlassian) that pre-date the
+
+            `CredentialProviderConfigId` model. The closed provider allow-list
+
+            and the McpServerType.Hosted structural invariant are
+
+            enforced by `known-mcp-servers.schema.json` at edit / CI time;
+
+            `SeededCredentialProviderConfigResolver` re-checks the structural
+
+            invariant at request time and surfaces malformed seeds via
+
+            InvalidSeed. Never copied
+
+            onto the integration row; readers consult this map only via the
+
+            resolver service, which has the running realm pre-bound.'
+        id:
+          type: string
+          description: Gets or sets the unique identifier for the server.
+          format: uuid
+        provider:
+          description: Gets or sets the known MCP server provider identifier.
+          $ref: '#/components/schemas/KnownMcpProvider'
+        type:
+          description: Gets or sets the server type (Remote, Sandbox, Hosted, McpLink).
+          $ref: '#/components/schemas/McpServerType'
+        name:
+          type: string
+          description: Gets or sets the display name of the server.
+        description:
+          type: string
+          description: Gets or sets the brief description of the server.
+        scopes:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the OAuth scopes required by the server.
+        authType:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerAuthType'
+          description: Gets or sets the supported authentication types.
+        tags:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the tags associated with the server.
+        category:
+          type: string
+          description: Gets or sets the category of the server.
+        status:
+          description: Gets or sets the catalog status of the server.
+          $ref: '#/components/schemas/McpServerStatus'
+        availability:
+          description: 'Gets or sets the availability of the server.
+
+            Defaults to General if not specified.'
+          $ref: '#/components/schemas/ServerAvailability'
+        featured:
+          type: boolean
+          description: 'Gets or sets a value indicating whether this server is featured.
+
+            Featured servers are curated, high-profile integrations highlighted in the catalog.'
+        longDescription:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the detailed description of the server.
+        features:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: Gets or sets the list of key features.
+        ui:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the UI configuration for the server.
+            $ref: '#/components/schemas/UiConfiguration'
+        remoteConfig:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the remote server configuration.
+
+              Contains Uri, Transport, and other remote-specific settings.'
+            $ref: '#/components/schemas/RemoteServerConfig'
+        requestTimeoutSeconds:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets or sets the request timeout in seconds for waiting for responses from the server.
+
+            Default: 60 seconds. Set higher for servers that may take longer to process requests.'
+          format: int32
+        testEndpoint:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the test endpoint configuration for credential validation.
+            $ref: '#/components/schemas/TestEndpointConfig'
+      description: Static catalog definition of an available MCP server, loaded from known-mcp-servers.json.
+    UiConfiguration:
+      type: object
+      properties:
+        icon:
+          type: string
+          description: Gets or sets the React Icons component name.
+        colorClass:
+          type: string
+          description: Gets or sets the Tailwind CSS text color class.
+        bgGradient:
+          type: string
+          description: Gets or sets the Tailwind CSS gradient classes.
+      description: UI configuration for the MCP server display.
+    ServerAvailability:
+      enum:
+      - General
+      - Restricted
+      description: Enumeration for MCP server availability levels.
+    McpDocumentation:
+      type: object
+      properties:
+        official:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the official documentation URL.
+        internal:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the internal documentation path.
+        setup:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the setup guide path.
+      description: Documentation links.
+    TenantLibraryConfigurationEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the Primary key.
+          format: uuid
+        tenantId:
+          type: string
+          description: Gets or sets the TenantId of the tenant that owns this entity.
+          format: uuid
+        createdAt:
+          type: string
+          description: Gets the creation timestamp.
+          format: date-time
+        updatedAt:
+          type: string
+          description: Gets or sets the last update timestamp.
+          format: date-time
+        useCustomList:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the tenant uses a custom server list.
+
+            When false (default), tenant sees all General servers plus assigned Restricted servers.
+
+            When true, tenant sees ONLY explicitly assigned servers.'
+      description: 'Represents tenant library configuration for controlling server list display mode.
+
+        Determines whether a tenant uses Default Mode (all General servers) or Custom Mode (only assigned servers).'
+    KnownMcpProvider:
+      type: integer
+      description: An MCP Server provider type.
+    Video:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Gets or sets the title of the video.
+        url:
+          type: string
+          description: Gets or sets the URL of the video.
+        type:
+          type: string
+          description: Gets or sets the type of video (e.g., "youtube").
+        embedUrl:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the embed URL for the video.
+      description: Video tutorial information.
+    RevokePersonalHolder:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Gets the user id of the personal connection.
+          format: uuid
+        displayName:
+          type: string
+          description: Gets the display name. It is the Platform user id. No profile is resolved.
+        email:
+          type:
+          - 'null'
+          - string
+          description: Gets the email. Always null. No profile is resolved.
+      description: 'Who holds a Personal connection that blocks removing an app''s approval.
+
+        An identity for a caller who can revoke: the Platform user id, with
+
+        string RevokePersonalHolder.DisplayName set to that id and string? RevokePersonalHolder.Email null.
+
+        The gateway does not resolve a profile. Never a credential, a token, or a
+
+        provider configuration id.'
+    Links:
+      type: object
+      properties:
+        mainSite:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the main site URL.
+        documentation:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the documentation URL.
+        apiKeyCreation:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the API key creation URL.
+      description: Various links related to the MCP server.

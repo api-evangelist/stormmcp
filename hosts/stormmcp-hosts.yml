@@ -43,6 +43,7 @@ hosts:
   - docs-index
   - contract-discovery
   - well-known
+  - vendor-detect
   types:
   - Website
   - Documentation
@@ -51,6 +52,8 @@ hosts:
   - GettingStarted
   serves:
   - docs
+  - cdn
+  vendor: cloudflare
   registrable_domain: stormmcp.ai
   role: website
   relation: own

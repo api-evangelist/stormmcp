@@ -1,0 +1,3006 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Integrations API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: Integrations
+paths:
+  /api/v1/Integrations/credential-summary:
+    post:
+      tags:
+      - Integrations
+      summary: Returns the UCS binder ids a set of libraries link, and the caller's state for…
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: 'null'
+              - $ref: '#/components/schemas/CredentialBindingSummaryRequest'
+          text/json:
+            schema:
+              oneOf:
+              - type: 'null'
+              - $ref: '#/components/schemas/CredentialBindingSummaryRequest'
+          application/*+json:
+            schema:
+              oneOf:
+              - type: 'null'
+              - $ref: '#/components/schemas/CredentialBindingSummaryRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CredentialBindingSummaryRow'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CredentialBindingSummaryRow'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CredentialBindingSummaryRow'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CredentialBindingSummaryRow'
+            application/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CredentialBindingSummaryRow'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1IntegrationsCredentialSummary
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/configuration/schema:
+    get:
+      tags:
+      - Integrations
+      summary: Gets the configuration schema for a specific library or custom server.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap or custom server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: level
+        in: query
+        description: 'Exact configuration level for None-schema synthesis. When omitted, the catalog-declared
+
+          auth set is returned unchanged.'
+        schema:
+          $ref: '#/components/schemas/Level'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/GenericProviderConfigurationModel'
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/GenericProviderConfigurationModel'
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/GenericProviderConfigurationModel'
+            text/csv:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/GenericProviderConfigurationModel'
+            application/csv:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/GenericProviderConfigurationModel'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1IntegrationsByLibraryIdConfigurationSchema
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/configuration:
+    get:
+      tags:
+      - Integrations
+      summary: Gets the current configuration values for a specific library or custom server.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap or custom server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: level
+        in: query
+        description: When set, returns only that level. When omitted, the caller's Personal row wins over the Tenant row.
+        schema:
+          $ref: '#/components/schemas/Level'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProviderIntegrationModelResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderIntegrationModelResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProviderIntegrationModelResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProviderIntegrationModelResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProviderIntegrationModelResponse'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1IntegrationsByLibraryIdConfiguration
+      x-operation-id-source: derived
+    post:
+      tags:
+      - Integrations
+      summary: Saves the configuration for a specific library or custom server.
+      description: 'Common 404 errors:
+
+        - Library ID not in known-mcp-servers.json.
+
+        - Provider missing from McpProviderConfigurationFactory switch statement.
+
+
+        409 Conflict error codes (in `ProblemDetails.Extensions["errorCode"]`):
+
+        - `TenantAlreadyExists` — a Tenant-level configuration already exists for this library.
+
+        - `PersonalConfigCannotCoexistWithTenant` — saving a Personal ApiKey while a Tenant ApiKey
+
+        already exists for this library is rejected (ApiKey XOR rule). Frontend may pre-flight via
+
+        `GET configuration/status?authType=ApiKey`.
+
+        - `TenantConfigCannotCoexistWithPersonal` — saving a Tenant ApiKey while any Personal ApiKey
+
+        already exists for this library is rejected (ApiKey XOR rule). The Personal→Tenant promote path
+
+        excludes the user''s own row from the check so promotion of an existing Personal is allowed.
+
+        - `Gateway.ConfigurationAuthTypeConflict`: a no-id save would replace a Tenant row whose
+
+        auth type differs. The body names `existingConfigurationId` and `existingAuthType`.
+
+        A replace sends that id.
+
+        - `Gateway.ConfigurationConcurrentModification`: that same no-id Tenant save lost the
+
+        compare and the stored auth type is not a different type. The body may name
+
+        `existingConfigurationId`. It does not name `existingAuthType`. Reload and retry.'
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap or custom server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderIntegrationModelRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ProviderIntegrationModelRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ProviderIntegrationModelRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SaveProviderConfigurationResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveProviderConfigurationResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SaveProviderConfigurationResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/SaveProviderConfigurationResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/SaveProviderConfigurationResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '412':
+          description: Precondition Failed
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '501':
+          description: Not Implemented
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '504':
+          description: Gateway Timeout
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1IntegrationsByLibraryIdConfiguration
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - Integrations
+      summary: Deletes the configuration for a specific library
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: id
+        in: query
+        description: Optional ID of the specific configuration to delete. If not provided, uses priority logic.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '412':
+          description: Precondition Failed
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Too Many Requests
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '501':
+          description: Not Implemented
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '504':
+          description: Gateway Timeout
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1IntegrationsByLibraryIdConfiguration
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/configuration/status:
+    get:
+      tags:
+      - Integrations
+      summary: Returns dual-config presence flags for a (library, authType) pair within the…
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: authType
+        in: query
+        description: The auth type to filter on (e.g. `ApiKey`).
+        schema:
+          $ref: '#/components/schemas/McpServerAuthType'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LibraryConfigurationStatusResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LibraryConfigurationStatusResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LibraryConfigurationStatusResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryConfigurationStatusResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryConfigurationStatusResponse'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1IntegrationsByLibraryIdConfigurationStatus
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/uri-variables:
+    put:
+      tags:
+      - Integrations
+      summary: Sets or clears one inheritable shared URI variable on the caller's Personal row.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The catalog library.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalUriVariableOverrideRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PersonalUriVariableOverrideRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PersonalUriVariableOverrideRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1IntegrationsByLibraryIdUriVariables
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/schema-credential:
+    post:
+      tags:
+      - Integrations
+      summary: Creates the secondary spec-fetch credential for an MCP-Link library that…
+      description: 'Called by the deployment form''s "Connect to {Provider}" handler immediately before
+
+        kicking off the primary OAuth redirect. The endpoint creates a UCS static credential
+
+        for the supplied token and returns the binder id, which the frontend stashes in form
+
+        state and includes on the eventual deployment save as SchemaCredentialBinderId.
+
+        By the time the OAuth callback completes and the frontend asks for tools, both
+
+        credentials exist in UCS, so the gateway''s session-init can fetch the spec on the
+
+        very first attempt — sidestepping the chicken-and-egg between binder creation and
+
+        tool listing that would otherwise force a special-case create-then-edit UX.
+
+        Validation rules (all 400):
+
+        * Library not found → 404.
+
+        * Library is a custom server → 400 (schema credentials are seed-driven only).
+
+        * Library does not declare SchemaCredentialProviderName → 400.
+
+        * Request Provider does not match the seed-declared provider → 400.
+
+        * Empty token → 400.
+
+        * Caller lacks MCP Gateway manage → 403 OwnershipRequired.'
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveSchemaCredentialRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SaveSchemaCredentialRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SaveSchemaCredentialRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SaveSchemaCredentialResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveSchemaCredentialResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SaveSchemaCredentialResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/SaveSchemaCredentialResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/SaveSchemaCredentialResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1IntegrationsByLibraryIdSchemaCredential
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/personal-configurations:
+    get:
+      tags:
+      - Integrations
+      summary: Lists other users who hold a Personal configuration for a catalog library.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library id.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonalConfigurationHolder'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonalConfigurationHolder'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonalConfigurationHolder'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonalConfigurationHolder'
+            application/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonalConfigurationHolder'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1IntegrationsByLibraryIdPersonalConfigurations
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/personal-configurations/{userId}:
+    delete:
+      tags:
+      - Integrations
+      summary: Deletes another user's Personal configuration for a catalog library.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library id.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: userId
+        in: path
+        description: The holder.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: acknowledgmentToken
+        in: query
+        description: The digest from the User-scope preflight.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PersonalConfigurationDeleteOutcome'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalConfigurationDeleteOutcome'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PersonalConfigurationDeleteOutcome'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PersonalConfigurationDeleteOutcome'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/PersonalConfigurationDeleteOutcome'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1IntegrationsByLibraryIdPersonalConfigurationsByUserId
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/credential:
+    delete:
+      tags:
+      - Integrations
+      summary: Disconnects the current user's personal OAuth credential for a library.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: credentialId
+        in: query
+        description: Optional credential ID for direct deletion, skipping discovery.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1IntegrationsByLibraryIdCredential
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/credential-status:
+    get:
+      tags:
+      - Integrations
+      summary: Gets the current user's personal credential status for a library.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PersonalCredentialStatusResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalCredentialStatusResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PersonalCredentialStatusResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PersonalCredentialStatusResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/PersonalCredentialStatusResponse'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1IntegrationsByLibraryIdCredentialStatus
+      x-operation-id-source: derived
+  /api/v1/Integrations/status:
+    get:
+      tags:
+      - Integrations
+      summary: Gets the integration status for all providers
+      description: 'Publishes only configured provider rows, so
+
+        McpConnectionState ProviderIntegrationStatus.DeriveState(bool isInteractivePersonalOAuthSource) never emits
+
+        `not_configured` or `awaiting_credentials` here and
+
+        `interactiveAvailable` is absent by construction. Personal
+
+        credential-status and the catalog listing are the surfaces that carry
+
+        the field. The `DeriveState(bool)` call is retained so the stamp
+
+        stays on the same path as other producers; it is a no-op on Connected.'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProviderIntegrationStatusResponse'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProviderIntegrationStatusResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProviderIntegrationStatusResponse'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProviderIntegrationStatusResponse'
+            application/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProviderIntegrationStatusResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1IntegrationsStatus
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/status:
+    get:
+      tags:
+      - Integrations
+      summary: Gets the integration status for a specific library
+      description: 'Publishes only a configured provider row (missing is 404), so
+
+        McpConnectionState ProviderIntegrationStatus.DeriveState(bool isInteractivePersonalOAuthSource) never emits
+
+        `not_configured` or `awaiting_credentials` here and
+
+        `interactiveAvailable` is absent by construction. Personal
+
+        credential-status and the catalog listing are the surfaces that carry
+
+        the field. The `DeriveState(bool)` call is retained so the stamp
+
+        stays on the same path as other producers; it is a no-op on Connected.'
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProviderIntegrationStatusResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderIntegrationStatusResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProviderIntegrationStatusResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProviderIntegrationStatusResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProviderIntegrationStatusResponse'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1IntegrationsByLibraryIdStatus
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/test:
+    post:
+      tags:
+      - Integrations
+      summary: Tests the connection and functionality of a specific library integration.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap or custom server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: id
+        in: query
+        description: Optional specific configuration ID to test.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema: {}
+            application/json:
+              schema: {}
+            text/json:
+              schema: {}
+            text/csv:
+              schema: {}
+            application/csv:
+              schema: {}
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1IntegrationsByLibraryIdTest
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/test-credentials:
+    post:
+      tags:
+      - Integrations
+      summary: Tests credentials for a specific library integration against the provider's…
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap or custom server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: id
+        in: query
+        description: Optional specific configuration ID to test credentials for.
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: 'null'
+              - $ref: '#/components/schemas/CredentialTestRequest'
+          text/json:
+            schema:
+              oneOf:
+              - type: 'null'
+              - $ref: '#/components/schemas/CredentialTestRequest'
+          application/*+json:
+            schema:
+              oneOf:
+              - type: 'null'
+              - $ref: '#/components/schemas/CredentialTestRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CredentialTestResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialTestResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CredentialTestResult'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/CredentialTestResult'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/CredentialTestResult'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1IntegrationsByLibraryIdTestCredentials
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/enable:
+    patch:
+      tags:
+      - Integrations
+      summary: Enables a specific library integration.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap or custom server ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: id
+        in: query
+        description: Optional specific configuration ID to enable.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: patchApiV1IntegrationsByLibraryIdEnable
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/disable:
+    patch:
+      tags:
+      - Integrations
+      summary: Disables a specific library integration.
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library ID from the KnownMcpServerMap.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: id
+        in: query
+        description: Optional specific configuration ID to disable.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: patchApiV1IntegrationsByLibraryIdDisable
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/connections:
+    get:
+      tags:
+      - Integrations
+      summary: Lists an app's Tenant configuration and every personal connection in the…
+      parameters:
+      - name: libraryId
+        in: path
+        description: The app.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AppConnectionsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppConnectionsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AppConnectionsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AppConnectionsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AppConnectionsResponse'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1IntegrationsByLibraryIdConnections
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/connections/clear-impact:
+    post:
+      tags:
+      - Integrations
+      summary: 'The preflight of one App Management connection clear (MCPG-2383): the rows it…'
+      parameters:
+      - name: libraryId
+        in: path
+        description: The app.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClearConnectionsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClearConnectionsRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ClearConnectionsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ClearConnectionsImpactResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClearConnectionsImpactResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClearConnectionsImpactResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ClearConnectionsImpactResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ClearConnectionsImpactResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1IntegrationsByLibraryIdConnectionsClearImpact
+      x-operation-id-source: derived
+  /api/v1/Integrations/{libraryId}/connections/clear:
+    post:
+      tags:
+      - Integrations
+      summary: 'Runs one acknowledged App Management connection clear (MCPG-2383): one user''s…'
+      parameters:
+      - name: libraryId
+        in: path
+        description: The app.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClearConnectionsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClearConnectionsRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ClearConnectionsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ClearConnectionsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClearConnectionsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClearConnectionsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ClearConnectionsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ClearConnectionsResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1IntegrationsByLibraryIdConnectionsClear
+      x-operation-id-source: derived
+components:
+  schemas:
+    PersonalCredentialStatusResponse:
+      type: object
+      properties:
+        hasCredential:
+          type: boolean
+          description: Gets a value indicating whether the current user has a personal credential for this library.
+        credentialId:
+          type:
+          - 'null'
+          - string
+          description: Gets the credential ID (for disconnect). Null when bool PersonalCredentialStatusResponse.HasCredential is false.
+        providerConfigId:
+          type:
+          - 'null'
+          - string
+          description: Gets the UCS provider config ID that this credential belongs to.
+        state:
+          description: 'Gets the unified connection state — the FE-aligned ubiquitous-language
+
+            projection of (credential presence, validity). Single source of truth.
+
+            Always present on the wire; defaults to McpConnectionState McpConnectionState.NeedsSetup.'
+          $ref: '#/components/schemas/McpConnectionState'
+        grantType:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets the normalized grant type (`ClientCredentials` / `AuthorizationCode`),
+
+              or null when the server is not OAuth. Typed so the finite vocabulary reaches the
+
+              generated client; the wire form is unchanged (enums serialize as their name).'
+            $ref: '#/components/schemas/OAuthGrantType'
+      description: Response model for the personal credential status check.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    AppConnectionsResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets the app's library id.
+          format: uuid
+        tenantConfiguration:
+          oneOf:
+          - type: 'null'
+          - description: Gets the Tenant configuration, or null when the app has none.
+            $ref: '#/components/schemas/AppTenantConfigurationRow'
+        personalConnections:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppPersonalConnectionRow'
+          description: Gets every personal connection for the app in the tenant, sorted by user id.
+      description: 'The connections an authorized admin sees for one app on App Management (MCPG-2383): the
+
+        Tenant configuration and every personal connection, the caller''s own included.'
+    OAuthGrantType:
+      type: integer
+    CredentialTestResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Gets or sets a value indicating whether the test was successful.
+        statusCode:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the HTTP status code returned by the test endpoint.
+          format: int32
+        errorMessage:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the error message if the test failed.
+        responsePreview:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets a preview of the response body (truncated for large responses).
+        responseTimeMs:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the response time in milliseconds.
+          format: int64
+        uriVariableKey:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the URI variable name when the test failed because that variable
+
+            had no value. Null for every other result.'
+        uriVariableSource:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets where that failure belongs. One of
+
+            UriVariableFailureSources.
+
+            Null when string? CredentialTestResult.UriVariableKey is null.'
+      description: Result of a credential test operation.
+    PersonalConfigurationHolder:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Gets the platform user id.
+          format: uuid
+      description: A user who holds a Personal configuration. The id only.
+    McpConnectionOutcome:
+      type: integer
+      description: "            Coarse outcome of an MCP server's connection state — the FE-aligned ubiquitous\n            language used end-to-end across BE and FE to drive UI affordances.\n            One outcome per state; string? McpConnectionState.Reason refines an\nMcpConnectionOutcome.Error outcome with a machine-readable code from\nMcpConnectionReasons."
+    CredentialBindingSummaryRow:
+      required:
+      - libraryId
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets the catalog library id or custom server id.
+          format: uuid
+        tenantBinderId:
+          type:
+          - 'null'
+          - string
+          description: Gets the eligible Tenant binder the library links, or null when it has none.
+          format: uuid
+        personalBinderId:
+          type:
+          - 'null'
+          - string
+          description: Gets the app's anchored Personal binder, or null when it has none.
+          format: uuid
+        tenantCallerState:
+          oneOf:
+          - type: 'null'
+          - description: Gets the caller's state for Guid? CredentialBindingSummaryRow.TenantBinderId, or null when that id is absent.
+            $ref: '#/components/schemas/McpConnectionState'
+        personalCallerState:
+          oneOf:
+          - type: 'null'
+          - description: Gets the caller's state for Guid? CredentialBindingSummaryRow.PersonalBinderId, or null when that id is absent.
+            $ref: '#/components/schemas/McpConnectionState'
+      description: 'One library on the credential-binding summary. Ids are UCS binder ids.
+
+        States are the caller''s. This type carries no credential material.'
+    ProviderIntegrationModelResponse:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the unique identifier of the provider integration.
+          format: uuid
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether this integration is enabled.
+        configuration:
+          description: Gets or sets the configuration for this integration.
+          $ref: '#/components/schemas/GenericProviderConfigurationModel'
+        level:
+          description: 'Gets or sets the access level for this provider configuration.
+
+            Personal: only the creator can see and use this configuration.
+
+            Tenant: all users in the tenant organization can see and use this configuration.'
+          $ref: '#/components/schemas/Level'
+        userId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the user identifier of the user who owns this configuration.
+
+            Used by the frontend to determine if the current user can toggle the level.
+
+            Null when the scope is tenant-shared and no single owner exists.'
+          format: uuid
+        tenantConfigExists:
+          type:
+          - 'null'
+          - boolean
+          description: 'Gets or sets a value indicating whether a Tenant-level configuration exists for this library.
+
+            This is only populated when returning a Personal configuration (null for Tenant configs).'
+        credentialProviderConfigId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the credential provider configuration ID from the User Credential Store.
+
+            This is the ID of the OAuth provider configuration backing the integration.
+
+            Null when no OAuth provider configuration has been selected / registered yet.'
+          format: uuid
+        authType:
+          description: Gets or sets the authentication type stored on this configuration.
+          $ref: '#/components/schemas/McpServerAuthType'
+        uriVariableSources:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/UriVariableEffectiveValue'
+          description: 'Gets or sets the effective URI variable values for a Personal OAuth or Fhir row.
+
+            Each entry names the value the caller would use and where it came from
+
+            (`personal`, `tenant`, or `peer`). Null on every other row.
+
+            A secret-typed variable is listed with no value. This list is not written back
+
+            to the stored configuration.'
+      description: Represents a provider integration with its metadata and configuration.
+    CredentialBindingSummaryRequest:
+      type: object
+      properties:
+        libraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets the catalog library ids and custom server ids to summarize.
+      description: Batch request for the credential-binding summary.
+    SaveProviderConfigurationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Gets or sets the success message.
+        level:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the post-save credential scope when the save reports one.
+            $ref: '#/components/schemas/Level'
+      description: 'REST 200 body for `POST {libraryId}/configuration`. Carries the post-save
+
+        credential Level? SaveProviderConfigurationResponse.Level so NSwag emits it on `@airia/mcp-gateway-client`.
+
+        OAuth extra fields (redirect, provider-config id) ride Dictionary&lt;string, object&gt;? SaveProviderConfigurationResponse.AdditionalProperties.'
+    CredentialTestRequest:
+      type: object
+      properties:
+        authToken:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the authentication token to test.
+
+            If provided, tests this token directly without requiring a saved integration.
+
+            If null or empty, uses credentials from the saved integration.'
+      description: Request model for testing credentials against a provider's test endpoint.
+    RecoveryCommand:
+      type: integer
+    GenericProviderPropertyModel:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Gets or sets the property key/name.
+        friendlyName:
+          type: string
+          description: Gets or sets the friendly display name for the property.
+        type:
+          description: Gets or sets the property type.
+          $ref: '#/components/schemas/GenericProviderPropertyType'
+        value:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the current value of the property.
+        required:
+          type: boolean
+          description: Gets or sets a value indicating whether this property is required.
+        helpText:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the help text for this property.
+        placeholder:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the placeholder text for this property.
+        enumValues:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: Gets or sets the available values for Enum type properties.
+        enumLabels:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets the display labels for Enum values.
+
+            Maps enum value to its display label.'
+        dependsOn:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the key of another property this property depends on.
+
+            When set, this property should only be shown when the dependency has the value specified in ShowWhenValue.'
+        showWhenValue:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the value the dependency property must have for this property to be shown.
+
+            Used with DependsOn to create conditional visibility.'
+      description: Represents a single property in a generic provider configuration.
+    SaveSchemaCredentialRequest:
+      required:
+      - provider
+      - token
+      type: object
+      properties:
+        provider:
+          type: string
+          description: 'Gets or sets the UCS provider name (e.g. `"GithubPersonalAccessToken"`).
+
+            Must match the `SchemaCredentialProviderName` declared on the library''s
+
+            seed entry; the endpoint rejects mismatches.'
+        token:
+          minLength: 1
+          type: string
+          description: 'Gets or sets the raw secret value (e.g. a GitHub PAT). Stored verbatim into the
+
+            UCS credential''s `CustomApiKey` field — which is the field the seed entry''s
+
+            `SchemaHeaders` reference via `{SchemaCredential:CustomApiKey}`.'
+        level:
+          description: 'Gets or sets the access scope level for the credential. Defaults to
+
+            Level.Personal; schema credentials are typically per-user.'
+          $ref: '#/components/schemas/Level'
+      description: 'Request payload for creating the secondary spec-fetch credential for an MCP-Link server
+
+        whose seed entry declares `SchemaCredentialProviderName` (MCPG-756, MCPG-765).'
+    GenericProviderPropertyType:
+      enum:
+      - String
+      - Secret
+      - Boolean
+      - Integer
+      - Double
+      - Url
+      - Enum
+      description: Defines the available property types for generic provider configurations.
+    McpServerAuthType:
+      type: integer
+      description: An enumeration representing the authentication types for MCP servers.
+    SaveSchemaCredentialResponse:
+      type: object
+      properties:
+        schemaCredentialBinderId:
+          type: string
+          description: 'Gets or sets the UCS binder id of the newly-created schema credential. The frontend
+
+            stashes this in form state and includes it on the eventual deployment save so the
+
+            gateway can resolve the credential at session-create time.'
+          format: uuid
+      description: Response payload for SaveSchemaCredentialRequest (MCPG-756, MCPG-765).
+    Level:
+      enum:
+      - Personal
+      - Tenant
+    ClearConnectionsResponse:
+      type: object
+      properties:
+        clearedCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of rows the clear removed.
+          format: int32
+      description: Result of an acknowledged App Management connection clear (MCPG-2383).
+    PersonalUriVariableOverrideRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets or sets the URI variable name.
+        value:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the personal value. Empty removes the key.
+      description: Sets or clears one personal URI variable on the caller's Personal row.
+    ProviderIntegrationModelRequest:
+      required:
+      - authType
+      type: object
+      properties:
+        id:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the optional ID of the configuration being updated.
+
+            If provided, the update will target this specific config.
+
+            If not provided, a new config will be created (or existing at same level updated).'
+          format: uuid
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether this integration is enabled.
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: Gets or sets the configuration properties as simple key-value pairs.
+        level:
+          description: 'Gets or sets the access level for this provider configuration.
+
+            Personal: only the creator can see and use this configuration.
+
+            Tenant: all users in the tenant organization can see and use this configuration.
+
+            Defaults to Personal if not specified.'
+          $ref: '#/components/schemas/Level'
+        authType:
+          description: 'Gets or sets the authentication type selected by the user.
+
+            This must be provided by the frontend and match one of the auth types
+
+            supported by the provider in known-mcp-servers.json.'
+          $ref: '#/components/schemas/McpServerAuthType'
+      description: Request model for saving provider integration configuration.
+    AppTenantConfigurationRow:
+      type: object
+      properties:
+        authType:
+          oneOf:
+          - type: 'null'
+          - description: Gets the configuration's authentication type, when known.
+            $ref: '#/components/schemas/McpServerAuthType'
+        clearable:
+          type: boolean
+          description: 'Gets a value indicating whether an admin may clear it. A Tenant configuration is clearable
+
+            for every authentication type: the SP-680 wait applies to a chosen clear of another user''s
+
+            connection only. A clear that deletes an OAuth provider lists the personal OAuth connections
+
+            it removes in its preflight.'
+      description: An app's Tenant configuration as App Management lists it (MCPG-2383).
+    GenericProviderConfigurationModel:
+      type: object
+      properties:
+        properties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GenericProviderPropertyModel'
+          description: Gets or sets the configuration properties.
+        oAuthCreationMethod:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the OAuth creation method (Manual or DCR).
+
+            Helps the frontend decide whether to show a provider configuration dropdown (Manual)
+
+            or a transparent "Connect" button (DCR family sharing).'
+      description: 'Represents the configuration properties for a generic provider.
+
+        This class contains only the configuration parameters, not metadata like enabled status.'
+    AppPersonalConnectionRow:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Gets the owning user id. The platform shows that user's email.
+          format: uuid
+        authType:
+          oneOf:
+          - type: 'null'
+          - description: Gets the connection's authentication type, when known.
+            $ref: '#/components/schemas/McpServerAuthType'
+        source:
+          type: string
+          description: 'Gets where the connection is stored: one of AppRevokeConnectionSources.'
+        clearable:
+          type: boolean
+          description: 'Gets a value indicating whether an admin may clear it. False for an OAuth connection until
+
+            SP-680 lets the credential store honour an admin clear of another user''s OAuth token.'
+      description: One user's personal connection for an app, as App Management lists it (MCPG-2383).
+    UriVariableEffectiveValue:
+      required:
+      - key
+      - source
+      type: object
+      properties:
+        key:
+          type: string
+          description: Gets the declared variable name.
+        value:
+          type:
+          - 'null'
+          - string
+          description: Gets the effective value. Null for a secret-typed variable.
+        source:
+          type: string
+          description: 'Gets where the value came from: string UriVariableValueSources.Personal, string UriVariableValueSources.Tenant, or string UriVariableValueSources.Peer.'
+      description: 'One URI variable as the configuration GET reports it for a Personal row:
+
+        the value that would be used, and whether it is stored on that row or filled
+
+        from the tenant row or a peer row. Secret-typed variables omit string? UriVariableEffectiveValue.Value.'
+    ClearConnectionsImpactResponse:
+      type: object
+      properties:
+        scope:
+          type: string
+          description: Gets the clear scope.
+        personalRows:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppPersonalConnectionRow'
+          description: Gets the personal connections the clear removes, sorted by user id.
+        tenantRow:
+          oneOf:
+          - type: 'null'
+          - description: Gets the Tenant configuration the clear removes, for string ConnectionClearScopes.TenantConfiguration.
+            $ref: '#/components/schemas/AppTenantConfigurationRow'
+        removedPersonalRows:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppPersonalConnectionRow'
+          description: 'Gets the personal OAuth connections a string ConnectionClearScopes.TenantConfiguration
+
+            clear removes because they were issued under the OAuth provider the clear deletes, sorted by
+
+            user id. Empty for every other scope.'
+        removesPersonalOAuthUnderProvider:
+          type: boolean
+          description: 'Gets a value indicating whether the Tenant configuration clear deletes an OAuth provider, so
+
+            that every personal OAuth connection issued under it is removed, including any the gateway
+
+            holds no record of and cannot list by user. False for every other scope.'
+        digest:
+          type: string
+          description: Gets the acknowledgment digest of this impact.
+      description: 'The rows one connection clear would remove, and the digest the admin acknowledges (MCPG-2383).
+
+        Exactly one of IReadOnlyList&lt;AppPersonalConnectionRow&gt; ClearConnectionsImpactResponse.PersonalRows and AppTenantConfigurationRow? ClearConnectionsImpactResponse.TenantRow is populated, because no
+
+        scope chooses both. A Tenant configuration clear that deletes an OAuth provider also removes the
+
+        personal OAuth connections issued under it; those are listed in IReadOnlyList&lt;AppPersonalConnectionRow&gt; ClearConnectionsImpactResponse.RemovedPersonalRows,
+
+        not in IReadOnlyList&lt;AppPersonalConnectionRow&gt; ClearConnectionsImpactResponse.PersonalRows, because the admin did not choose them.'
+    McpConnectionState:
+      type: object
+      properties:
+        outcome:
+          description: Gets the coarse outcome — the ubiquitous language shared across BE and FE.
+          $ref: '#/components/schemas/McpConnectionOutcome'
+        disabled:
+          type: boolean
+          description: 'Gets a value indicating whether an admin has disabled this integration at
+
+            the tenant level. Orthogonal to McpConnectionOutcome McpConnectionState.Outcome: the outcome still
+
+            reflects the underlying connection readiness, so re-enabling needs no
+
+            re-derivation. Only a configured row can be disabled.'
+        reason:
+          type:
+          - 'null'
+          - string
+          description: 'Gets the machine-readable reason from McpConnectionReasons,
+
+            or null when none applies. Set for McpConnectionOutcome.Error,
+
+            for Connected plus string McpConnectionReasons.RefreshPending, and
+
+            for NeedsSetup plus
+
+            string McpConnectionReasons.SchemaCredentialNotConfigured.'
+        reasonDetails:
+          type:
+          - 'null'
+          - string
+          description: 'Gets optional developer-facing detail refining the reason (e.g. UCS error
+
+            code, exception message). May be surfaced in logs and ProblemDetails but
+
+            must not be used for end-user UI strings.'
+        interactiveAvailable:
+          type:
+          - 'null'
+          - boolean
+          description: 'Gets a value indicating whether an interactive personal-OAuth connect,
+
+            setup, or reconnect can clear this classification. Present as
+
+            `true` only for `not_configured`,
+
+            `awaiting_credentials`, `credential_invalid`, and
+
+            `misconfigured` when the primary credential of an interactive
+
+            personal-OAuth source is the cause. Absent (`null`) for
+
+            non-interactive sources, Connected results, and reasons a primary
+
+            connect cannot clear. Never `false`.'
+        recoveryCommand:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets the recovery action for this classification. Null on an unstamped
+
+              singleton (omitted from JSON and gRPC). A stamped wire state always
+
+              carries a value other than RecoveryCommand.Unspecified.
+
+              Absent means the client keeps today''s derivation. Present is authoritative
+
+              and replaces reading string? McpConnectionState.Reason to choose Connect, Reconnect,
+
+              Configure, or Save credential.'
+            $ref: '#/components/schemas/RecoveryCommand'
+      description: "            State-only view of an MCP server connection — the wire-shape primitive that\n            every transport (REST, gRPC, SignalR push, future Orleans grain messages)\n            can carry without dragging the entire `McpServerConfiguration`\n            along. The build-outcome wrapper `McpConnectionResult` composes a\n            state with the optional built configuration.\n            Shape contract:* McpConnectionOutcome McpConnectionState.Outcome is always set.\n* string? McpConnectionState.Reason is set when\n                McpConnectionOutcome McpConnectionState.Outcome is McpConnectionOutcome.Error (from\n                McpConnectionReasons), when McpConnectionOutcome McpConnectionState.Outcome is\n                McpConnectionOutcome.Connected and the value is\n                string McpConnectionReasons.RefreshPending, or when\n                McpConnectionOutcome McpConnectionState.Outcome is McpConnectionOutcome.NeedsSetup\n                and the value is\n                string McpConnectionReasons.SchemaCredentialNotConfigured. Other\n                Connected and NeedsSetup results keep string? McpConnectionState.Reason null.\n                Unknown non-error reasons are informational and never a gate.\n* string? McpConnectionState.ReasonDetails is an optional human-readable refinement\n                (UCS error code, exception message) intended for logs and developer-facing\n                diagnostics — not for end-user UI strings.\n* Exception? McpConnectionState.Error is the original exception when the outcome was\n                caused by one. Internal use only — never serialized.\n* bool McpConnectionState.Disabled is an orthogonal admin-disable flag — it can\n                be true alongside any McpConnectionOutcome McpConnectionState.Outcome (a Connected or NeedsAuth\n                server can still be admin-disabled), so it does not collapse into the\n                readiness outcome.\n* bool? McpConnectionState.InteractiveAvailable is present (`true`)\n                only for a user-recoverable classification of an interactive personal-OAuth\n                source. It is omitted (`null`) otherwise and is never\n                `false`.\n* RecoveryCommand? McpConnectionState.RecoveryCommand is the recovery action. It is omitted\n                (`null`) on an unstamped singleton so an old payload stays\n                absent. A present value is authoritative. RecoveryCommand.Unspecified\n                is never stored."
+    ProviderIntegrationStatusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the unique identifier of the provider integration.
+          format: uuid
+        libraryId:
+          type: string
+          description: Gets or sets the library ID for this provider.
+          format: uuid
+        provider:
+          description: Gets or sets the provider.
+          $ref: '#/components/schemas/KnownMcpProvider'
+        state:
+          description: 'Gets or sets the unified connection state — drives the row-level
+
+            connection affordance on the FE.'
+          $ref: '#/components/schemas/McpConnectionState'
+        lastUpdated:
+          type: string
+          description: Gets or sets the provider integration configuration.
+          format: date-time
+        authType:
+          description: Gets or sets the auth type.
+          $ref: '#/components/schemas/McpServerAuthType'
+        level:
+          description: 'Gets or sets the access level for this provider configuration.
+
+            Personal: only the creator can see and use this configuration.
+
+            Tenant: all users in the tenant organization can see and use this configuration.'
+          $ref: '#/components/schemas/Level'
+        userId:
+          type: string
+          description: 'Gets or sets the user identifier of the user who owns this configuration.
+
+            Used by the frontend to determine if the current user can toggle the level.'
+          format: uuid
+      description: A response model representing the integration status of a provider.
+    ClearConnectionsRequest:
+      type: object
+      properties:
+        scope:
+          type: string
+          description: 'Gets or sets the clear scope: one of ConnectionClearScopes.'
+        userId:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the user whose connection to clear. Required for string ConnectionClearScopes.User only.
+          format: uuid
+        acknowledgmentToken:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the digest the preflight returned. Required on the clear; ignored on the preflight.
+      description: Body of the App Management connection clear and its preflight (MCPG-2383).
+    KnownMcpProvider:
+      type: integer
+      description: An MCP Server provider type.
+    LibraryConfigurationStatusResponse:
+      type: object
+      properties:
+        tenantConfigExists:
+          type: boolean
+          description: Gets a value indicating whether a Tenant-level configuration exists for this library and auth type within the current tenant.
+        personalConfigExistsForCurrentUser:
+          type: boolean
+          description: Gets a value indicating whether a Personal-level configuration owned by the current user exists for this library and auth type.
+        anyPersonalConfigExists:
+          type: boolean
+          description: Gets a value indicating whether any Personal-level configuration (across all users in the tenant) exists for this library and auth type.
+      description: 'Response model for the per-library configuration-status pre-flight endpoint.
+
+        Lets the frontend detect dual-config state (Tenant vs Personal coexistence) for a given auth type
+
+        before attempting a save that would otherwise return 409.'
+    PersonalConfigurationDeleteOutcome:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+          description: Gets a value indicating whether the loaded gateway row was deleted.
+        replaced:
+          type: boolean
+          description: 'Gets a value indicating whether the holder saved a new configuration before the
+
+            loaded row could be deleted. That new row is left in place.'
+      description: What an admin delete of another user's Personal configuration did to the gateway row.

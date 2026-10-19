@@ -1,0 +1,268 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Library Catalog Invalidation API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: LibraryCatalogInvalidation
+paths:
+  /api/v1/admin/library-catalog-invalidation/{libraryId}:
+    post:
+      tags:
+      - LibraryCatalogInvalidation
+      summary: Invalidates one library for the caller's tenant
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library to invalidate.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LibraryCatalogInvalidationResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LibraryCatalogInvalidationResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LibraryCatalogInvalidationResult'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryCatalogInvalidationResult'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/LibraryCatalogInvalidationResult'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1AdminLibraryCatalogInvalidationByLibraryId
+      x-operation-id-source: derived
+components:
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    LibraryCatalogInvalidationIncompleteReason:
+      type: integer
+    LibraryCatalogInvalidationResult:
+      type: object
+      properties:
+        configurationsAddressed:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of gateway configurations whose stored snapshot was cleared.
+          format: int32
+        commandsIssued:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets the number of durable commands published. A tenant with more than
+
+            one source coordinate can contribute more than one command; holder tenant
+
+            ids stay the distinct set.'
+          format: int32
+        holderTenantIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets the holder tenants a command was issued for.
+        holderTenantsAttempted:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets the holder tenants this pass tried to invalidate (fence exceeded).
+
+            A tenant already at the command generation is not attempted.'
+        holderTenantsSkippedDuplicateKey:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets tenants skipped because SaveChanges hit the fence primary-key
+
+            conflict. Other tenants in the same pass still commit.'
+        holderTenantsSkippedConcurrency:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets tenants skipped after a concurrency retry could not prove the
+
+            clears and fence landed. Other tenants in the same pass still commit.'
+        holdersSkippedUnbound:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets configuration ids whose unbound observation was unusable: it failed,
+
+            produced a blank coordinate, or the refresh succeeded without establishing
+
+            freshness, with no recorded stamp to fall back to. This is not a veto of another
+
+            command. An unversioned copy on such a row may still be cleared by another
+
+            command for the library and counted in int LibraryCatalogInvalidationResult.ConfigurationsAddressed.'
+        holdersSkippedObservationFailed:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets configuration ids that were observed at request time and failed,
+
+            produced a blank coordinate, or whose refresh succeeded without
+
+            establishing freshness, with no recorded source coordinate to fall back to.'
+        holdersSkippedClearConflict:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets configuration ids that were addressed for a snapshot clear that a
+
+            concurrency retry could not prove landed. Present only on
+
+            string LibraryCatalogInvalidationErrorCodes.CatalogSnapshotClearConflict.
+
+            This is not an observation failure and is never merged into
+
+            IReadOnlyList&lt;Guid&gt; LibraryCatalogInvalidationResult.HoldersSkippedObservationFailed.'
+        holdersNotAttempted:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets configuration ids whose holder binding was not observed because the
+
+            per-request binding cap or observation deadline was hit. Empty on a
+
+            complete pass. This is not an observation failure.'
+        holdersCoveredByCoordinate:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets configuration ids of blank Cleared holders covered by one observation
+
+            of an unfenced recorded coordinate for the same tenant. Not skipped and
+
+            not unattempted. The command identity is (tenant, library, coordinate,
+
+            generation).'
+        incompleteReason:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets why a pass stopped early:
+
+              LibraryCatalogInvalidationIncompleteReason.ObservationCap,
+
+              LibraryCatalogInvalidationIncompleteReason.ObservationDeadline,
+
+              or LibraryCatalogInvalidationIncompleteReason.CascadeDeadline.
+
+              Null when every holder binding was observed or covered by a selected
+
+              coordinate, and a cascade either finished or was not run.'
+            $ref: '#/components/schemas/LibraryCatalogInvalidationIncompleteReason'
+        reason:
+          type:
+          - 'null'
+          - string
+          description: 'Gets the typed refusal when the issuer did not issue a command, or
+
+            `null` on success.'
+      description: 'Counts owned by the gateway issuer of a library catalog invalidation (MCPG-1833).
+
+        Issuer-owned configuration and command counts are not cross-store completion.
+
+        The pending/retry report pointer for the platform-side outcome arrives with the
+
+        platform consumer slice of OpenSpec task 3.2.'

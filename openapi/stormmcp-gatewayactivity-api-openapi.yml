@@ -1,0 +1,573 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Gateway Activity API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: GatewayActivity
+paths:
+  /api/v1/analytics/gateway-activity:
+    get:
+      tags:
+      - GatewayActivity
+      summary: Gets gateway activity across all users for the specified date range
+      parameters:
+      - name: from
+        in: query
+        description: Start date (defaults to 24 hours ago).
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        description: End date (defaults to now).
+        schema:
+          type: string
+          format: date-time
+      - name: granularity
+        in: query
+        description: Time period granularity (hourly, daily, weekly, monthly).
+        schema:
+          type: string
+          default: daily
+      - name: methods
+        in: query
+        description: Comma-separated list of MCP methods to filter by (optional).
+        schema:
+          type: string
+      - name: includePreviousPeriod
+        in: query
+        description: Whether to include previous period metrics for delta comparison.
+        schema:
+          type: boolean
+          default: false
+      - name: includeSessions
+        in: query
+        description: 'Whether to populate `Sessions` with the per-session list. Off by default: the list is
+
+          unbounded (megabytes for a six-month range) and the summary and period breakdown already carry
+
+          every aggregate.'
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfGatewayActivityResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfGatewayActivityResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfGatewayActivityResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfGatewayActivityResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfGatewayActivityResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AnalyticsGatewayActivity
+      x-operation-id-source: derived
+components:
+  schemas:
+    GatewayActivityPeriodGateway:
+      type: object
+      properties:
+        gatewayId:
+          type: string
+          description: Gets or sets the gateway configuration ID. Guid Guid.Empty for a row-less session.
+          format: uuid
+        sessionType:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the session type of a row-less session: set only when Guid GatewayActivityPeriodGateway.GatewayId is
+
+              Guid Guid.Empty, where it tells McpSessionType.Dynamic from
+
+              McpSessionType.Ephemeral (null there means a legacy row). Null for a resolved gateway.'
+            $ref: '#/components/schemas/McpSessionType'
+        gatewayName:
+          type: string
+          description: Gets or sets the gateway display name, as Dictionary&lt;string, int&gt; GatewayActivityPeriod.GatewayCounts keys it.
+        count:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of request log entries in the period.
+          format: int32
+      description: Request count for one gateway in one activity period, with the gateway's identity (MCPG-2095).
+    GatewayActivitySummary:
+      type: object
+      properties:
+        totalActiveSessions:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of active sessions in the period.
+          format: int32
+        uniqueUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of unique users with sessions.
+          format: int32
+        uniqueGateways:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of unique gateway configurations used.
+          format: int32
+        totalGatewaysAvailable:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of gateway configurations available.
+          format: int32
+        averageSessionDurationMinutes:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the average session duration in minutes.
+          format: double
+        methodCounts:
+          type: object
+          additionalProperties:
+            pattern: ^-?(?:0|[1-9]\d*)$
+            type:
+            - integer
+            - string
+            format: int32
+          description: Gets or sets the methods called during this period.
+        assetUsageCounts:
+          type: object
+          additionalProperties:
+            pattern: ^-?(?:0|[1-9]\d*)$
+            type:
+            - integer
+            - string
+            format: int32
+          description: Gets or sets the specific tools/assets called during this period (when method is tools/call, prompts/get, etc.).
+        totalCalls:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of request log entries in the period.
+          format: int32
+        failedCalls:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of failed calls (error or denied status).
+          format: int32
+        errorRate:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the error rate as a decimal (0.0 to 1.0).
+          format: double
+        p50LatencyMs:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the 50th percentile latency in milliseconds.
+          format: double
+        p95LatencyMs:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the 95th percentile latency in milliseconds.
+          format: double
+        p99LatencyMs:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the 99th percentile latency in milliseconds.
+          format: double
+        previousPeriodTotalCalls:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the total calls in the previous period (for delta comparison). Null if not requested.
+          format: int32
+        previousPeriodErrorRate:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - 'null'
+          - number
+          - string
+          description: Gets or sets the error rate in the previous period. Null if not requested.
+          format: double
+        previousPeriodP95LatencyMs:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - 'null'
+          - number
+          - string
+          description: Gets or sets the P95 latency in the previous period in milliseconds. Null if not requested.
+          format: double
+        topTools:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopToolDetail'
+          description: Gets or sets the detailed top tools list with per-tool metrics.
+      description: Summary statistics for gateway activity.
+    GatewayActivityResponse:
+      type: object
+      properties:
+        summary:
+          description: Gets or sets the summary statistics for the period.
+          $ref: '#/components/schemas/GatewayActivitySummary'
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewaySessionDetail'
+          description: Gets or sets the detailed session information.
+        activityByPeriod:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayActivityPeriod'
+          description: Gets or sets the activity breakdown by time period based on granularity.
+      description: Response model for gateway activity analytics.
+    GatewaySessionDetail:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          description: Gets or sets the session ID.
+        gatewayId:
+          type: string
+          description: Gets or sets the gateway configuration ID.
+          format: uuid
+        userId:
+          type: string
+          description: Gets or sets the user ID.
+        registeredAt:
+          type: string
+          description: Gets or sets when the session was registered.
+          format: date-time
+        lastActiveAt:
+          type: string
+          description: Gets or sets when the session was last active.
+          format: date-time
+        durationMinutes:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the session duration in minutes.
+          format: double
+        isActive:
+          type: boolean
+          description: Gets or sets a value indicating whether the session is currently active.
+      description: Detailed information about a gateway session.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    GatewayActivityPeriod:
+      type: object
+      properties:
+        periodStart:
+          type: string
+          description: Gets or sets the period start time.
+          format: date-time
+        periodEnd:
+          type: string
+          description: Gets or sets the period end time.
+          format: date-time
+        activeSessions:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of active sessions in this period.
+          format: int32
+        uniqueUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of unique users in this period.
+          format: int32
+        methodCounts:
+          type: object
+          additionalProperties:
+            pattern: ^-?(?:0|[1-9]\d*)$
+            type:
+            - integer
+            - string
+            format: int32
+          description: Gets or sets the methods called in this period.
+        assetUsageCounts:
+          type: object
+          additionalProperties:
+            pattern: ^-?(?:0|[1-9]\d*)$
+            type:
+            - integer
+            - string
+            format: int32
+          description: Gets or sets the specific assets/tools used in this period.
+        gatewayCounts:
+          type: object
+          additionalProperties:
+            pattern: ^-?(?:0|[1-9]\d*)$
+            type:
+            - integer
+            - string
+            format: int32
+          description: Gets or sets the per-gateway request counts in this period, keyed by gateway display name.
+        gatewayBreakdown:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayActivityPeriodGateway'
+          description: 'Gets or sets the per-gateway request counts in this period with the gateway''s identity carried
+
+            structurally (MCPG-2095), so a caller can label and key a series without matching
+
+            Dictionary&lt;string, int&gt; GatewayActivityPeriod.GatewayCounts display-name text. One entry per (gateway id, row-less session type);
+
+            carries the same rows as Dictionary&lt;string, int&gt; GatewayActivityPeriod.GatewayCounts, which is kept for callers that predate it.'
+        totalCalls:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of request log entries in this period.
+          format: int32
+        failedCalls:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of failed calls in this period.
+          format: int32
+        errorRate:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the error rate in this period as a decimal (0.0 to 1.0).
+          format: double
+      description: Activity data for a specific time period.
+    AnalyticsResponseOfGatewayActivityResponse:
+      type: object
+      properties:
+        data:
+          description: Gets or sets the analytics data.
+          $ref: '#/components/schemas/GatewayActivityResponse'
+        metadata:
+          description: Gets or sets metadata about the response.
+          $ref: '#/components/schemas/AnalyticsMetadata'
+        fromCache:
+          type: boolean
+          description: Gets or sets a value indicating whether this data was cached.
+        cacheAgeMinutes:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the cache age in minutes.
+          format: int32
+      description: Generic wrapper for analytics responses.
+    McpSessionType:
+      type: integer
+    TopToolDetail:
+      type: object
+      properties:
+        toolName:
+          type: string
+          description: Gets or sets the tool/asset name.
+        serverName:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the upstream MCP server name.
+        gatewayName:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the gateway name.
+        gatewayId:
+          type: string
+          description: Gets or sets the gateway configuration ID.
+          format: uuid
+        sessionType:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the session type of a row-less session (MCPG-2042): set only when Guid TopToolDetail.GatewayId is
+
+              Guid Guid.Empty, where it is the structural signal that tells a
+
+              McpSessionType.Dynamic tool from an McpSessionType.Ephemeral one (and null
+
+              there means a legacy row). Rows are grouped by (tool, gateway, row-less session type), so those two are
+
+              separate rows while a resolved gateway keeps one row per tool whichever entry point served it, and carries
+
+              null here.'
+            $ref: '#/components/schemas/McpSessionType'
+        callCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of calls to this tool.
+          format: int32
+        errorCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of calls that resulted in an error or denied status.
+          format: int32
+        avgLatencyMs:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the average latency in milliseconds for calls to this tool.
+          format: double
+      description: Detailed information about a top tool by usage.
+    AnalyticsMetadata:
+      type: object
+      properties:
+        generatedAt:
+          type: string
+          description: Gets or sets when this data was generated.
+          format: date-time
+        dataSource:
+          type: string
+          description: Gets or sets the data source.
+        queryParameters:
+          type: object
+          additionalProperties:
+            type: string
+          description: Gets or sets the query parameters used.
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Gets or sets any warnings or notes about the data.
+        processingTimeMs:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the processing time in milliseconds.
+          format: int64
+      description: Metadata about analytics response.

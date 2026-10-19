@@ -1,0 +1,99 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Hub Connection Tickets API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: HubConnectionTickets
+paths:
+  /api/v1/hub-connection-tickets:
+    post:
+      tags:
+      - HubConnectionTickets
+      summary: Issues a short-lived ticket to supply as the SignalR access token when…
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/HubConnectionTicketResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubConnectionTicketResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/HubConnectionTicketResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/HubConnectionTicketResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/HubConnectionTicketResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1HubConnectionTickets
+      x-operation-id-source: derived
+components:
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    HubConnectionTicketResponse:
+      required:
+      - ticket
+      - expiresInSeconds
+      type: object
+      properties:
+        ticket:
+          type: string
+          description: The value to supply as the SignalR access token.
+        expiresInSeconds:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: How long the ticket can be redeemed for.
+          format: int32
+      description: A hub connection ticket.

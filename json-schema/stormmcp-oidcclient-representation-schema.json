@@ -1,0 +1,424 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stormmcp/main/json-schema/stormmcp-oidcclient-representation-schema.json",
+  "title": "OIDCClientRepresentation",
+  "description": "Represents an OIDC client representation for dynamic client registration in Keycloak.\n\nThis class is based on the Keycloak OIDCClientRepresentation Java class structure\nfrom Keycloak version 26.0.8 documentation:\nhttps://www.keycloak.org/docs-api/26.0.8/javadocs/org/keycloak/representations/oidc/OIDCClientRepresentation.html\n\nNote: This implementation is compatible with Keycloak v26.0.6 and is used for\nPOST requests to /realms/{realm}/clients-registrations/openid-connect endpoint.\n\nReference: OpenID Connect Dynamic Client Registration 1.0 specification.",
+  "x-generated": "2026-10-19",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/stormmcp-openapi.json#/components/schemas/OIDCClientRepresentation",
+  "type": "object",
+  "properties": {
+    "redirect_uris": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets the array of redirection URI values used by the Client.\nOne of these registered redirection URI values MUST exactly match the redirect_uri parameter\nvalue used in each Authorization Request."
+    },
+    "token_endpoint_auth_method": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the requested Client authentication method for the Token Endpoint.\nValues: \"none\", \"client_secret_post\", \"client_secret_basic\", \"client_secret_jwt\", \"private_key_jwt\"."
+    },
+    "token_endpoint_auth_signing_alg": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the requested Client authentication signing algorithm for the Token Endpoint."
+    },
+    "grant_types": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets the array of OAuth 2.0 grant type strings that the Client is declaring that it will restrict itself to using.\nValues: \"authorization_code\", \"implicit\", \"password\", \"client_credentials\", \"refresh_token\", \"urn:ietf:params:oauth:grant-type:jwt-bearer\", \"urn:ietf:params:oauth:grant-type:saml2-bearer\"."
+    },
+    "response_types": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets the array of the OAuth 2.0 response_type values that the Client is declaring that it will restrict itself to using.\nValues: \"code\", \"token\", \"id_token\"."
+    },
+    "application_type": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the kind of the application. The default, if omitted, is \"web\".\nValues: \"web\", \"native\"."
+    },
+    "client_id": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the client identifier string. If omitted, the authorization server MUST generate a unique Client Identifier."
+    },
+    "client_secret": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the client secret string. If omitted, the authorization server MAY issue a Client Secret or MAY leave it blank."
+    },
+    "client_name": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the human-readable string name of the Client to be presented to the End-User."
+    },
+    "client_uri": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the URL of the home page of the Client."
+    },
+    "logo_uri": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the URL that references a logo for the Client application."
+    },
+    "scope": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the string containing a space-separated list of scope values that the client can use when requesting access tokens."
+    },
+    "contacts": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets the array of strings representing ways to contact people responsible for this Client, typically email addresses."
+    },
+    "tos_uri": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the URL that the Relying Party Client provides to the End-User to read about the how the profile data will be used."
+    },
+    "policy_uri": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the URL that the Relying Party Client provides to the End-User to read about the Relying Party's terms of service."
+    },
+    "jwks_uri": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the URL for the Client's JSON Web Key Set document."
+    },
+    "jwks": {
+      "description": "Gets or sets the Client's JSON Web Key Set document, passed by value."
+    },
+    "sector_identifier_uri": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the URL using the https scheme to be used in calculating Pseudonymous Identifiers by the OP."
+    },
+    "subject_type": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the subject identifier type requested for responses to this Client.\nValues: \"public\", \"pairwise\"."
+    },
+    "id_token_signed_response_alg": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWS alg algorithm required for signing the ID Token issued to this Client."
+    },
+    "id_token_encrypted_response_alg": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWE alg algorithm required for encrypting the ID Token issued to this Client."
+    },
+    "id_token_encrypted_response_enc": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWE enc algorithm required for encrypting the ID Token issued to this Client."
+    },
+    "userinfo_signed_response_alg": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWS alg algorithm required for signing UserInfo Responses."
+    },
+    "userinfo_encrypted_response_alg": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWE alg algorithm required for encrypting UserInfo Responses."
+    },
+    "userinfo_encrypted_response_enc": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWE enc algorithm required for encrypting UserInfo Responses."
+    },
+    "request_object_signing_alg": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWS alg algorithm that MUST be used for signing Request Objects sent to the OP."
+    },
+    "request_object_encryption_alg": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWE alg algorithm the RP is declaring that it may use for encrypting Request Objects sent to the OP."
+    },
+    "request_object_encryption_enc": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWE enc algorithm the RP is declaring that it may use for encrypting Request Objects sent to the OP."
+    },
+    "default_max_age": {
+      "pattern": "^-?(?:0|[1-9]\\d*)$",
+      "type": [
+        "null",
+        "integer",
+        "string"
+      ],
+      "description": "Gets or sets the Default Maximum Authentication Age. Specifies that the End-User MUST be actively authenticated if the End-User was authenticated longer ago than the specified number of seconds.",
+      "format": "int32"
+    },
+    "require_auth_time": {
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "description": "Gets or sets a value indicating whether the auth_time Claim in the ID Token is REQUIRED."
+    },
+    "default_acr_values": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets the default requested Authentication Context Class Reference values."
+    },
+    "initiate_login_uri": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the URI using the https scheme that a third party can use to initiate a login by the RP."
+    },
+    "request_uris": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets the array of request_uri values that are pre-registered by the RP for use at the OP."
+    },
+    "post_logout_redirect_uris": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets the array of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the post_logout_redirect_uri parameter after a logout has been performed."
+    },
+    "software_id": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets a unique identifier string assigned by the client developer or software publisher."
+    },
+    "software_version": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets a version identifier string for the client software identified by \"software_id\"."
+    },
+    "client_id_issued_at": {
+      "pattern": "^-?(?:0|[1-9]\\d*)$",
+      "type": [
+        "null",
+        "integer",
+        "string"
+      ],
+      "description": "Gets or sets the time at which the client_id was issued. Represented as seconds from 1970-01-01T00:00:00Z as measured in UTC.",
+      "format": "int32"
+    },
+    "client_secret_expires_at": {
+      "pattern": "^-?(?:0|[1-9]\\d*)$",
+      "type": [
+        "null",
+        "integer",
+        "string"
+      ],
+      "description": "Gets or sets the time at which the client_secret will expire or 0 if it will not expire. Represented as seconds from 1970-01-01T00:00:00Z as measured in UTC.",
+      "format": "int32"
+    },
+    "registration_client_uri": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the location of the Client Configuration Endpoint where the Registration Access Token can be used to perform subsequent operations upon the Client registration."
+    },
+    "registration_access_token": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the Registration Access Token that can be used at the Client Configuration Endpoint to perform subsequent operations upon the Client registration."
+    },
+    "tls_client_certificate_bound_access_tokens": {
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "description": "Gets or sets a value indicating the client's intention to use mutual TLS client certificate bound access tokens."
+    },
+    "dpop_bound_access_tokens": {
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "description": "Gets or sets a value indicating the client's intention to use DPoP proof-of-possession for access tokens."
+    },
+    "backchannel_logout_uri": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the RP URL that will cause the RP to log the user out when sent a Logout Token by the OP."
+    },
+    "backchannel_logout_session_required": {
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "description": "Gets or sets a value indicating whether the RP requires that a sid (session ID) Claim be included in the Logout Token."
+    },
+    "backchannel_logout_revoke_offline_tokens": {
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "description": "Gets or sets a value indicating whether the RP wants to have refresh tokens and offline access revoked when the user logs out at the OP."
+    },
+    "tls_client_auth_subject_dn": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the Subject Distinguished Name of the certificate, which the OAuth client will use in mutual TLS authentication."
+    },
+    "backchannel_token_delivery_mode": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the backchannel token delivery mode. Values: \"poll\", \"ping\"."
+    },
+    "backchannel_client_notification_endpoint": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the backchannel client notification endpoint URL."
+    },
+    "backchannel_authentication_request_signing_alg": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWS algorithm for signing backchannel authentication requests."
+    },
+    "authorization_signed_response_alg": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWS algorithm for signing authorization responses."
+    },
+    "authorization_encrypted_response_alg": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWE algorithm for encrypting authorization responses."
+    },
+    "authorization_encrypted_response_enc": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the JWE encryption algorithm for authorization responses."
+    },
+    "require_pushed_authorization_requests": {
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "description": "Gets or sets a value indicating whether the client requires the use of pushed authorization requests."
+    },
+    "frontchannel_logout_uri": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the RP URL that will cause the RP to log the user out when called by the OP."
+    },
+    "frontchannel_logout_session_required": {
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "description": "Gets or sets a value indicating whether the RP requires that iss (issuer) and sid (session ID) query parameters are included to identify the RP session with the OP when the frontchannel_logout_uri is used."
+    }
+  }
+}

@@ -1,0 +1,121 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Flagged Tool Withhold Admin API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: FlaggedToolWithholdAdmin
+paths:
+  /api/v1/admin/flagged-tool-withhold:
+    get:
+      tags:
+      - FlaggedToolWithholdAdmin
+      summary: Gets the tenant setting. No row is disabled
+      responses:
+        '200':
+          description: The setting.
+      operationId: getApiV1AdminFlaggedToolWithhold
+      x-operation-id-source: derived
+    put:
+      tags:
+      - FlaggedToolWithholdAdmin
+      summary: Stores the tenant setting
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlaggedToolWithholdSettingRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FlaggedToolWithholdSettingRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/FlaggedToolWithholdSettingRequest'
+        required: true
+      responses:
+        '200':
+          description: The stored setting.
+      operationId: putApiV1AdminFlaggedToolWithhold
+      x-operation-id-source: derived
+  /api/v1/admin/flagged-tool-withhold/allows:
+    get:
+      tags:
+      - FlaggedToolWithholdAdmin
+      summary: Lists named exceptions
+      responses:
+        '200':
+          description: The exceptions.
+      operationId: getApiV1AdminFlaggedToolWithholdAllows
+      x-operation-id-source: derived
+    post:
+      tags:
+      - FlaggedToolWithholdAdmin
+      summary: Adds a named exception. An existing name returns 200
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlaggedToolWithholdAllowRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FlaggedToolWithholdAllowRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/FlaggedToolWithholdAllowRequest'
+        required: true
+      responses:
+        '200':
+          description: The stored exception.
+      operationId: postApiV1AdminFlaggedToolWithholdAllows
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - FlaggedToolWithholdAdmin
+      summary: Removes a named exception. A missing row is still 204
+      parameters:
+      - name: libraryId
+        in: query
+        description: The library.
+        schema:
+          type: string
+          format: uuid
+      - name: toolName
+        in: query
+        description: The tool name.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No content.
+      operationId: deleteApiV1AdminFlaggedToolWithholdAllows
+      x-operation-id-source: derived
+components:
+  schemas:
+    FlaggedToolWithholdAllowRequest:
+      type: object
+      properties:
+        libraryId:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the library. Null means the field was omitted.
+          format: uuid
+        toolName:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the upstream tool name.
+      description: A request to add a named exception.
+    FlaggedToolWithholdSettingRequest:
+      type: object
+      properties:
+        enabled:
+          type:
+          - 'null'
+          - boolean
+          description: Gets or sets whether Flagged tools are withheld. Null means the field was omitted.
+      description: A write of the tenant setting. bool? FlaggedToolWithholdSettingRequest.Enabled is required.

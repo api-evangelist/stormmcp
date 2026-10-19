@@ -1,0 +1,839 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stormmcp/main/json-schema/stormmcp-known-mcp-server-schema.json",
+  "title": "KnownMcpServer",
+  "description": "Static catalog definition of an available MCP server, loaded from known-mcp-servers.json.",
+  "x-generated": "2026-10-19",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/stormmcp-openapi.json#/components/schemas/KnownMcpServer",
+  "type": "object",
+  "properties": {
+    "oAuthCreationMethod": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "Gets or sets the OAuth creation method for OAuth-enabled servers.\nDetermines whether OAuth credentials are obtained via DCR (automatic) or Manual (user-provided).",
+          "$ref": "#/$defs/OAuthCreationMethod"
+        }
+      ]
+    },
+    "images": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "$ref": "#/$defs/McpImage"
+      },
+      "description": "Gets or sets the images for the MCP server."
+    },
+    "documentation": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "Gets or sets the documentation links for the MCP server.",
+          "$ref": "#/$defs/McpDocumentation"
+        }
+      ]
+    },
+    "systemRequirements": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "Gets or sets the system requirements for locally installed apps.",
+          "$ref": "#/$defs/McpSystemRequirements"
+        }
+      ]
+    },
+    "addedDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the date when the app was added to the catalog."
+    },
+    "permissionDescriptions": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Gets or sets the permission descriptions mapping permission names to their descriptions."
+    },
+    "landingPage": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "Gets or sets the landing page information.",
+          "$ref": "#/$defs/LandingPage"
+        }
+      ]
+    },
+    "videos": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "$ref": "#/$defs/Video"
+      },
+      "description": "Gets or sets the tutorial videos."
+    },
+    "links": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "Gets or sets the various links related to the app.",
+          "$ref": "#/$defs/Links"
+        }
+      ]
+    },
+    "credentialProviderConfigIds": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets or sets the seeded `CredentialProviderConfigId`s for this server,\nkeyed by UCS realm name (e.g. `storm-mcp`, `airia-platform`).\nMCPG-816: source of truth for the running realm's\n`CredentialProviderConfigId` for the legacy hosted providers\n(MicrosoftGraph, GoogleSuite, Slack, Atlassian) that pre-date the\n`CredentialProviderConfigId` model. The closed provider allow-list\nand the McpServerType.Hosted structural invariant are\nenforced by `known-mcp-servers.schema.json` at edit / CI time;\n`SeededCredentialProviderConfigResolver` re-checks the structural\ninvariant at request time and surfaces malformed seeds via\nInvalidSeed. Never copied\nonto the integration row; readers consult this map only via the\nresolver service, which has the running realm pre-bound."
+    },
+    "id": {
+      "type": "string",
+      "description": "Gets or sets the unique identifier for the server.",
+      "format": "uuid"
+    },
+    "provider": {
+      "description": "Gets or sets the known MCP server provider identifier.",
+      "$ref": "#/$defs/KnownMcpProvider"
+    },
+    "type": {
+      "description": "Gets or sets the server type (Remote, Sandbox, Hosted, McpLink).",
+      "$ref": "#/$defs/McpServerType"
+    },
+    "name": {
+      "type": "string",
+      "description": "Gets or sets the display name of the server."
+    },
+    "description": {
+      "type": "string",
+      "description": "Gets or sets the brief description of the server."
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets the OAuth scopes required by the server."
+    },
+    "authType": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/McpServerAuthType"
+      },
+      "description": "Gets or sets the supported authentication types."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets the tags associated with the server."
+    },
+    "category": {
+      "type": "string",
+      "description": "Gets or sets the category of the server."
+    },
+    "status": {
+      "description": "Gets or sets the catalog status of the server.",
+      "$ref": "#/$defs/McpServerStatus"
+    },
+    "availability": {
+      "description": "Gets or sets the availability of the server.\nDefaults to General if not specified.",
+      "$ref": "#/$defs/ServerAvailability"
+    },
+    "featured": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether this server is featured.\nFeatured servers are curated, high-profile integrations highlighted in the catalog."
+    },
+    "longDescription": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the detailed description of the server."
+    },
+    "features": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets the list of key features."
+    },
+    "ui": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "Gets or sets the UI configuration for the server.",
+          "$ref": "#/$defs/UiConfiguration"
+        }
+      ]
+    },
+    "remoteConfig": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "Gets or sets the remote server configuration.\nContains Uri, Transport, and other remote-specific settings.",
+          "$ref": "#/$defs/RemoteServerConfig"
+        }
+      ]
+    },
+    "requestTimeoutSeconds": {
+      "pattern": "^-?(?:0|[1-9]\\d*)$",
+      "type": [
+        "integer",
+        "string"
+      ],
+      "description": "Gets or sets the request timeout in seconds for waiting for responses from the server.\nDefault: 60 seconds. Set higher for servers that may take longer to process requests.",
+      "format": "int32"
+    },
+    "testEndpoint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "Gets or sets the test endpoint configuration for credential validation.",
+          "$ref": "#/$defs/TestEndpointConfig"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "KnownMcpProvider": {
+      "type": "integer",
+      "description": "An MCP Server provider type."
+    },
+    "LandingPage": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Gets or sets the URL of the landing page."
+        },
+        "screenshot": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the screenshot URL for the landing page."
+        }
+      },
+      "description": "Landing page information for the MCP server."
+    },
+    "Links": {
+      "type": "object",
+      "properties": {
+        "mainSite": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the main site URL."
+        },
+        "documentation": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the documentation URL."
+        },
+        "apiKeyCreation": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the API key creation URL."
+        }
+      },
+      "description": "Various links related to the MCP server."
+    },
+    "McpDocumentation": {
+      "type": "object",
+      "properties": {
+        "official": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the official documentation URL."
+        },
+        "internal": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the internal documentation path."
+        },
+        "setup": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the setup guide path."
+        }
+      },
+      "description": "Documentation links."
+    },
+    "McpImage": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Gets or sets the image URL."
+        },
+        "alt": {
+          "type": "string",
+          "description": "Gets or sets the alt text for the image."
+        },
+        "caption": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the optional caption for the image."
+        }
+      },
+      "description": "Image for the MCP server gallery."
+    },
+    "McpServerAuthType": {
+      "type": "integer",
+      "description": "An enumeration representing the authentication types for MCP servers."
+    },
+    "McpServerStatus": {
+      "enum": [
+        "Available",
+        "ComingSoon",
+        "Beta",
+        "Deprecated",
+        "Custom"
+      ],
+      "description": "Availability status for MCP servers."
+    },
+    "McpServerType": {
+      "type": "integer",
+      "description": "An mcp server type enumeration."
+    },
+    "McpSystemRequirements": {
+      "type": "object",
+      "properties": {
+        "os": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Gets or sets the supported operating systems."
+        },
+        "runtime": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the required runtime."
+        },
+        "minVersion": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the minimum runtime version."
+        }
+      },
+      "description": "System requirements for locally installed applications."
+    },
+    "OAuthConfig": {
+      "type": "object",
+      "properties": {
+        "authorizationEndpoint": {
+          "type": "string",
+          "description": "Gets or sets the OAuth authorization endpoint URL."
+        },
+        "tokenEndpoint": {
+          "type": "string",
+          "description": "Gets or sets the OAuth token endpoint URL."
+        },
+        "revokeEndpoint": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the OAuth token revocation endpoint URL (optional)."
+        },
+        "refreshTokenEndpoint": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the OAuth refresh token endpoint URL (optional).\nWARNING: User Credential Store currently does not support separate refresh endpoints."
+        },
+        "grantType": {
+          "type": "string",
+          "description": "Gets or sets the grant type (default: Authorization Code with PKCE)."
+        },
+        "scopeSeparator": {
+          "type": "string",
+          "description": "Gets or sets the scope separator character (default: space)."
+        },
+        "tokenEndpointAuthMethod": {
+          "type": "string",
+          "description": "Gets or sets the token endpoint authentication method."
+        },
+        "grantTypesSupported": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Gets or sets the grant types supported (default: [\"authorization_code\"])."
+        },
+        "responseTypesSupported": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Gets or sets the response types supported (default: [\"code\"])."
+        },
+        "codeChallengeMethodsSupported": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Gets or sets the code challenge methods supported for PKCE (e.g., \"S256\", \"plain\")."
+        },
+        "authorizationParameters": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Gets or sets additional parameters to include in authorization requests."
+        },
+        "tokenParameters": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Gets or sets additional parameters to include in token requests."
+        },
+        "tokenHeaders": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Gets or sets additional headers to include in token requests."
+        }
+      },
+      "description": "OAuth-specific configuration for Manual OAuth providers.\nContains OAuth endpoint URLs and behavior configuration."
+    },
+    "OAuthCreationMethod": {
+      "type": "integer"
+    },
+    "RemoteServerConfig": {
+      "type": "object",
+      "properties": {
+        "transport": {
+          "type": "string",
+          "description": "Gets or sets the transport protocol (e.g., \"sse\" for Server-Sent Events)."
+        },
+        "connectionTimeoutSeconds": {
+          "pattern": "^-?(?:0|[1-9]\\d*)$",
+          "type": [
+            "integer",
+            "string"
+          ],
+          "description": "Gets or sets the connection timeout in seconds.",
+          "format": "int32"
+        },
+        "autoReconnect": {
+          "type": "boolean",
+          "description": "Gets or sets a value indicating whether to automatically reconnect on disconnect."
+        },
+        "maxReconnectAttempts": {
+          "pattern": "^-?(?:0|[1-9]\\d*)$",
+          "type": [
+            "integer",
+            "string"
+          ],
+          "description": "Gets or sets the maximum number of reconnection attempts.",
+          "format": "int32"
+        },
+        "endpointConfig": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Gets or sets additional endpoint-specific configuration."
+        },
+        "uri": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the remote server URI."
+        },
+        "uriVariables": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "$ref": "#/$defs/UriVariable"
+          },
+          "description": "Gets or sets the URI variables that can be substituted in the URI.\nUsed for dynamic parameterization (e.g., {zone} for region, {token} for API keys)."
+        },
+        "headers": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Gets or sets HTTP headers to be sent with requests.\nSupports both static headers and dynamic placeholders like {AuthToken} and {BasicAuth:VarName}.\nFor auth-type-specific headers (e.g., different Authorization formats), use AuthHeaders instead."
+        },
+        "oAuth": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "description": "Gets or sets OAuth-specific configuration for Manual OAuth providers.\nContains OAuth endpoints and behavior configuration.",
+              "$ref": "#/$defs/OAuthConfig"
+            }
+          ]
+        },
+        "authHeaders": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "description": "Gets or sets auth-type-specific HTTP headers.\nKeys are auth types (e.g., \"ApiKey\", \"OAuth\"), values are header dictionaries.\nWhen a specific auth type is selected, headers from AuthHeaders[authType] are merged with/override base Headers.\nThis allows different Authorization header formats per auth type (e.g., \"Basic {AuthToken}\" for ApiKey, \"Bearer {AuthToken}\" for OAuth)."
+        },
+        "bodyParams": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Gets or sets parameters to inject into request bodies for MCP-Link servers.\nUsed for APIs that require authentication in the request body (e.g., Canny's apiKey parameter).\nSupports {AuthToken} placeholder for dynamic auth token injection.\nOnly applies to McpLink server types - regular remote servers ignore this property."
+        },
+        "oAuthResourceUrl": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the OAuth protected resource URL for DCR registration.\nWhen set, this URL is sent as `ResourceUrl` to UCS instead of string? RemoteServerConfig.Uri,\nenabling RFC 9728 (Protected Resource Metadata) discovery against an external OAuth provider\n(e.g., Atlassian) while routing MCP traffic through the internal mcp-link service."
+        },
+        "useAcc": {
+          "type": "boolean",
+          "description": "Gets or sets a value indicating whether to route traffic through the ACC connector.\nWhen true, the gateway routes traffic for this server through the tenant's on-premise\nACC connector instead of direct HTTP. Transport mechanism TBD (MCPG-455 Phase 3)."
+        },
+        "schemaHeaders": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Gets or sets HTTP headers serialized into mcp-link's `?sh=` query parameter for\nOpenAPI spec fetching at session start (MCPG-756). Values may contain\n`{SchemaCredential:FieldName}` placeholders, resolved at factory time against the\nbinder declared by string? RemoteServerConfig.SchemaCredentialProviderName and the per-tenant\nSchemaCredentialBinderId on the integration row. Only applies to McpLink server types."
+        },
+        "schemaCredentialProviderName": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the UCS provider name used to resolve the secondary spec-fetch credential\n(e.g. `\"GithubPersonalAccessToken\"`). Free-form string matching a provider in UCS\nprovider-definitions.json. The binder ID is selected per-tenant at integration-config\ntime and stored on the ProviderIntegration row, sibling to `CredentialProviderConfigId`.\nOnly meaningful when Dictionary&lt;string, string&gt;? RemoteServerConfig.SchemaHeaders contains a `{SchemaCredential:*}`\nplaceholder. Only applies to McpLink server types."
+        },
+        "accGroupId": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the ACC connector group to route traffic through when bool RemoteServerConfig.UseAcc is true.\nNull means \"any connector for this tenant\" (tenant-default routing).\nIgnored when bool RemoteServerConfig.UseAcc is false.",
+          "format": "uuid"
+        },
+        "openApiYamlUrl": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the customer-supplied OpenAPI YAML URL for SpecLink (private-spec) custom servers (MCPG-803).\nWhen set, the gateway infers `Type = McpLink` server-side and builds the canonical mcp-link URI\nfrom this value + string? RemoteServerConfig.UpstreamApiBaseUrl. Ignored when both are null. Only meaningful on\ncustom servers created via the SpecLink wizard; seed entries use string? RemoteServerConfig.Uri directly."
+        },
+        "upstreamApiBaseUrl": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the upstream API base URL that the YAML at string? RemoteServerConfig.OpenApiYamlUrl describes (MCPG-803).\nMay contain `{Variable}` placeholders (e.g. `https://{Domain}.atlassian.net`) whose values are\nstored in Dictionary&lt;string, string&gt;? RemoteServerConfig.UpstreamVariableValues and substituted gateway-side at connection-build time\n(mcp-link does not expand base-URL variables). Used together with string? RemoteServerConfig.OpenApiYamlUrl to build\nthe canonical mcp-link URI server-side."
+        },
+        "upstreamVariableValues": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Gets or sets the values for the `{Variable}` placeholders in string? RemoteServerConfig.UpstreamApiBaseUrl\n(MCPG-803), keyed by variable name without braces (e.g. `{\"CloudId\": \"abc-123\"}`). Unlike the\nURL fields these <b>are persisted</b> — the stored string? RemoteServerConfig.Uri only carries the unresolved\ntemplate, so the values are not derivable from it. Substituted into the canonical URI at\nconnection-build time by `SpecLinkUriResolver`. Only meaningful for SpecLink (McpLink) servers."
+        },
+        "skillRepoUrl": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the repository URL exposed through mcp-link skills mode.\nThe current mcp-link contract accepts public github.com URLs.\nTransport-only: re-derived from string? RemoteServerConfig.Uri on responses and not persisted."
+        },
+        "skillRepoRef": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the optional Git ref used for skill discovery.\nWhen omitted, mcp-link resolves the repository's default branch.\nTransport-only: re-derived from string? RemoteServerConfig.Uri on responses and not persisted."
+        },
+        "skillRepoPath": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the optional repository-relative subpath used for skill discovery.\nTransport-only: re-derived from string? RemoteServerConfig.Uri on responses and not persisted."
+        },
+        "skillRepoProvider": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the repository host backing a SkillLink server, from\nSkillRepoProviders. Defaults to\nstring SkillRepoProviders.GitHub when a SkillLink shape is saved without one."
+        },
+        "sourceRef": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the source ref the administrator configured for a SpecLink or SkillLink server\n(MCPG-1891): the branch or tag name (for example `main`) that string? RemoteServerConfig.SourceRevision\nwas resolved from. Null for a content-hash pin (a non-GitHub spec URL) and for an unpinned row."
+        },
+        "sourceRevision": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the pinned source revision (MCPG-1891): the full 40-hex commit SHA for a GitHub\nsource, or the lowercase hex SHA-256 of the fetched document for any other https spec URL.\nThe canonical string? RemoteServerConfig.Uri embeds this value (as `ref=` inside `s=`, as the\nskills `ref=`, or as the `v=` query parameter), which is what makes an explicit\nrefresh a guaranteed cache miss on every mcp-link replica. Null when the row is unpinned."
+        },
+        "sourceResolvedAt": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the instant string? RemoteServerConfig.SourceRevision was last resolved (MCPG-1891).\nNull when the row is unpinned.",
+          "format": "date-time"
+        }
+      },
+      "description": "Template configuration for remote MCP servers, loaded from known-mcp-servers.json."
+    },
+    "ServerAvailability": {
+      "enum": [
+        "General",
+        "Restricted"
+      ],
+      "description": "Enumeration for MCP server availability levels."
+    },
+    "TestEndpointConfig": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "description": "Gets or sets the URI of the test endpoint.\nSupports variable substitution (e.g., {AuthToken})."
+        },
+        "method": {
+          "type": "string",
+          "description": "Gets or sets the HTTP method to use (GET, POST, etc.)."
+        },
+        "headers": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Gets or sets the headers to include in the request.\nSupports variable substitution in values (e.g., \"Bearer {AuthToken}\")."
+        },
+        "expectedStatusCodes": {
+          "type": "array",
+          "items": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "description": "Gets or sets the expected HTTP status codes that indicate success."
+        }
+      },
+      "description": "Configuration for testing credentials against an external API endpoint.\nUsed to validate authentication before establishing a full MCP connection."
+    },
+    "UiConfiguration": {
+      "type": "object",
+      "properties": {
+        "icon": {
+          "type": "string",
+          "description": "Gets or sets the React Icons component name."
+        },
+        "colorClass": {
+          "type": "string",
+          "description": "Gets or sets the Tailwind CSS text color class."
+        },
+        "bgGradient": {
+          "type": "string",
+          "description": "Gets or sets the Tailwind CSS gradient classes."
+        }
+      },
+      "description": "UI configuration for the MCP server display."
+    },
+    "UriVariable": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Gets or sets the human-readable description of this variable."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Gets or sets a value indicating whether this variable is required."
+        },
+        "options": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Gets or sets the available options for this variable (e.g., [\"eu\", \"us\"] for region).\nOnly applicable for variables with predefined choices."
+        },
+        "defaultValue": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the default value for this variable."
+        },
+        "placeholder": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the placeholder text to show in the UI."
+        },
+        "helpText": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets additional help text for this variable."
+        },
+        "type": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the variable type hint for UI rendering (e.g., \"string\", \"integer\", \"url\").\nUsed for UI validation and input control selection, but all values are ultimately strings."
+        },
+        "scope": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Gets or sets the authentication types this variable applies to.\nIf null or empty, the variable applies to all authentication types (backward compatible).\nIf specified, the variable is only shown/validated for the listed auth types (e.g., [\"ApiKey\"], [\"OAuth\"], or [\"ApiKey\", \"OAuth\"])."
+        },
+        "sharing": {
+          "description": "Gets or sets a value indicating whether this variable may be inherited onto another\nuser's Personal overlay at read time (MCPG-1609). The overlay runs only for OAuth/Fhir\nPersonal target rows. Omitted / default is UriVariableSharing.Shared.\nOnly UriVariableSharing.Personal is written in the seed.\nDoes not constrain a Tenant-level row, which is shared by design.\nThe name Scope is taken on this model for auth-type filtering.",
+          "$ref": "#/$defs/UriVariableSharing"
+        }
+      },
+      "description": "Represents a URI variable that can be substituted in remote MCP server URIs.\nUsed for dynamic parameterization of server endpoints (e.g., region, API keys).\nAll variables are treated as strings for URL substitution."
+    },
+    "UriVariableSharing": {
+      "enum": [
+        "Shared",
+        "Personal"
+      ],
+      "description": "Whether a catalog URI variable may be inherited onto another user's Personal overlay\nat read time (MCPG-1609). The overlay runs only for OAuth/Fhir Personal target rows.\nAbsent / default is UriVariableSharing.Shared so hostname and instance variables inherit\nwithout marking every seed entry. Only UriVariableSharing.Personal is written in seed.\nDoes not constrain a Tenant-level row, which is shared by design."
+    },
+    "Video": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Gets or sets the title of the video."
+        },
+        "url": {
+          "type": "string",
+          "description": "Gets or sets the URL of the video."
+        },
+        "type": {
+          "type": "string",
+          "description": "Gets or sets the type of video (e.g., \"youtube\")."
+        },
+        "embedUrl": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the embed URL for the video."
+        }
+      },
+      "description": "Video tutorial information."
+    }
+  }
+}

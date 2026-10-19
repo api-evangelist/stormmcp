@@ -1,0 +1,1269 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Inventory API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: McpGatewayInventory
+paths:
+  /api/v1/mcp-gateway-inventory/auxiliary-gateways:
+    get:
+      tags:
+      - McpGatewayInventory
+      summary: 'Lists every Auxiliary Gateway in the caller''s tenant (MCPG-1879): Tenant-scoped…'
+      parameters:
+      - name: search
+        in: query
+        description: A case-insensitive substring the gateway name must contain.
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: Narrow to `Tenant` or `Personal`; omit for both.
+        schema:
+          $ref: '#/components/schemas/Level'
+      - name: userId
+        in: query
+        description: 'Narrow to gateways this user can reach (MCPG-2221), by the same rule session establishment
+
+          admits on: a Personal gateway they own, an unrestricted Tenant gateway, or a restricted
+
+          Tenant gateway naming them directly or through one of their groups. Group membership comes
+
+          from Platform; when that lookup is degraded the page still answers through the other three
+
+          arms and reports `groupMembershipDegraded`.'
+        schema:
+          type: string
+          format: uuid
+      - name: client
+        in: query
+        description: 'A case-insensitive client name the gateway must have been reached through. Matches on the
+
+          name only: a client that sent no `clientInfo` is listed in the Clients column under its
+
+          kind alone, and has no name for this filter to match, so it is never selected here.'
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: 'The page number (1-based, default: 1).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: 'The number of items per page (default: 20, max: 1000).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AuxiliaryGatewayInventoryListResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuxiliaryGatewayInventoryListResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AuxiliaryGatewayInventoryListResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AuxiliaryGatewayInventoryListResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AuxiliaryGatewayInventoryListResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1McpGatewayInventoryAuxiliaryGateways
+      x-operation-id-source: derived
+  /api/v1/mcp-gateway-inventory/dynamic-gateways:
+    get:
+      tags:
+      - McpGatewayInventory
+      summary: Lists every user with a Dynamic Gateway in the caller's tenant (MCPG-1879)…
+      parameters:
+      - name: userId
+        in: query
+        description: 'Narrow to these users; repeat the parameter for several. The filter takes identifiers rather
+
+          than a name because the gateway holds no user directory to search — the frontend resolves
+
+          display names to ids through the same API that backs its users picker.'
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: client
+        in: query
+        description: 'A case-insensitive client name the user must have connected, with the same name-only reading
+
+          as the auxiliary listing''s filter.'
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: 'The page number (1-based, default: 1).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: 'The number of items per page (default: 20, max: 1000).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfDynamicGatewayInventoryListResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfDynamicGatewayInventoryListResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfDynamicGatewayInventoryListResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfDynamicGatewayInventoryListResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfDynamicGatewayInventoryListResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1McpGatewayInventoryDynamicGateways
+      x-operation-id-source: derived
+  /api/v1/mcp-gateway-inventory/dynamic-gateways/{userId}:
+    get:
+      tags:
+      - McpGatewayInventory
+      summary: Reads another user's Dynamic Gateway configuration inside the caller's tenant…
+      parameters:
+      - name: userId
+        in: path
+        description: The subject platform user id.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayInventoryResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayInventoryResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayInventoryResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayInventoryResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayInventoryResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1McpGatewayInventoryDynamicGatewaysByUserId
+      x-operation-id-source: derived
+  /api/v1/mcp-gateway-inventory/auxiliary-gateways/{gatewayId}:
+    get:
+      tags:
+      - McpGatewayInventory
+      summary: Reads one auxiliary gateway's configuration inside the caller's tenant…
+      parameters:
+      - name: gatewayId
+        in: path
+        description: The auxiliary gateway id.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AuxiliaryGatewayInventoryDetailResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuxiliaryGatewayInventoryDetailResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AuxiliaryGatewayInventoryDetailResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AuxiliaryGatewayInventoryDetailResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AuxiliaryGatewayInventoryDetailResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1McpGatewayInventoryAuxiliaryGatewaysByGatewayId
+      x-operation-id-source: derived
+components:
+  schemas:
+    AuxiliaryGatewayInventoryToolResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets or sets the upstream tool name.
+        enabled:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the tool is enabled in this gateway. True for every
+
+            row today, by construction: PRD D2 lists only the included set, so an excluded tool has no
+
+            row rather than a row with a false. The field is here because the read-only page renders a
+
+            greyed-out toggle whose position must be real (PRD D5), and because a future selection shape
+
+            that carries a per-tool disable would otherwise be invisible.'
+      description: One tool the gateway includes for an app.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    DynamicGatewayInventoryResponse:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: Gets or sets the tenant the read was scoped to (always the caller's tenant).
+          format: uuid
+        userId:
+          type: string
+          description: Gets or sets the subject user whose Dynamic Gateway this is.
+          format: uuid
+        groupMembershipDegraded:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the subject''s group membership could not be
+
+            resolved, in which case IReadOnlyList&lt;DynamicGatewayInventoryAssignedToolkitResponse&gt; DynamicGatewayInventoryResponse.AssignedToolkits holds direct assignments only and
+
+            may be incomplete.'
+        toolkits:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayInventoryToolkitResponse'
+          description: Gets or sets the subject's own toolkits.
+        assignedToolkits:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayInventoryAssignedToolkitResponse'
+          description: Gets or sets the admin toolkits assigned to the subject, directly or through a group.
+        apps:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayInventoryAppResponse'
+          description: 'Gets or sets the subject''s app-level preferences (one row per library the subject has a
+
+            stored preference for).'
+        skills:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the subject''s Skills toolkit preference, or null when the subject has never
+
+              touched it.'
+            $ref: '#/components/schemas/DynamicGatewayInventorySkillsResponse'
+        radarCache:
+          description: Gets or sets the subject's Radar cache.
+          $ref: '#/components/schemas/DynamicGatewayInventoryRadarCacheResponse'
+      description: 'The MCP Gateway Inventory read of one user''s Dynamic Gateway (MCPG-1881): stored configuration
+
+        only. It carries toolkits with their enabled state, per-toolkit app membership, per-tool
+
+        membership and enabled state, and the Radar cache. It never carries credential material,
+
+        connection state, or a per-connection identifier — `DynamicGatewayInventoryContractTests`
+
+        pins the whole graph, so adding a property here means updating that allowlist under review.'
+    DynamicGatewayInventoryToolkitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the toolkit identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the toolkit name.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional description.
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the toolkit master switch is on.
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayInventoryToolkitMemberResponse'
+          description: Gets or sets the toolkit members in the owner's sort order.
+        createdAt:
+          type: string
+          description: Gets or sets the creation timestamp.
+          format: date-time
+        updatedAt:
+          type: string
+          description: Gets or sets the update timestamp.
+          format: date-time
+      description: One of the subject's own toolkits.
+    AuxiliaryGatewayInventoryResponse:
+      type: object
+      properties:
+        gatewayId:
+          type: string
+          description: Gets or sets the gateway identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the gateway name.
+        scope:
+          description: 'Gets or sets the gateway''s scope: Tenant or Personal.'
+          $ref: '#/components/schemas/Level'
+        ownerUserId:
+          type: string
+          description: 'Gets or sets the identifier of the user who owns the gateway. An identifier rather than a
+
+            display name on purpose: the gateway has no user directory — Platform''s
+
+            `InternalUserService` exposes group membership and nothing else — so identity is
+
+            resolved by the frontend, exactly as it already is for the assignment lists below.'
+          format: uuid
+        applicationCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets how many applications the gateway includes.
+          format: int32
+        assignedUserIds:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the user principals granted access. Two states on the GET response
+
+            (MCPG-2123 baked access assignments always on): an empty list means UNRESTRICTED, and a
+
+            populated list means restricted to those users. `null` is not a GET-response arm.'
+        assignedGroupIds:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the group principals granted access, with the same two-state reading as
+
+            IReadOnlyList&lt;Guid&gt;? AuxiliaryGatewayInventoryResponse.AssignedUserIds.'
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayInventoryClientResponse'
+          description: Gets or sets the clients the gateway has been reached through, most recently seen first.
+      description: 'One Auxiliary Gateway row on the MCP Gateway Inventory list page (MCPG-1879). Configuration and
+
+        reachability only: no credential material, no connection state, no tool bytes.'
+    AuxiliaryGatewayInventoryDetailResponse:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: Gets or sets the tenant the read was scoped to (always the caller's tenant).
+          format: uuid
+        gatewayId:
+          type: string
+          description: Gets or sets the gateway identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the gateway name.
+        scope:
+          description: 'Gets or sets the gateway scope: `Tenant` or `Personal` (PRD 5.1). Named and typed
+
+            to match the MCPG-1879 listing row, which the detail view is opened from.'
+          $ref: '#/components/schemas/Level'
+        ownerUserId:
+          type: string
+          description: 'Gets or sets the user who owns the gateway. On a Personal gateway this is the user whose
+
+            gateway it is; on a Tenant gateway it is whoever created it.'
+          format: uuid
+        assignedUserIds:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the user principals granted access (MCPG-1706). Two states on the GET
+
+            response (MCPG-2123 baked access assignments always on): an empty list means UNRESTRICTED,
+
+            and a populated list means restricted to those users. `null` is not a GET-response arm.'
+        assignedGroupIds:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the group principals granted access, with the same two-state reading as
+
+            IReadOnlyList&lt;Guid&gt;? AuxiliaryGatewayInventoryDetailResponse.AssignedUserIds.'
+        radarEnabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the gateway is surfaced through Radar in the UI.
+        allowedToolsAll:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the gateway includes every tool its apps serve. When
+
+            true, every app''s tool listing is one of the `all` forms.'
+        instructions:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the gateway-wide markdown instructions, or null. Admin-authored guidance text,
+
+            rendered as an input on the Gateway Settings panel (PRD A3).'
+        instructionsToolDescription:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the custom description for the instructions tool, or null for the default.
+        updatedAt:
+          type: string
+          description: Gets or sets when the gateway was last changed.
+          format: date-time
+        apps:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuxiliaryGatewayInventoryAppResponse'
+          description: Gets or sets the applications included in the gateway, in the stored order.
+      description: 'The MCP Gateway Inventory read of one auxiliary gateway (MCPG-1880): the stored configuration
+
+        the read-only detail view renders (PRD section 6). It carries the gateway settings, its
+
+        applications, and per application only the tools and skills that gateway includes (PRD D2), with
+
+        enabled state (PRD D5). It never carries credential material, a connection state, or a
+
+        per-connection identifier: the gateway''s `SharedCredentials` binding map is not even loaded
+
+        on this path. `AuxiliaryGatewayInventoryContractTests` pins the whole graph, so adding a
+
+        property here means updating that allowlist in the same PR, under review.'
+    McpServerType:
+      type: integer
+      description: An mcp server type enumeration.
+    ClientKind:
+      type: integer
+      description: 'The kind of MCP client that connected to a dynamic gateway (MCPG-1156), derived best-effort from the
+
+        authenticating bearer scheme at handshake time. Display-only; never an authorization input.'
+    AuxiliaryGatewayInventoryListResponse:
+      type: object
+      properties:
+        groupMembershipDegraded:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the filtered user''s group membership could not be
+
+            resolved (MCPG-2221). Set only when a `userId` filter was supplied. When true the page
+
+            still answers, but only through the owner, unrestricted and direct-assignment arms of the
+
+            reachability rule: a gateway that user reaches through a group alone may be missing.
+
+            Mirrors bool DynamicGatewayInventoryResponse.GroupMembershipDegraded.'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuxiliaryGatewayInventoryResponse'
+          description: Gets or sets the items in the current page.
+        totalCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total count of items across all pages.
+          format: int32
+        pageNumber:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the current page number (1-based).
+          format: int32
+        pageSize:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of items per page.
+          format: int32
+        hasMore:
+          type: boolean
+          description: Gets a value indicating whether there are more pages available.
+        totalPages:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the total number of pages.
+          format: int32
+      description: 'One page of the Auxiliary Gateway listing (MCPG-1879), plus the one page-level fact the
+
+        `userId` filter can add: whether the group half of that user''s reachability could be
+
+        resolved. `GatewayInventoryListContractTests` pins this envelope from its root, so adding
+
+        a property here means updating that allowlist under review.'
+    DynamicGatewayInventorySkillsResponse:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the Skills master switch is on.
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayInventorySkillSourceResponse'
+          description: Gets or sets the tenant's skill sources with the subject's opt-in state.
+      description: 'The subject''s Skills toolkit preference (MCPG-1511 / MCPG-1766): the master switch and the
+
+        per-source opt-in, each as stored. Per-skill deselections are deliberately out of scope for
+
+        MCPG-1881; adding them is a reviewed change to the pinned contract.'
+    PagedResultOfDynamicGatewayInventoryListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayInventoryListResponse'
+          description: Gets or sets the items in the current page.
+        totalCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total count of items across all pages.
+          format: int32
+        pageNumber:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the current page number (1-based).
+          format: int32
+        pageSize:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of items per page.
+          format: int32
+        hasMore:
+          type: boolean
+          description: Gets a value indicating whether there are more pages available.
+        totalPages:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the total number of pages.
+          format: int32
+      description: Generic paged result wrapper for API responses.
+    AuxiliaryGatewayInventoryAppResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        name:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the app display name, or null when the library is no longer on the tenant''s
+
+            list. A null name is still a real inclusion and is rendered, not dropped: a gateway pointing
+
+            at a library the tenant has since removed is something an audit should see.'
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the app description, or null when the library is unresolvable.
+        longDescription:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the long-form app description backing the About App panel (PRD A4), or null.
+        iconUrl:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the app icon URL.
+        type:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the server type, or null when the library is unresolvable.
+            $ref: '#/components/schemas/McpServerType'
+        toolListing:
+          type: string
+          description: 'Gets or sets how to read IReadOnlyList&lt;AuxiliaryGatewayInventoryToolResponse&gt; AuxiliaryGatewayInventoryAppResponse.Tools. One of
+
+            AuxiliaryGatewayInventoryToolListings.'
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuxiliaryGatewayInventoryToolResponse'
+          description: 'Gets or sets the tools this gateway includes for this app. Never the app''s full catalog
+
+            (PRD D2). Read it together with string AuxiliaryGatewayInventoryAppResponse.ToolListing, under which an empty array
+
+            means "not knowable here" (`all_not_enumerable`), "the gateway observed none"
+
+            (`all`, reachable only from a stamped authoritative-empty snapshot), or "the admin
+
+            chose none" (`selected` and `selected_flat`).'
+        toolsProvenance:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets where IReadOnlyList&lt;AuxiliaryGatewayInventoryToolResponse&gt; AuxiliaryGatewayInventoryAppResponse.Tools was observed, or null when the stored snapshot did
+
+              not supply its membership. Non-null only under an `all` string AuxiliaryGatewayInventoryAppResponse.ToolListing.'
+            $ref: '#/components/schemas/AuxiliaryGatewayInventoryProvenanceResponse'
+        skillListing:
+          type: string
+          description: 'Gets or sets how to read IReadOnlyList&lt;AuxiliaryGatewayInventorySkillResponse&gt; AuxiliaryGatewayInventoryAppResponse.Skills. One of
+
+            AuxiliaryGatewayInventorySkillListings.'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuxiliaryGatewayInventorySkillResponse'
+          description: 'Gets or sets the skills this gateway includes for this app. Read it through
+
+            string AuxiliaryGatewayInventoryAppResponse.SkillListing, under which an empty array means three different things:
+
+            `not_skill_source` (this app contributes no skills at all, much the most common),
+
+            `selected` (the admin deliberately chose none) and `all_not_enumerable` (the
+
+            gateway includes them but nothing stored here can name them). It is never empty under
+
+            `all`, which requires at least one readable row.'
+        skillsProvenance:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets where IReadOnlyList&lt;AuxiliaryGatewayInventorySkillResponse&gt; AuxiliaryGatewayInventoryAppResponse.Skills was observed, or null when the stored snapshot did
+
+              not supply its membership. Non-null only under an `all` string AuxiliaryGatewayInventoryAppResponse.SkillListing.'
+            $ref: '#/components/schemas/AuxiliaryGatewayInventoryProvenanceResponse'
+      description: One application included in the gateway, with the tools and skills that gateway includes.
+    DynamicToolPreferenceMode:
+      type: integer
+      description: Specifies how a user's dynamic gateway should expose upstream tools for a library.
+    AuxiliaryGatewayInventoryProvenanceResponse:
+      type: object
+      properties:
+        isStamped:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the snapshot entry carries the complete MCPG-1832
+
+            stamp. When false, every nullable property here is null and the rows cannot be dated;
+
+            bool AuxiliaryGatewayInventoryProvenanceResponse.RevisionIsDerived is not nullable and is simply false, since there is no
+
+            revision for it to qualify.'
+        catalogVersion:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the content-derived catalog version of the observation, or null when unstamped.
+        sourceRevision:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the source revision of the observation, or null when unstamped. Qualify it with
+
+            bool AuxiliaryGatewayInventoryProvenanceResponse.RevisionIsDerived before treating it as one the source itself reported.'
+        sourceCoordinate:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the exact coordinate the observation was taken from, or null when unstamped.
+
+            This is what goes stale when an app is repointed: rows taken from a coordinate the app no
+
+            longer serves are the case this whole type exists to make visible.'
+        catalogGeneration:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the catalog generation the observation matched, or null when unstamped.
+          format: int64
+        revisionIsDerived:
+          type: boolean
+          description: 'Gets or sets a value indicating whether string? AuxiliaryGatewayInventoryProvenanceResponse.SourceRevision was derived rather than
+
+            reported by the source.'
+      description: Where a stored list came from, so an auditor can tell a current observation from a stale one.
+    Level:
+      enum:
+      - Personal
+      - Tenant
+    DynamicGatewayInventoryRadarCacheEntryResponse:
+      type: object
+      properties:
+        toolName:
+          type: string
+          description: Gets or sets the cached wire name (`{prefix}__{tool}` on the Dynamic surface).
+        serverName:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the owning app's display name from the tenant list, or null when unresolvable.
+        libraryId:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the owning library identifier, or null when unresolvable.
+          format: uuid
+        iconUrl:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the owning app's icon URL.
+        pinned:
+          type: boolean
+          description: Gets or sets a value indicating whether the entry is pinned.
+        useCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the cache's all-time use count for the entry.
+          format: int64
+        lastUsedAt:
+          type: string
+          description: Gets or sets when the entry was last used.
+          format: date-time
+      description: One Radar cache entry.
+    GatewayInventoryClientResponse:
+      type: object
+      properties:
+        name:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the client-supplied client name, or null when the client sent no
+
+            `clientInfo` and is known only by its kind.'
+        kind:
+          description: Gets or sets the derived client kind.
+          $ref: '#/components/schemas/ClientKind'
+        lastSeen:
+          type: string
+          description: 'Gets or sets when this client was last active. The inventory reports recency rather than
+
+            implying it, because the two tables'' registrations age differently: a Dynamic registration is
+
+            reclaimed 24 hours after its last activity, while an Auxiliary one persists until the client
+
+            terminates the session.'
+          format: date-time
+      description: 'One MCP client a gateway has been reached through, as the durable session registry last recorded
+
+        it (MCPG-1879). Display metadata only — nothing here identifies a session or lets the caller act
+
+        as one.'
+    DynamicGatewayInventoryListResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: 'Gets or sets the subject user''s identifier. An identifier rather than a display name and
+
+            email for the same reason as Guid AuxiliaryGatewayInventoryResponse.OwnerUserId.'
+          format: uuid
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayInventoryClientResponse'
+          description: 'Gets or sets the clients this user has reached their Dynamic Gateway through, most recently
+
+            seen first.'
+        radarCacheSize:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets or sets the user''s Radar cache slot budget: their stored override, or the configured
+
+            default when they have never set one.'
+          format: int32
+        radarCacheUsed:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets how many of those slots currently hold a tool.
+          format: int32
+      description: 'One Dynamic Gateway row on the MCP Gateway Inventory list page (MCPG-1879), indexed by the user
+
+        who owns it. Configuration only.'
+    AuxiliaryGatewayInventorySkillResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Gets or sets the skill URL, which is its identity in the SEP-2640 index.
+        name:
+          type: string
+          description: 'Gets or sets the skill display name, falling back to the url when the stored inventory
+
+            carries no name. Never identity: a name is display-derived and not unique across an index
+
+            (MCPG-2072 S3).'
+        description:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the skill description as the gateway observed it, or null when the stored
+
+            inventory carries none. PRD A5 asks the detail page to show skills with their descriptions.'
+        enabled:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the skill is enabled in this gateway. True for every
+
+            row, for the same reason as the tool sibling.'
+      description: 'One skill the gateway includes for an app, drawn from the gateway''s own stored selection
+
+        (`AllowedSkillsByLibrary`) and described from the inventory it observed at save time
+
+        (`StoredSkillDefinitions`), both added by MCPG-2072. No upstream is contacted, so PRD D2
+
+        holds. Read the rows through the app''s `skillListing`, which says whether they are the
+
+        admin''s selection, everything the gateway observed, or a set it cannot enumerate.'
+    DynamicGatewayInventorySkillSourceResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        name:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the source display name.
+        enabled:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the subject has opted this source in. Stored state
+
+            only: it is independent of the master switch, which bool DynamicGatewayInventorySkillsResponse.Enabled
+
+            carries, so a master-off subject''s opt-ins stay readable.'
+      description: One skill source (a SkillLink server) and whether the subject serves it.
+    DynamicGatewayInventoryAppResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        name:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the app display name, or null when the library is no longer on the tenant's list.
+        iconUrl:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the app icon URL.
+        type:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the server type.
+            $ref: '#/components/schemas/McpServerType'
+        enabledOverride:
+          type:
+          - 'null'
+          - boolean
+          description: Gets or sets the subject's explicit enable/disable override; null means the admin default applies.
+        toolMode:
+          description: Gets or sets the tool selection mode.
+          $ref: '#/components/schemas/DynamicToolPreferenceMode'
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayInventoryToolResponse'
+          description: Gets or sets the tools known for this app with their enabled state.
+      description: The subject's app-level preference for one library.
+    DynamicGatewayInventoryToolResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets or sets the upstream tool name.
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the tool is enabled under the stored selection.
+      description: 'One tool row. The set is the union of the stored selection and the tools the subject''s Radar
+
+        cache has discovered for that app — the only inventory knowable without the subject''s
+
+        credentials (PRD D2). `All`-mode rows are therefore the discovered set, all enabled.'
+    DynamicGatewayInventoryAssignedToolkitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the admin toolkit identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the toolkit name.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional description.
+        assignmentMode:
+          description: Gets or sets the assignment mode (MCPG-1699).
+          $ref: '#/components/schemas/AdminToolkitAssignmentMode'
+        hidden:
+          type: boolean
+          description: Gets or sets a value indicating whether the subject has hidden this toolkit.
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayInventoryToolkitMemberResponse'
+          description: Gets or sets the toolkit members.
+      description: An admin toolkit assigned to the subject.
+    AdminToolkitAssignmentMode:
+      description: 'How assignees may change an admin-assigned toolkit (MCPG-1699).
+
+        Existing rows default to AdminToolkitAssignmentMode.Editable.'
+    DynamicGatewayInventoryRadarCacheResponse:
+      type: object
+      properties:
+        size:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the configured cache size (the subject's override, else the tenant default).
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayInventoryRadarCacheEntryResponse'
+          description: Gets or sets the cached entries.
+      description: The subject's Radar cache.
+    DynamicGatewayInventoryToolkitMemberResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        name:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the app display name, or null when the library is no longer on the tenant's list.
+        iconUrl:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the app icon URL.
+        type:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the server type.
+            $ref: '#/components/schemas/McpServerType'
+        toolMode:
+          description: Gets or sets the tool selection mode for this membership.
+          $ref: '#/components/schemas/DynamicToolPreferenceMode'
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayInventoryToolResponse'
+          description: 'Gets or sets the tools known for this app with their enabled state. See
+
+            DynamicGatewayInventoryToolResponse for what "known" means.'
+      description: One app inside a toolkit, with its per-tool membership and enabled state.

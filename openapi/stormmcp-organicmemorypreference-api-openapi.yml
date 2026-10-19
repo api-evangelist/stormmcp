@@ -1,0 +1,204 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Organic Memory Preference API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: OrganicMemoryPreference
+paths:
+  /api/v1/dynamic-gateway/me/organic-memory:
+    get:
+      tags:
+      - OrganicMemoryPreference
+      summary: Gets the caller's organic memory toggle
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryUserPreferenceResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryUserPreferenceResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryUserPreferenceResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryUserPreferenceResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryUserPreferenceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMeOrganicMemory
+      x-operation-id-source: derived
+    put:
+      tags:
+      - OrganicMemoryPreference
+      summary: Sets the caller's organic memory toggle
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganicMemoryUserPreferenceRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/OrganicMemoryUserPreferenceRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/OrganicMemoryUserPreferenceRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryUserPreferenceResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryUserPreferenceResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryUserPreferenceResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryUserPreferenceResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/OrganicMemoryUserPreferenceResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1DynamicGatewayMeOrganicMemory
+      x-operation-id-source: derived
+components:
+  schemas:
+    OrganicMemoryUserPreferenceRequest:
+      required:
+      - enabled
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether this user receives organic memory.
+      description: A user's organic memory toggle. True includes the library. False opts that user out.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    ValidationProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    OrganicMemoryUserPreferenceResponse:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether this user receives organic memory.
+      description: The caller's organic memory toggle. No stored row is reported as enabled.

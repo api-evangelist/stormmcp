@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stormmcp/main/json-schema/stormmcp-gateway-configuration-response-schema.json",
+  "title": "GatewayConfigurationResponse",
+  "description": "Response model for gateway configuration.",
+  "x-generated": "2026-10-19",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/stormmcp-openapi.json#/components/schemas/GatewayConfigurationResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Gets or sets the identifier for the gateway configuration.",
+      "format": "uuid"
+    },
+    "userId": {
+      "type": "string",
+      "description": "Gets or sets the user identifier for the gateway configuration.",
+      "format": "uuid"
+    },
+    "name": {
+      "type": "string",
+      "description": "Gets or sets the name of the gateway."
+    },
+    "libraryIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets or sets the library IDs allowed in this gateway."
+    },
+    "allowedTools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets a list of allowed tools for the gateway."
+    },
+    "allowedToolsByLibrary": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "description": "Gets or sets the allowed tools scoped per library, keyed by library ID (MCPG-1268).\nNull means the gateway still has flat-list semantics only."
+    },
+    "allowedSkillsByLibrary": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "description": "Gets or sets the allowed skills scoped per library, keyed by library ID (MCPG-2072).\nNull means the gateway serves every advertised skill."
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "Gets or sets the last updated time.",
+      "format": "date-time"
+    },
+    "sharedCredentials": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets or sets the shared credentials mapping library IDs to provider integration IDs."
+    },
+    "allowedToolsAll": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether all tools are allowed."
+    },
+    "radarEnabled": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether this gateway is surfaced through Radar\nin the UI. Metadata only: does not gate Radar routing or runtime behavior."
+    },
+    "organicMemoryEnabled": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether this static gateway includes the organic memory library."
+    },
+    "level": {
+      "description": "Gets or sets the access level for this gateway configuration.\nPersonal: only the creator can see and use this gateway.\nTenant: all users in the tenant can see and use this gateway.",
+      "$ref": "#/$defs/Level"
+    },
+    "hasStoredTools": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether this gateway has stored tool definitions."
+    },
+    "hasStoredSkills": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether this gateway has stored skill definitions (MCPG-2072)."
+    },
+    "libraries": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "$ref": "#/$defs/GatewayLibrarySummary"
+      },
+      "description": "Gets or sets display and auth metadata for each library included in this gateway.\nOrdered to match List&lt;Guid&gt; GatewayConfigurationResponse.LibraryIds. Populated regardless of the current\ntenant's Library Mode (Default/Custom) so callers never need to cross-join this\nlist against `/api/v1/Library/status` to render a gateway card.\nNull until enriched by the service layer; always populated in API responses."
+    },
+    "instructions": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the markdown instructions for tools in this gateway.\nWhen set, enables the get_tool_instructions native tool."
+    },
+    "instructionsToolDescription": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets a custom description for the get_tool_instructions tool.\nIf null, uses the default description."
+    },
+    "assignedUserIds": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets or sets the assigned user identifiers (MCPG-1706). Two states on the GET response\n(MCPG-2123 baked access assignments always on): an empty list means UNRESTRICTED, and a\npopulated list means restricted to those users. `null` is not a GET-response arm."
+    },
+    "assignedGroupIds": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets or sets the assigned group identifiers (MCPG-1706), with the same two-state reading\nas List&lt;Guid&gt;? GatewayConfigurationResponse.AssignedUserIds."
+    },
+    "version": {
+      "pattern": "^-?(?:0|[1-9]\\d*)$",
+      "type": [
+        "null",
+        "integer",
+        "string"
+      ],
+      "description": "Gets or sets the Postgres xmin concurrency token for this row (MCPG-2094).\nJSON number (uint). Null on the InMemory provider. Echo as\n`expectedVersion` on a later PUT to refuse a stale full write.",
+      "format": "uint32"
+    }
+  },
+  "$defs": {
+    "GatewayLibrarySummary": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Gets or sets the library ID.",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string",
+          "description": "Gets or sets the display name of the library."
+        },
+        "iconUrl": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the URL for the library's display icon."
+        },
+        "authTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/McpServerAuthType"
+          },
+          "description": "Gets or sets all auth types the library's catalog entry supports."
+        },
+        "currentAuthType": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "description": "Gets or sets the auth type currently configured at the tenant level.\nNull when the tenant has no integration record for this library yet.",
+              "$ref": "#/$defs/McpServerAuthType"
+            }
+          ]
+        },
+        "state": {
+          "description": "Gets or sets the unified connection state — drives the quick-connect\nstatus dot on the card. FE-aligned ubiquitous language.",
+          "$ref": "#/$defs/McpConnectionState"
+        },
+        "oauthProviderConfigId": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets or sets the OAuth provider config ID the gateway would use for a Connect action.",
+          "format": "uuid"
+        }
+      },
+      "description": "Display and auth metadata for a single library included in a gateway configuration.\nPopulated regardless of the tenant's Library Mode so that gateway cards never\nneed to cross-join against `/api/v1/Library/status`."
+    },
+    "Level": {
+      "enum": [
+        "Personal",
+        "Tenant"
+      ]
+    },
+    "McpConnectionOutcome": {
+      "type": "integer",
+      "description": "            Coarse outcome of an MCP server's connection state — the FE-aligned ubiquitous\n            language used end-to-end across BE and FE to drive UI affordances.\n            One outcome per state; string? McpConnectionState.Reason refines an\nMcpConnectionOutcome.Error outcome with a machine-readable code from\nMcpConnectionReasons."
+    },
+    "McpConnectionState": {
+      "type": "object",
+      "properties": {
+        "outcome": {
+          "description": "Gets the coarse outcome — the ubiquitous language shared across BE and FE.",
+          "$ref": "#/$defs/McpConnectionOutcome"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Gets a value indicating whether an admin has disabled this integration at\nthe tenant level. Orthogonal to McpConnectionOutcome McpConnectionState.Outcome: the outcome still\nreflects the underlying connection readiness, so re-enabling needs no\nre-derivation. Only a configured row can be disabled."
+        },
+        "reason": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets the machine-readable reason from McpConnectionReasons,\nor null when none applies. Set for McpConnectionOutcome.Error,\nfor Connected plus string McpConnectionReasons.RefreshPending, and\nfor NeedsSetup plus\nstring McpConnectionReasons.SchemaCredentialNotConfigured."
+        },
+        "reasonDetails": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Gets optional developer-facing detail refining the reason (e.g. UCS error\ncode, exception message). May be surfaced in logs and ProblemDetails but\nmust not be used for end-user UI strings."
+        },
+        "interactiveAvailable": {
+          "type": [
+            "null",
+            "boolean"
+          ],
+          "description": "Gets a value indicating whether an interactive personal-OAuth connect,\nsetup, or reconnect can clear this classification. Present as\n`true` only for `not_configured`,\n`awaiting_credentials`, `credential_invalid`, and\n`misconfigured` when the primary credential of an interactive\npersonal-OAuth source is the cause. Absent (`null`) for\nnon-interactive sources, Connected results, and reasons a primary\nconnect cannot clear. Never `false`."
+        },
+        "recoveryCommand": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "description": "Gets the recovery action for this classification. Null on an unstamped\nsingleton (omitted from JSON and gRPC). A stamped wire state always\ncarries a value other than RecoveryCommand.Unspecified.\nAbsent means the client keeps today's derivation. Present is authoritative\nand replaces reading string? McpConnectionState.Reason to choose Connect, Reconnect,\nConfigure, or Save credential.",
+              "$ref": "#/$defs/RecoveryCommand"
+            }
+          ]
+        }
+      },
+      "description": "            State-only view of an MCP server connection — the wire-shape primitive that\n            every transport (REST, gRPC, SignalR push, future Orleans grain messages)\n            can carry without dragging the entire `McpServerConfiguration`\n            along. The build-outcome wrapper `McpConnectionResult` composes a\n            state with the optional built configuration.\n            Shape contract:* McpConnectionOutcome McpConnectionState.Outcome is always set.\n* string? McpConnectionState.Reason is set when\n                McpConnectionOutcome McpConnectionState.Outcome is McpConnectionOutcome.Error (from\n                McpConnectionReasons), when McpConnectionOutcome McpConnectionState.Outcome is\n                McpConnectionOutcome.Connected and the value is\n                string McpConnectionReasons.RefreshPending, or when\n                McpConnectionOutcome McpConnectionState.Outcome is McpConnectionOutcome.NeedsSetup\n                and the value is\n                string McpConnectionReasons.SchemaCredentialNotConfigured. Other\n                Connected and NeedsSetup results keep string? McpConnectionState.Reason null.\n                Unknown non-error reasons are informational and never a gate.\n* string? McpConnectionState.ReasonDetails is an optional human-readable refinement\n                (UCS error code, exception message) intended for logs and developer-facing\n                diagnostics — not for end-user UI strings.\n* Exception? McpConnectionState.Error is the original exception when the outcome was\n                caused by one. Internal use only — never serialized.\n* bool McpConnectionState.Disabled is an orthogonal admin-disable flag — it can\n                be true alongside any McpConnectionOutcome McpConnectionState.Outcome (a Connected or NeedsAuth\n                server can still be admin-disabled), so it does not collapse into the\n                readiness outcome.\n* bool? McpConnectionState.InteractiveAvailable is present (`true`)\n                only for a user-recoverable classification of an interactive personal-OAuth\n                source. It is omitted (`null`) otherwise and is never\n                `false`.\n* RecoveryCommand? McpConnectionState.RecoveryCommand is the recovery action. It is omitted\n                (`null`) on an unstamped singleton so an old payload stays\n                absent. A present value is authoritative. RecoveryCommand.Unspecified\n                is never stored."
+    },
+    "McpServerAuthType": {
+      "type": "integer",
+      "description": "An enumeration representing the authentication types for MCP servers."
+    },
+    "RecoveryCommand": {
+      "type": "integer"
+    }
+  }
+}

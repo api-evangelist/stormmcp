@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stormmcp/main/json-schema/stormmcp-library-catalog-invalidation-result-schema.json",
+  "title": "LibraryCatalogInvalidationResult",
+  "description": "Counts owned by the gateway issuer of a library catalog invalidation (MCPG-1833).\nIssuer-owned configuration and command counts are not cross-store completion.\nThe pending/retry report pointer for the platform-side outcome arrives with the\nplatform consumer slice of OpenSpec task 3.2.",
+  "x-generated": "2026-10-19",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/stormmcp-openapi.json#/components/schemas/LibraryCatalogInvalidationResult",
+  "type": "object",
+  "properties": {
+    "configurationsAddressed": {
+      "pattern": "^-?(?:0|[1-9]\\d*)$",
+      "type": [
+        "integer",
+        "string"
+      ],
+      "description": "Gets the number of gateway configurations whose stored snapshot was cleared.",
+      "format": "int32"
+    },
+    "commandsIssued": {
+      "pattern": "^-?(?:0|[1-9]\\d*)$",
+      "type": [
+        "integer",
+        "string"
+      ],
+      "description": "Gets the number of durable commands published. A tenant with more than\none source coordinate can contribute more than one command; holder tenant\nids stay the distinct set.",
+      "format": "int32"
+    },
+    "holderTenantIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets the holder tenants a command was issued for."
+    },
+    "holderTenantsAttempted": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets the holder tenants this pass tried to invalidate (fence exceeded).\nA tenant already at the command generation is not attempted."
+    },
+    "holderTenantsSkippedDuplicateKey": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets tenants skipped because SaveChanges hit the fence primary-key\nconflict. Other tenants in the same pass still commit."
+    },
+    "holderTenantsSkippedConcurrency": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets tenants skipped after a concurrency retry could not prove the\nclears and fence landed. Other tenants in the same pass still commit."
+    },
+    "holdersSkippedUnbound": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets configuration ids whose unbound observation was unusable: it failed,\nproduced a blank coordinate, or the refresh succeeded without establishing\nfreshness, with no recorded stamp to fall back to. This is not a veto of another\ncommand. An unversioned copy on such a row may still be cleared by another\ncommand for the library and counted in int LibraryCatalogInvalidationResult.ConfigurationsAddressed."
+    },
+    "holdersSkippedObservationFailed": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets configuration ids that were observed at request time and failed,\nproduced a blank coordinate, or whose refresh succeeded without\nestablishing freshness, with no recorded source coordinate to fall back to."
+    },
+    "holdersSkippedClearConflict": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets configuration ids that were addressed for a snapshot clear that a\nconcurrency retry could not prove landed. Present only on\nstring LibraryCatalogInvalidationErrorCodes.CatalogSnapshotClearConflict.\nThis is not an observation failure and is never merged into\nIReadOnlyList&lt;Guid&gt; LibraryCatalogInvalidationResult.HoldersSkippedObservationFailed."
+    },
+    "holdersNotAttempted": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets configuration ids whose holder binding was not observed because the\nper-request binding cap or observation deadline was hit. Empty on a\ncomplete pass. This is not an observation failure."
+    },
+    "holdersCoveredByCoordinate": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets configuration ids of blank Cleared holders covered by one observation\nof an unfenced recorded coordinate for the same tenant. Not skipped and\nnot unattempted. The command identity is (tenant, library, coordinate,\ngeneration)."
+    },
+    "incompleteReason": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "Gets why a pass stopped early:\nLibraryCatalogInvalidationIncompleteReason.ObservationCap,\nLibraryCatalogInvalidationIncompleteReason.ObservationDeadline,\nor LibraryCatalogInvalidationIncompleteReason.CascadeDeadline.\nNull when every holder binding was observed or covered by a selected\ncoordinate, and a cascade either finished or was not run.",
+          "$ref": "#/$defs/LibraryCatalogInvalidationIncompleteReason"
+        }
+      ]
+    },
+    "reason": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets the typed refusal when the issuer did not issue a command, or\n`null` on success."
+    }
+  },
+  "$defs": {
+    "LibraryCatalogInvalidationIncompleteReason": {
+      "type": "integer"
+    }
+  }
+}

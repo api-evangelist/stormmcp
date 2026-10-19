@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stormmcp/main/json-schema/stormmcp-gateway-configuration-request-schema.json",
+  "title": "GatewayConfigurationRequest",
+  "description": "Request model for creating or updating gateway configuration.",
+  "x-generated": "2026-10-19",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/stormmcp-openapi.json#/components/schemas/GatewayConfigurationRequest",
+  "required": [
+    "gatewayName"
+  ],
+  "type": "object",
+  "properties": {
+    "gatewayName": {
+      "maxLength": 256,
+      "type": "string",
+      "description": "Gets or sets the name of the gateway."
+    },
+    "libraryIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets or sets the library IDs allowed in this gateway."
+    },
+    "allowedTools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Gets or sets a list of allowed tools for the gateway."
+    },
+    "allowedToolsByLibrary": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "description": "Gets or sets the allowed tools scoped per library, keyed by library ID (MCPG-1268).\nNull means the caller writes flat-list semantics only (legacy clients) and any stored\nper-library map is cleared. When present, the map is expanded to cover exactly the\ngateway's libraries (omitted ones materialize empty, detached keys are pruned) and\nList&lt;string&gt; GatewayConfigurationRequest.AllowedTools is derived server-side as exactly the union of those\nselections, keeping legacy readers and the flat-list fallback consistent without\nwidening."
+    },
+    "allowedSkillsByLibrary": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "description": "Gets or sets the allowed skills scoped per library, keyed by library ID (MCPG-2072).\nValues are SEP-2640 index entry `url`s. Null means the caller makes no per-library\nstatement, and on update the stored map is carried forward, pruned to the libraries this\nrequest still attaches, rather than cleared. An omitted map that ALSO attaches a library is\nrefused (`Gateway.SkillSelectionRequiredForNewLibrary`), because there is no stored\nselection for a new library to carry\n(MCPG-2072): clearing it would revert the gateway to serving every skill, and the editor\nomits this field exactly when it could not read an app's inventory. When present, the map\nis expanded to cover exactly the gateway's libraries (omitted ones materialize empty,\ndetached keys are pruned)."
+    },
+    "sharedCredentials": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets or sets a dict of shared credentials."
+    },
+    "allowedToolsAll": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether all tools are allowed."
+    },
+    "radarEnabled": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether this gateway is surfaced through Radar\nin the UI. Metadata only: persisted exactly as sent and does not gate Radar\nrouting or runtime behavior. Defaults to false when absent."
+    },
+    "organicMemoryEnabled": {
+      "type": "boolean",
+      "description": "Gets or sets a value indicating whether this static gateway includes the organic memory\nlibrary. Defaults to false when absent. Off removes the library id from\nList&lt;Guid&gt; GatewayConfigurationRequest.LibraryIds even when the client also sent it."
+    },
+    "level": {
+      "description": "Gets or sets the access level for this gateway configuration.\nPersonal: only the creator can see and use this gateway.\nTenant: all users in the tenant can see and use this gateway.\nDefaults to Tenant if not specified.",
+      "$ref": "#/$defs/Level"
+    },
+    "storedToolDefinitions": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the stored tool definitions as a pre-serialized JSON string.\nFormat: `Dictionary&lt;Guid, JsonArray&gt;` where keys are library IDs\nand values are arrays of MCP tool schemas.\nNull means no tool definitions have been stored yet."
+    },
+    "storedSkillDefinitions": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the stored skill definitions as a pre-serialized JSON string (MCPG-2072).\nFormat: `Dictionary&lt;Guid, JsonArray&gt;` where keys are library IDs and values\nare arrays of skill url/name/description snapshots. Whether a skill was CHOSEN is\nanswered by Dictionary&lt;Guid, List&lt;string&gt;&gt;? GatewayConfigurationRequest.AllowedSkillsByLibrary and never by this snapshot, but the\nsnapshot IS read at serve time to locate the nested-skill boundary, so a value supplied\nhere influences an authorization decision and is shape-validated before persistence.\nNull means no skill definitions have been stored yet."
+    },
+    "instructions": {
+      "maxLength": 8192,
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets the markdown instructions for tools in this gateway.\nMaximum 8 KB (~2K tokens). Defensible default for compatibility with smaller-context\nmodels; can be widened later via a single migration. When set, enables the\nget_tool_instructions native tool."
+    },
+    "instructionsToolDescription": {
+      "maxLength": 500,
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "Gets or sets a custom description for the get_tool_instructions tool.\nIf null, uses the default description. Maximum 500 characters."
+    },
+    "assignedUserIds": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets or sets the assigned user identifiers (MCPG-1706). `null` or omitted\nmeans no change on update and unrestricted on create. An empty list clears (unrestricted).\nIf this or List&lt;Guid&gt;? GatewayConfigurationRequest.AssignedGroupIds is non-null, both are treated as a full replace."
+    },
+    "assignedGroupIds": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "Gets or sets the assigned group identifiers (MCPG-1706). `null` or omitted\nmeans no change on update and unrestricted on create. An empty list clears (unrestricted).\nIf this or List&lt;Guid&gt;? GatewayConfigurationRequest.AssignedUserIds is non-null, both are treated as a full replace."
+    },
+    "expectedVersion": {
+      "pattern": "^-?(?:0|[1-9]\\d*)$",
+      "type": [
+        "null",
+        "integer",
+        "string"
+      ],
+      "description": "Gets or sets the xmin token from GET that this write must still match (MCPG-2094).\nxmin always detects an overlap between this request's load and save. When set,\nthe token widens that interval back to the caller's GET. Omitted protects only\nthe in-request window. Zero is never a token and is refused.",
+      "format": "uint32"
+    }
+  },
+  "$defs": {
+    "Level": {
+      "enum": [
+        "Personal",
+        "Tenant"
+      ]
+    }
+  }
+}

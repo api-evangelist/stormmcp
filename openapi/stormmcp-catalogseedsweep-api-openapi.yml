@@ -1,0 +1,257 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Catalog Seed Sweep API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: CatalogSeedSweep
+paths:
+  /api/v1/admin/catalog-seed-sweep:
+    post:
+      tags:
+      - CatalogSeedSweep
+      summary: Rebuilds each Airia-owned baked seed spec against mcp-link and advances the…
+      parameters:
+      - name: startAfterCoordinate
+        in: query
+        description: 'Skip used only when runId is omitted. Coordinates
+
+          strictly before this value are skipped on the new run.'
+        schema:
+          type: string
+      - name: runId
+        in: query
+        description: 'The run to resume, bound from the query only (`?runId=`). Omit it to
+
+          start a new run at the first coordinate. A retry of a timed-out run must
+
+          send the `runId` from the previous response. A `runId` in the
+
+          JSON body is rejected with 400; it does not start a new run.'
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CatalogSeedSweepResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogSeedSweepResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CatalogSeedSweepResult'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/CatalogSeedSweepResult'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/CatalogSeedSweepResult'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1AdminCatalogSeedSweep
+      x-operation-id-source: derived
+components:
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    CatalogSeedSweepResult:
+      type: object
+      properties:
+        coordinatesObserved:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of distinct baked coordinates the sweep observed.
+          format: int32
+        coordinatesUnchanged:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of coordinates whose catalog version was unchanged.
+          format: int32
+        coordinatesAdvanced:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of coordinates whose catalog record advanced.
+          format: int32
+        failedCoordinates:
+          type: array
+          items:
+            type: string
+          description: 'Gets coordinates whose probe or apply failed. A retry with
+
+            Guid CatalogSeedSweepResult.RunId probes this list before the unattempted tail.'
+        runStatus:
+          type: string
+          description: 'Gets string CatalogSeedSweepRunStatuses.Resumable while a failed
+
+            coordinate or an unattempted tail remains, and
+
+            string CatalogSeedSweepRunStatuses.Completed only when both are empty.'
+        coordinatesUnattempted:
+          type: array
+          items:
+            type: string
+          description: Gets coordinates that were not attempted because the deadline elapsed.
+        runId:
+          type: string
+          description: 'Gets the run this response belongs to. A retry POST passes this value
+
+            as `runId`. A POST that omits it starts a different run.'
+          format: uuid
+        nextCoordinate:
+          type:
+          - 'null'
+          - string
+          description: 'Gets the first unattempted coordinate, or `null` when
+
+            this run covered the remaining list. Resume by passing
+
+            Guid CatalogSeedSweepResult.RunId, not by posting again with no query argument.'
+        holderTenantIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets holder tenants a cascade command was issued for during this sweep.
+        holderTenantsAttempted:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets holder tenants the cascade attempted to invalidate.
+        holderTenantsSkippedDuplicateKey:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets holder tenants skipped because of a fence primary-key conflict.
+        holderTenantsSkippedConcurrency:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets holder tenants skipped after a concurrency retry could not land.
+      description: Operator-owned counts for one post-deploy baked-seed sweep (MCPG-1834).

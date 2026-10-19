@@ -1,0 +1,1097 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Tenant Server Access API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: TenantServerAccess
+paths:
+  /api/v1/admin/TenantServerAccess:
+    get:
+      tags:
+      - TenantServerAccess
+      summary: Gets tenant-server access assignments for the current tenant with pagination
+      parameters:
+      - name: pageNumber
+        in: query
+        description: 'The page number (1-based, default: 1).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: 'The number of items per page (default: 20, max: 1000).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfTenantServerAccessResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfTenantServerAccessResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfTenantServerAccessResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfTenantServerAccessResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/PagedResultOfTenantServerAccessResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AdminTenantServerAccess
+      x-operation-id-source: derived
+    post:
+      tags:
+      - TenantServerAccess
+      summary: Grants the current tenant access to a restricted server
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTenantServerAccessRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateTenantServerAccessRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateTenantServerAccessRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TenantServerAccessResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantServerAccessResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TenantServerAccessResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/TenantServerAccessResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/TenantServerAccessResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1AdminTenantServerAccess
+      x-operation-id-source: derived
+  /api/v1/admin/TenantServerAccess/{id}:
+    get:
+      tags:
+      - TenantServerAccess
+      summary: Gets a specific tenant-server access assignment by ID
+      parameters:
+      - name: id
+        in: path
+        description: The access assignment ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TenantServerAccessResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantServerAccessResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TenantServerAccessResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/TenantServerAccessResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/TenantServerAccessResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AdminTenantServerAccessById
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - TenantServerAccess
+      summary: Revokes the app of one tenant-server access assignment everywhere (MCPG-2330)…
+      description: 'The token is the digest `POST revoke-impact` returned for this row''s library. A missing or
+
+        stale token answers 409 `Gateway.RevokeNotAcknowledged` with the current impact in the
+
+        `impact` extension and changes nothing. An in-use app is no longer refused: the revoke
+
+        removes it from every gateway, session and agent deployment, and leaves its credentials stored.'
+      parameters:
+      - name: id
+        in: path
+        description: The access assignment ID to revoke.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: acknowledgmentToken
+        in: query
+        description: The digest from the preflight for this row's library.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1AdminTenantServerAccessById
+      x-operation-id-source: derived
+  /api/v1/admin/TenantServerAccess/revoke:
+    post:
+      tags:
+      - TenantServerAccess
+      summary: Revokes these apps' approval everywhere (MCPG-2330, spec `Revoke Requires A…
+      description: 'The token is the digest `POST revoke-impact` returned for this same selection. A missing or
+
+        stale token answers 409 `Gateway.RevokeNotAcknowledged` with the current impact in the
+
+        `impact` extension and changes nothing. A tenant in Default mode is switched to Custom mode
+
+        minus these apps. Credentials are left stored.'
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppRevokeRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AppRevokeRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AppRevokeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AppRevokeResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppRevokeResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AppRevokeResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AppRevokeResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AppRevokeResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1AdminTenantServerAccessRevoke
+      x-operation-id-source: derived
+  /api/v1/admin/TenantServerAccess/revoke-impact:
+    post:
+      tags:
+      - TenantServerAccess
+      summary: Returns the impact set of revoking these apps, and the digest an acknowledged…
+      description: 'The impact is read tenant-wide: every gateway and every personal connection in the tenant that
+
+        uses a selected app, whoever owns it. A Personal gateway the caller does not own is reported by
+
+        id and owning user id with its name withheld. Changes nothing.'
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppRevokeImpactRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AppRevokeImpactRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AppRevokeImpactRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AppRevokeImpactResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppRevokeImpactResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AppRevokeImpactResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AppRevokeImpactResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AppRevokeImpactResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1AdminTenantServerAccessRevokeImpact
+      x-operation-id-source: derived
+components:
+  schemas:
+    AppRevokeImpactTenantConfiguration:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets the library id.
+          format: uuid
+        authType:
+          oneOf:
+          - type: 'null'
+          - description: Gets the configuration's auth type, or null when unknown.
+            $ref: '#/components/schemas/McpServerAuthType'
+      description: The Tenant configuration of a revoked app (MCPG-2384).
+    AppRevokeImpactDeployment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets the Platform deployment id.
+          format: uuid
+        name:
+          type: string
+          description: Gets the deployment name.
+        libraryId:
+          type: string
+          description: Gets the library id the deployment binds.
+          format: uuid
+        projectId:
+          type:
+          - 'null'
+          - string
+          description: Gets the deployment's project id, or null when it has none.
+          format: uuid
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppRevokeImpactAgent'
+          description: Gets the agents that reference the deployment.
+      description: An agent deployment that binds a revoked app, read from Platform (MCPG-2384).
+    AppRevokeResponse:
+      type: object
+      properties:
+        revocationId:
+          type: string
+          description: Gets the revocation id, the idempotency key every downstream consumer keys on.
+          format: uuid
+        libraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets the revoked library ids.
+        switchedToCustomMode:
+          type: boolean
+          description: Gets a value indicating whether the revoke switched the tenant from Default to Custom mode.
+        strippedGatewayCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of gateways the revoked apps were removed from.
+          format: int32
+        deletedApprovalGrantCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the number of approval grant rows the revoke deleted.
+          format: int32
+      description: The outcome of an acknowledged admin app revoke (MCPG-2384).
+    AppRevokeImpactApprovalGrant:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets the library id.
+          format: uuid
+        principalType:
+          description: Gets the principal type.
+          $ref: '#/components/schemas/ApprovalPrincipalType'
+        principalId:
+          type: string
+          description: Gets the principal id. Guid Guid.Empty for ApprovalPrincipalType.AllUsers.
+          format: uuid
+        grantsAppAccess:
+          type: boolean
+          description: Gets a value indicating whether the grant confers app access.
+        toolMode:
+          description: Gets the tool scope mode.
+          $ref: '#/components/schemas/ApprovalToolMode'
+        selectedToolNames:
+          type: array
+          items:
+            type: string
+          description: Gets the selected tool names, sorted ordinally. Empty under ApprovalToolMode.All.
+      description: 'An approval grant a revoke resets (MCPG-2384). A revoke returns the app to never approved, so
+
+        every grant and tool scope it lists is discarded and part of what the admin acknowledges.'
+    ApprovalPrincipalType:
+      type: integer
+      description: 'The principal an approval grant row is scoped to (MCPG-1547). Feature-prefixed —
+
+        deliberately not shared with GatewayAccessPrincipalType or
+
+        AdminToolkitPrincipalType so the member sets can evolve independently.
+
+        Stored as a string through the strict `ApprovalPrincipalTypeConverter` (unknown
+
+        store values throw; never bare `HasConversion&lt;string&gt;()`).'
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    McpServerAuthType:
+      type: integer
+      description: An enumeration representing the authentication types for MCP servers.
+    AppRevokeRequest:
+      type: object
+      properties:
+        libraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the library ids to revoke.
+        acknowledgmentToken:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the digest returned by preflight for the same selection.
+      description: Request body for the acknowledged admin app revoke (MCPG-2384).
+    Level:
+      enum:
+      - Personal
+      - Tenant
+    AppRevokeImpactAgent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets the Platform pipeline id.
+          format: uuid
+        name:
+          type: string
+          description: Gets the agent name.
+      description: An agent that references a deployment of a revoked app (MCPG-2384).
+    AppRevokeImpactGateway:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets the gateway id.
+          format: uuid
+        name:
+          type:
+          - 'null'
+          - string
+          description: Gets the gateway name, or null when bool AppRevokeImpactGateway.NameWithheld is true.
+        nameWithheld:
+          type: boolean
+          description: 'Gets a value indicating whether the name is withheld. True for a Personal gateway the caller
+
+            does not own.'
+        level:
+          description: Gets the gateway level.
+          $ref: '#/components/schemas/Level'
+        ownerUserId:
+          type:
+          - 'null'
+          - string
+          description: Gets the owning user id. Set for every Personal gateway, null for a Tenant gateway.
+          format: uuid
+        libraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets the revoked library ids this gateway lists, sorted.
+      description: A gateway that lists a revoked app (MCPG-2384).
+    TenantServerAccessResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the unique identifier for this access assignment.
+          format: uuid
+        tenantId:
+          type: string
+          description: Gets or sets the tenant ID that has access.
+          format: uuid
+        libraryId:
+          type: string
+          description: Gets or sets the library ID from the known-mcp-servers.json file.
+          format: uuid
+        createdAt:
+          type: string
+          description: Gets or sets when this access was created.
+          format: date-time
+        updatedAt:
+          type: string
+          description: Gets or sets when this access was last updated.
+          format: date-time
+      description: Response model for tenant-server access assignments.
+    AppRevokeImpactResponse:
+      type: object
+      properties:
+        libraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets the library ids the impact covers, sorted ascending.
+        switchesToCustomMode:
+          type: boolean
+          description: 'Gets a value indicating whether the revoke switches the tenant from Default to Custom mode.
+
+            True when the tenant is in Default mode now.'
+        gateways:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppRevokeImpactGateway'
+          description: Gets every gateway in the tenant that lists a revoked app, whoever owns it.
+        personalConnections:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppRevokeImpactPersonalConnection'
+          description: Gets every personal connection to a revoked app, by owning user id. The caller is included.
+        tenantConfigurations:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppRevokeImpactTenantConfiguration'
+          description: Gets the Tenant configurations of the revoked apps.
+        deployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppRevokeImpactDeployment'
+          description: Gets the agent deployments that bind a revoked app, read from Platform.
+        approvalGrants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppRevokeImpactApprovalGrant'
+          description: 'Gets the approval grants and tool scopes of the revoked apps, which the revoke resets to
+
+            never approved.'
+        connectionsRetained:
+          type: boolean
+          description: 'Gets a value indicating whether stored connections are kept by the revoke. Always true: a
+
+            revoke never clears a credential.'
+        digest:
+          type: string
+          description: Gets the acknowledgment digest of this impact set.
+      description: 'The impact set of revoking a selection of apps, and the digest an acknowledged revoke must carry
+
+        (MCPG-2384).'
+    PagedResultOfTenantServerAccessResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TenantServerAccessResponse'
+          description: Gets or sets the items in the current page.
+        totalCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total count of items across all pages.
+          format: int32
+        pageNumber:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the current page number (1-based).
+          format: int32
+        pageSize:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of items per page.
+          format: int32
+        hasMore:
+          type: boolean
+          description: Gets a value indicating whether there are more pages available.
+        totalPages:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the total number of pages.
+          format: int32
+      description: Generic paged result wrapper for API responses.
+    CreateTenantServerAccessRequest:
+      required:
+      - libraryId
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library ID from the known-mcp-servers.json file.
+          format: uuid
+      description: Request model for granting tenant access to a restricted server.
+    AppRevokeImpactPersonalConnection:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets the library id.
+          format: uuid
+        userId:
+          type: string
+          description: Gets the owning user id.
+          format: uuid
+        source:
+          type: string
+          description: Gets where the connection is stored. One of AppRevokeConnectionSources.
+        authType:
+          oneOf:
+          - type: 'null'
+          - description: Gets the connection's auth type, or null when unknown.
+            $ref: '#/components/schemas/McpServerAuthType'
+      description: A personal connection to a revoked app, named by owning user id (MCPG-2384).
+    AppRevokeImpactRequest:
+      type: object
+      properties:
+        libraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the library ids to revoke. One to one hundred, distinct after normalisation.
+      description: 'Request body for the admin app-revoke preflight (MCPG-2384). One preflight covers the whole
+
+        selection.'
+    ApprovalToolMode:
+      type: integer

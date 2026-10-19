@@ -1,0 +1,185 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Self Service Dashboard Area Admin API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: SelfServiceDashboardAreaAdmin
+paths:
+  /api/v1/admin/self-service-dashboard:
+    get:
+      tags:
+      - SelfServiceDashboardAreaAdmin
+      summary: Gets the tenant area toggles. No row is both on
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AdminSelfServiceDashboard
+      x-operation-id-source: derived
+    put:
+      tags:
+      - SelfServiceDashboardAreaAdmin
+      summary: Stores both tenant area toggles
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SelfServiceDashboardAreaRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SelfServiceDashboardAreaRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SelfServiceDashboardAreaRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/SelfServiceDashboardAreaResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1AdminSelfServiceDashboard
+      x-operation-id-source: derived
+components:
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    SelfServiceDashboardAreaRequest:
+      type: object
+      properties:
+        aiGatewayArea:
+          type:
+          - 'null'
+          - boolean
+          description: Gets or sets the AI Gateway area toggle.
+        memoryArea:
+          type:
+          - 'null'
+          - boolean
+          description: Gets or sets the Memory area toggle.
+      description: A replace of both area toggles. Each field is required.
+    SelfServiceDashboardAreaResponse:
+      type: object
+      properties:
+        aiGatewayArea:
+          type: boolean
+          description: Gets a value indicating whether the AI Gateway area is on.
+        memoryArea:
+          type: boolean
+          description: Gets a value indicating whether the Memory area toggle is on.
+        memoryAreaWritable:
+          type: boolean
+          description: 'Gets a value indicating whether the admin may change bool SelfServiceDashboardAreaResponse.MemoryArea.
+
+            True only while the organic-memory flag is on for the tenant.'
+      description: The stored tenant area toggles. An absent row is both true.

@@ -1,0 +1,449 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Radar API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: Radar
+paths:
+  /gateway/{id}/radar:
+    get:
+      tags:
+      - Radar
+      summary: Establishes an SSE connection for the Radar endpoint, exactly like /mcp
+      parameters:
+      - name: id
+        in: path
+        description: The gateway configuration ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '426':
+          description: Upgrade Required
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getGatewayByIdRadar
+      x-operation-id-source: derived
+    post:
+      tags:
+      - Radar
+      summary: Handles JSON-RPC messages for the Radar endpoint
+      parameters:
+      - name: id
+        in: path
+        description: The gateway configuration ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-API-Key
+        in: header
+        schema:
+          type: string
+      requestBody:
+        description: Optional authorization token from Authorization header.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcMessage'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcMessage'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcMessage'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessage'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessage'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessage'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessage'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessage'
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/JsonRpcError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcError'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/JsonRpcError'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/JsonRpcError'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '426':
+          description: Upgrade Required
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postGatewayByIdRadar
+      x-operation-id-source: derived
+  /gateway/{id}/radar/execute-tool:
+    post:
+      tags:
+      - Radar
+      summary: Dedicated endpoint for executing tools discovered via radar search.
+      parameters:
+      - name: id
+        in: path
+        description: The gateway configuration ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The tool execution request.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RadarToolExecuteRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RadarToolExecuteRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RadarToolExecuteRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessage'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessage'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessage'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessage'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessage'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/JsonRpcError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcError'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/JsonRpcError'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/JsonRpcError'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postGatewayByIdRadarExecuteTool
+      x-operation-id-source: derived
+components:
+  schemas:
+    JsonRpcErrorDetail:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+        message:
+          type: string
+        data: {}
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    JsonRpcMessage: {}
+    JsonRpcError:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/JsonRpcErrorDetail'
+        id:
+          $ref: '#/components/schemas/RequestId'
+        jsonrpc:
+          type: string
+    RequestId: {}
+    RadarToolExecuteRequest:
+      type: object
+      properties:
+        toolName:
+          type: string
+          description: Gets or sets the name of the tool to execute.
+        arguments:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the arguments to pass to the tool.
+            $ref: '#/components/schemas/JsonObject'
+      description: Request model for the dedicated tool execution endpoint.
+    JsonObject:
+      type: object

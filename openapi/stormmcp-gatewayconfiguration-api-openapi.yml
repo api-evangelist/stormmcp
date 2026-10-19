@@ -1,0 +1,2037 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Gateway Configuration API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: GatewayConfiguration
+paths:
+  /api/v1/GatewayConfiguration:
+    post:
+      tags:
+      - GatewayConfiguration
+      summary: Creates a new gateway configuration
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayConfigurationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/GatewayConfigurationRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/GatewayConfigurationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CreateGatewayConfigurationResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGatewayConfigurationResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CreateGatewayConfigurationResult'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/CreateGatewayConfigurationResult'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/CreateGatewayConfigurationResult'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1GatewayConfiguration
+      x-operation-id-source: derived
+    get:
+      tags:
+      - GatewayConfiguration
+      summary: Gets all gateway configurations for the current user
+      parameters:
+      - name: level
+        in: query
+        description: Optional filter by level (Personal or Tenant). If not provided, returns all.
+        schema:
+          $ref: '#/components/schemas/Level'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GatewayConfigurationResponse'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GatewayConfigurationResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GatewayConfigurationResponse'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GatewayConfigurationResponse'
+            application/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GatewayConfigurationResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1GatewayConfiguration
+      x-operation-id-source: derived
+  /api/v1/GatewayConfiguration/{id}:
+    get:
+      tags:
+      - GatewayConfiguration
+      summary: Gets a gateway configuration by ID
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the gateway configuration.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GatewayConfigurationResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayConfigurationResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GatewayConfigurationResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/GatewayConfigurationResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/GatewayConfigurationResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1GatewayConfigurationById
+      x-operation-id-source: derived
+    put:
+      tags:
+      - GatewayConfiguration
+      summary: Updates an existing gateway configuration.
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the gateway configuration to update.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayConfigurationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/GatewayConfigurationRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/GatewayConfigurationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UpdateGatewayConfigurationResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateGatewayConfigurationResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UpdateGatewayConfigurationResult'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/UpdateGatewayConfigurationResult'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/UpdateGatewayConfigurationResult'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1GatewayConfigurationById
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - GatewayConfiguration
+      summary: Deletes a gateway configuration by ID
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the gateway configuration to delete.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1GatewayConfigurationById
+      x-operation-id-source: derived
+  /api/v1/GatewayConfiguration/{id}/tools:
+    get:
+      tags:
+      - GatewayConfiguration
+      summary: Gets stored tool definitions for a gateway configuration.
+      parameters:
+      - name: id
+        in: path
+        description: The gateway configuration ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GetStoredToolsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetStoredToolsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GetStoredToolsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/GetStoredToolsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/GetStoredToolsResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1GatewayConfigurationByIdTools
+      x-operation-id-source: derived
+  /api/v1/GatewayConfiguration/tools:
+    post:
+      tags:
+      - GatewayConfiguration
+      summary: Gets tools from a list of library IDs.
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetToolsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/GetToolsRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/GetToolsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1GatewayConfigurationTools
+      x-operation-id-source: derived
+  /api/v1/GatewayConfiguration/slots:
+    post:
+      tags:
+      - GatewayConfiguration
+      summary: Gets bound catalog slots for a list of library IDs without fetching tools
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetSlotsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/GetSlotsRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/GetSlotsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GetSlotsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSlotsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GetSlotsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/GetSlotsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/GetSlotsResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1GatewayConfigurationSlots
+      x-operation-id-source: derived
+components:
+  schemas:
+    GetSlotsResponse:
+      type: object
+      properties:
+        slots:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotResult'
+          description: Gets or sets the bound slots for the requested libraries.
+      description: Response model for the GetSlots endpoint.
+    SkillScanResult:
+      type: object
+      properties:
+        skillName:
+          type: string
+          description: 'Gets or sets the skill name this scan result corresponds to (the entry''s
+
+            `frontmatter.name`, or derived from the URL path when absent).'
+        url:
+          type: string
+          description: 'Gets or sets the entry''s raw `skill://` URL, verbatim from the index.
+
+            Correlates this result with the matching JsonArray? LibraryToolResult.Skills
+
+            entry by its `url` property.'
+        status:
+          type: string
+          description: 'Gets or sets the scan status. Values are defined in
+
+            ToolScanStatuses — the same vocabulary as per-tool scan results.
+
+            string ToolScanStatuses.NotScanned covers entries whose SKILL.md body
+
+            could not be fetched (upstream read failed, file exceeded the size cap, or the
+
+            entry was beyond the per-server scan cap).'
+      description: 'Governance scan outcome for a single skill (MCPG-1262). One entry is produced per
+
+        scannable entry of a skill-capable server''s `skill://index.json` inventory;
+
+        the SKILL.md body is scanned by the same Policy Engine scanner used for tool
+
+        definitions.'
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    GetSlotsRequest:
+      required:
+      - libraryIds
+      type: object
+      properties:
+        libraryIds:
+          minItems: 1
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the list of library IDs to read slots for.
+      description: 'Request model for reading catalog slots for a list of libraries.
+
+        The response contains at most one row per library: the slot at the
+
+        caller''s currently resolved coordinate.'
+    DerivedAnnotationResult:
+      type: object
+      properties:
+        toolName:
+          type: string
+          description: Gets or sets the tool name this derivation corresponds to.
+        status:
+          type: string
+          description: 'Gets or sets the row status — a value from
+
+            DerivedAnnotationStatuses. Defaults to
+
+            string DerivedAnnotationStatuses.Derived so verdicts cached
+
+            before the field existed deserialize as completed rows.
+
+            string DerivedAnnotationStatuses.Deriving rows are synthesized
+
+            per response while the background worker runs; they are never cached
+
+            and never stamped into stored definitions.'
+        hints:
+          type: object
+          additionalProperties:
+            type: boolean
+          description: 'Gets or sets the asserted hints after safety masking — only hints the
+
+            backend asserted at or above the confidence floor, with
+
+            `readOnlyHint: true` never present (the asymmetry rule: a benign
+
+            read-only label from a non-deterministic source could satisfy an
+
+            auto-approve rule). May be empty: the backend answered but asserted
+
+            nothing derivable.'
+        rationales:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets the per-hint one-line rationales for the asserted hints.
+
+            Surfaced on the REST row for admin evaluation; not part of the
+
+            `_meta` stamp.'
+        source:
+          type: string
+          description: 'Gets or sets the verdict source — a value from the derivation source
+
+            vocabulary (v1: always `model`).'
+        adapterId:
+          type: string
+          description: 'Gets or sets the producing adapter''s identity (model id + rubric
+
+            version), so verdicts from different brains stay distinguishable.'
+        confidence:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: 'Gets or sets the minimum confidence across the asserted hints; zero
+
+            when nothing was asserted.'
+          format: double
+        inputHash:
+          type: string
+          description: 'Gets or sets the content hash of the derivation input (name,
+
+            description, input-schema property names) the verdict was computed
+
+            from.'
+        generatedAt:
+          type: string
+          description: Gets or sets when the verdict was produced.
+          format: date-time
+      description: 'Derived annotation hints for a single upstream MCP tool that declares no
+
+        `annotations` block of its own (MCPG-1417). One entry is produced per
+
+        derived tool; tools that were skipped (already annotated, non-upstream, or
+
+        whose derivation failed) produce no entry. Also the value cached in the
+
+        global content-addressed verdict cache — the tool name participates in the
+
+        content hash, so a cached entry''s identity is stable by construction.'
+    McpConnectionOutcome:
+      type: integer
+      description: "            Coarse outcome of an MCP server's connection state — the FE-aligned ubiquitous\n            language used end-to-end across BE and FE to drive UI affordances.\n            One outcome per state; string? McpConnectionState.Reason refines an\nMcpConnectionOutcome.Error outcome with a machine-readable code from\nMcpConnectionReasons."
+    ToolFetchFailureOrigin:
+      type: integer
+    PendingCatalogChange:
+      type: object
+      properties:
+        candidateCatalogVersion:
+          type: string
+          description: Gets or sets the content-derived catalog version of the unapplied candidate.
+        addedTools:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the tool names the candidate advertises that the pin does not serve.
+        removedTools:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the tool names the pin serves that the candidate no longer advertises.
+      description: 'One library''s tool changes that the upstream advertises but the gateway''s pinned
+
+        catalog has not applied (MCPG-2425). Calls to an added tool are refused until an
+
+        admin refreshes that library''s tools.'
+    GatewayConfigurationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the identifier for the gateway configuration.
+          format: uuid
+        userId:
+          type: string
+          description: Gets or sets the user identifier for the gateway configuration.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the name of the gateway.
+        libraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the library IDs allowed in this gateway.
+        allowedTools:
+          type: array
+          items:
+            type: string
+          description: Gets or sets a list of allowed tools for the gateway.
+        allowedToolsByLibrary:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'Gets or sets the allowed tools scoped per library, keyed by library ID (MCPG-1268).
+
+            Null means the gateway still has flat-list semantics only.'
+        allowedSkillsByLibrary:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'Gets or sets the allowed skills scoped per library, keyed by library ID (MCPG-2072).
+
+            Null means the gateway serves every advertised skill.'
+        updatedAt:
+          type: string
+          description: Gets or sets the last updated time.
+          format: date-time
+        sharedCredentials:
+          type: object
+          additionalProperties:
+            type: string
+            format: uuid
+          description: Gets or sets the shared credentials mapping library IDs to provider integration IDs.
+        allowedToolsAll:
+          type: boolean
+          description: Gets or sets a value indicating whether all tools are allowed.
+        radarEnabled:
+          type: boolean
+          description: 'Gets or sets a value indicating whether this gateway is surfaced through Radar
+
+            in the UI. Metadata only: does not gate Radar routing or runtime behavior.'
+        organicMemoryEnabled:
+          type: boolean
+          description: Gets or sets a value indicating whether this static gateway includes the organic memory library.
+        level:
+          description: 'Gets or sets the access level for this gateway configuration.
+
+            Personal: only the creator can see and use this gateway.
+
+            Tenant: all users in the tenant can see and use this gateway.'
+          $ref: '#/components/schemas/Level'
+        hasStoredTools:
+          type: boolean
+          description: Gets or sets a value indicating whether this gateway has stored tool definitions.
+        hasStoredSkills:
+          type: boolean
+          description: Gets or sets a value indicating whether this gateway has stored skill definitions (MCPG-2072).
+        libraries:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/GatewayLibrarySummary'
+          description: 'Gets or sets display and auth metadata for each library included in this gateway.
+
+            Ordered to match List&lt;Guid&gt; GatewayConfigurationResponse.LibraryIds. Populated regardless of the current
+
+            tenant''s Library Mode (Default/Custom) so callers never need to cross-join this
+
+            list against `/api/v1/Library/status` to render a gateway card.
+
+            Null until enriched by the service layer; always populated in API responses.'
+        instructions:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the markdown instructions for tools in this gateway.
+
+            When set, enables the get_tool_instructions native tool.'
+        instructionsToolDescription:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets a custom description for the get_tool_instructions tool.
+
+            If null, uses the default description.'
+        assignedUserIds:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the assigned user identifiers (MCPG-1706). Two states on the GET response
+
+            (MCPG-2123 baked access assignments always on): an empty list means UNRESTRICTED, and a
+
+            populated list means restricted to those users. `null` is not a GET-response arm.'
+        assignedGroupIds:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the assigned group identifiers (MCPG-1706), with the same two-state reading
+
+            as List&lt;Guid&gt;? GatewayConfigurationResponse.AssignedUserIds.'
+        version:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: 'Gets or sets the Postgres xmin concurrency token for this row (MCPG-2094).
+
+            JSON number (uint). Null on the InMemory provider. Echo as
+
+            `expectedVersion` on a later PUT to refuse a stale full write.'
+          format: uint32
+      description: Response model for gateway configuration.
+    GetStoredToolsResponse:
+      type: object
+      properties:
+        tools:
+          description: 'Gets or sets the flattened array of MCP tool definitions.
+
+            Each tool follows the MCP tool schema: name, description, inputSchema.'
+          $ref: '#/components/schemas/JsonArray'
+        pendingCatalogChanges:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            $ref: '#/components/schemas/PendingCatalogChange'
+          description: 'Gets or sets, per library id, the tool changes an ordinary read observed upstream
+
+            that the gateway''s pinned catalog has not applied yet (MCPG-2425). Only libraries
+
+            with a pending candidate are keyed; the property is absent when none is pending.
+
+            Read from the stored snapshot, never from a live upstream discovery. A refresh of
+
+            that library''s tools is what applies the change.'
+      description: 'MCP-compliant response model for the GET stored tools endpoint.
+
+        Returns a flat tools array matching the MCP tools/list response format.'
+    JsonObject:
+      type: object
+    UpdateGatewayConfigurationResult:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Gets or sets the success message.
+        version:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: 'Gets or sets the Postgres xmin token after persist. Null when the provider
+
+            does not stamp xmin (InMemory) or the value would be zero.'
+          format: uint32
+      description: 'Typed PUT success payload so NSwag emits `message` and `version` on
+
+        `@airia/mcp-gateway-client` (MCPG-2094).'
+    RecoveryCommand:
+      type: integer
+    JsonArray:
+      type: array
+    ToolScanResult:
+      type: object
+      properties:
+        toolName:
+          type: string
+          description: Gets or sets the tool name this scan result corresponds to.
+        status:
+          type: string
+          description: 'Gets or sets the scan status. Values are defined in
+
+            ToolScanStatuses.'
+      description: 'Scan outcome for a single MCP tool definition. One entry is produced per
+
+        tool returned from the remote MCP server''s `tools/list` response.'
+    Level:
+      enum:
+      - Personal
+      - Tenant
+    McpServerAuthType:
+      type: integer
+      description: An enumeration representing the authentication types for MCP servers.
+    GetToolsResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/LibraryToolResult'
+          description: Gets or sets the results keyed by library ID.
+        sourceRefreshRateLimited:
+          type: boolean
+          description: Gets or sets a value indicating whether the hoisted Refresh Tools limiter refused this request.
+      description: Response model for the GetTools endpoint.
+    LibraryToolResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Gets or sets a value indicating whether the tools were retrieved successfully.
+        errorMessage:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the error message if the retrieval failed.
+        failureOrigin:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the typed origin of an unsuccessful tools fetch (MCPG-2031).
+
+              Null on a successful result. The in-process
+
+              ToolFetchFailureOrigin is the single source; this property
+
+              copies it onto the REST wire so a caller can classify credential, timeout,
+
+              transport, and upstream failures without parsing string? LibraryToolResult.ErrorMessage.'
+            $ref: '#/components/schemas/ToolFetchFailureOrigin'
+        resolutionOrigin:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the resolution-stage origin (MCPG-2087). Null on fetch-stage
+
+              failures and on success. Distinct from ToolFetchFailureOrigin? LibraryToolResult.FailureOrigin.'
+            $ref: '#/components/schemas/LibraryDiscoveryResolutionOrigin'
+        connectionReason:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the canonical `McpConnectionReasons` value on a
+
+            resolution-stage unsuccessful result (MCPG-2075). Null otherwise.'
+        advertisedSurface:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the tools-versus-skills-only discriminator (MCPG-2073).
+
+              Null when initialize did not capture capabilities, and also null when
+
+              initialize captured a capability list that named neither tools nor skills.'
+            $ref: '#/components/schemas/LibraryAdvertisedSurface'
+        tools:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the tools available from this library as a JSON object
+
+              (raw pass-through of the MCP `tools/list` response shape).'
+            $ref: '#/components/schemas/JsonObject'
+        toolScans:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/ToolScanResult'
+          description: 'Gets or sets the per-tool scan results. Correlates with entries in
+
+            JsonObject? LibraryToolResult.Tools by string ToolScanResult.ToolName. Null when
+
+            the library was not scanned (feature flag off). An empty list indicates
+
+            scanning was attempted but produced no results (scanner failure or no
+
+            tools returned by the server).'
+        advertisedCapabilities:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: 'Gets or sets the typed capability inventory the server declared at
+
+            `initialize` (values from
+
+            McpServerCapabilityNames),
+
+            or null when initialization did not complete far enough to capture capabilities
+
+            (MCPG-1275). Lets consumers distinguish a healthy server with zero tools (e.g. a
+
+            skills-only server) from a failed one without string matching.'
+        skills:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the skill inventory read from a skill-capable server''s
+
+              `skill://index.json` as the flat array of SEP-2640 index entries
+
+              (each entry''s `url`/`digest`/`frontmatter` is verbatim upstream
+
+              content, MCPG-1275). Null when the server is not skill-capable, the index is unparseable, or the probe
+
+              failed.'
+            $ref: '#/components/schemas/JsonArray'
+        skillScans:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/SkillScanResult'
+          description: 'Gets or sets the per-skill governance scan results (MCPG-1262). Correlates with
+
+            entries in JsonArray? LibraryToolResult.Skills by string SkillScanResult.Url. Null when
+
+            the library carries no skill inventory (see JsonArray? LibraryToolResult.Skills) or the scan
+
+            step itself faulted. An entry whose SKILL.md body could not be
+
+            fetched carries string ToolScanStatuses.NotScanned.'
+        derivedAnnotations:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/DerivedAnnotationResult'
+          description: 'Gets or sets the per-tool derived annotation results (MCPG-1417).
+
+            Correlates with entries in JsonObject? LibraryToolResult.Tools by
+
+            string DerivedAnnotationResult.ToolName; only unannotated
+
+            upstream tools that produced a verdict have entries. Null when the
+
+            caller did not opt in, the derivation backend is unconfigured, or
+
+            derivation failed for the library. Report-only metadata — the tools'' own
+
+            `annotations` blocks are never modified.'
+        sourceRefreshError:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the reason an explicit refresh (`forceRefresh`) could not re-pin this
+
+            library''s SpecLink or SkillLink source to its current revision (MCPG-1891). Null when the
+
+            source was refreshed, when the library has no pinned source, or when no refresh was asked
+
+            for. Discovery still ran, against the previously pinned revision, so bool LibraryToolResult.Success
+
+            and JsonObject? LibraryToolResult.Tools describe that revision.'
+        sourceRefreshReasons:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/SourceRefreshReason'
+          description: 'Gets or sets the typed per-library force-refresh reasons (MCPG-2060). Distinct from
+
+            string? LibraryToolResult.SourceRefreshError, which keeps the human sentence. Null or empty when no
+
+            force-refresh reason applies. Multiple values on one library are all present.
+
+            SourceRefreshReason.Unspecified is never produced. SourceRefreshReason.Denied,
+
+            SourceRefreshReason.SourceReadFailed, and
+
+            SourceRefreshReason.RateLimited are terminal for create;
+
+            SourceRefreshReason.CoveringRepairBumpFailed is advisory.
+
+            SourceRefreshReason.DeadlineMissed, SourceRefreshReason.TimedOut,
+
+            SourceRefreshReason.PersistFailed, and
+
+            SourceRefreshReason.ConfigurationGone are not terminal for create.
+
+            Retry the refresh after the limiter window; the create is refused (429) until
+
+            a refresh completes.'
+        sourceRef:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the administrator source ref after an explicit refresh (MCPG-1891).
+
+            Null when no refresh ran, when the library is not a pinned SpecLink or SkillLink
+
+            server, or when the pin is a content hash. A failed re-pin keeps the previous value.'
+        sourceRevision:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the pinned source revision after an explicit refresh (MCPG-1891).
+
+            Null when no refresh ran or the library has no pin. A failed re-pin keeps the previous value.
+
+            This is the pin triple''s revision, not the observation envelope''s source revision.'
+        sourceResolvedAt:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets when string? LibraryToolResult.SourceRevision was last resolved after an explicit refresh
+
+            (MCPG-1891). Null when no refresh ran or the library has no pin. A failed re-pin keeps the
+
+            previous value.'
+          format: date-time
+        observationSourceRevision:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the observation envelope''s source revision (MCPG-1832). Distinct from
+
+            the force-refresh pin string? LibraryToolResult.SourceRevision.'
+        sourceIdentity:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the credential-free source identity from the observation envelope (MCPG-1832).
+        catalogVersion:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the content-derived catalog version of the observed tool set (MCPG-1832).
+        observationToken:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the observation token echoed when this result actually built or revalidated.
+
+            A gateway cache hit carries the cached build''s token unchanged; the
+
+            response is non-advancing because this request issued no token.'
+        sourceCoordinate:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the source coordinate the observation was built from (MCPG-1832).
+        observationGeneration:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: 'Gets or sets the generation the observed version holds in that coordinate''s slot,
+
+            or null when it holds none (MCPG-1832).'
+          format: int64
+        slotCurrentVersion:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the slot's current catalog version at response time (MCPG-1832).
+        slotCurrentGeneration:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the slot's current generation at response time, or null when the slot has never advanced (MCPG-1832).
+          format: int64
+        revisionIsDerived:
+          type: boolean
+          description: 'Gets or sets a value indicating whether string? LibraryToolResult.ObservationSourceRevision was derived from
+
+            the tool-set content rather than read from an immutable coordinate pin (MCPG-1832).'
+        catalogRecordReason:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets a library-addressed reason the tenantless catalog record could not be updated
+
+            while producer envelope and tools were kept (MCPG-1832).'
+      description: Result for tools from a specific library.
+    SlotResult:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library whose catalog this slot versions.
+          format: uuid
+        coordinate:
+          type: string
+          description: Gets or sets the credential-free source coordinate.
+        currentCatalogVersion:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the slot's current catalog version, or null when unset.
+        catalogGeneration:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: 'Gets or sets the generation assigned when this slot last advanced, or
+
+            null when the slot has never advanced.'
+          format: int64
+        sourceIdentity:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the credential-free identity of the source last written on
+
+            establish or advance, or null when the slot predates identity columns.'
+        observationSourceRevision:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the source revision last written on establish or advance, or
+
+            null when the slot predates identity columns.'
+      description: One bound catalog slot on the REST wire.
+    LibraryAdvertisedSurface:
+      type: integer
+    CreateGatewayConfigurationResult:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the created gateway configuration id.
+          format: uuid
+        version:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: 'Gets or sets the Postgres xmin token after persist. Null when the provider
+
+            does not stamp xmin (InMemory) or the value would be zero.'
+          format: uint32
+      description: 'Typed POST success payload so NSwag emits `id` and `version` on
+
+        `@airia/mcp-gateway-client` (MCPG-2094).'
+    GatewayLibrarySummary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the library ID.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the display name of the library.
+        iconUrl:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the URL for the library's display icon.
+        authTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerAuthType'
+          description: Gets or sets all auth types the library's catalog entry supports.
+        currentAuthType:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the auth type currently configured at the tenant level.
+
+              Null when the tenant has no integration record for this library yet.'
+            $ref: '#/components/schemas/McpServerAuthType'
+        state:
+          description: 'Gets or sets the unified connection state — drives the quick-connect
+
+            status dot on the card. FE-aligned ubiquitous language.'
+          $ref: '#/components/schemas/McpConnectionState'
+        oauthProviderConfigId:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the OAuth provider config ID the gateway would use for a Connect action.
+          format: uuid
+      description: 'Display and auth metadata for a single library included in a gateway configuration.
+
+        Populated regardless of the tenant''s Library Mode so that gateway cards never
+
+        need to cross-join against `/api/v1/Library/status`.'
+    McpConnectionState:
+      type: object
+      properties:
+        outcome:
+          description: Gets the coarse outcome — the ubiquitous language shared across BE and FE.
+          $ref: '#/components/schemas/McpConnectionOutcome'
+        disabled:
+          type: boolean
+          description: 'Gets a value indicating whether an admin has disabled this integration at
+
+            the tenant level. Orthogonal to McpConnectionOutcome McpConnectionState.Outcome: the outcome still
+
+            reflects the underlying connection readiness, so re-enabling needs no
+
+            re-derivation. Only a configured row can be disabled.'
+        reason:
+          type:
+          - 'null'
+          - string
+          description: 'Gets the machine-readable reason from McpConnectionReasons,
+
+            or null when none applies. Set for McpConnectionOutcome.Error,
+
+            for Connected plus string McpConnectionReasons.RefreshPending, and
+
+            for NeedsSetup plus
+
+            string McpConnectionReasons.SchemaCredentialNotConfigured.'
+        reasonDetails:
+          type:
+          - 'null'
+          - string
+          description: 'Gets optional developer-facing detail refining the reason (e.g. UCS error
+
+            code, exception message). May be surfaced in logs and ProblemDetails but
+
+            must not be used for end-user UI strings.'
+        interactiveAvailable:
+          type:
+          - 'null'
+          - boolean
+          description: 'Gets a value indicating whether an interactive personal-OAuth connect,
+
+            setup, or reconnect can clear this classification. Present as
+
+            `true` only for `not_configured`,
+
+            `awaiting_credentials`, `credential_invalid`, and
+
+            `misconfigured` when the primary credential of an interactive
+
+            personal-OAuth source is the cause. Absent (`null`) for
+
+            non-interactive sources, Connected results, and reasons a primary
+
+            connect cannot clear. Never `false`.'
+        recoveryCommand:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets the recovery action for this classification. Null on an unstamped
+
+              singleton (omitted from JSON and gRPC). A stamped wire state always
+
+              carries a value other than RecoveryCommand.Unspecified.
+
+              Absent means the client keeps today''s derivation. Present is authoritative
+
+              and replaces reading string? McpConnectionState.Reason to choose Connect, Reconnect,
+
+              Configure, or Save credential.'
+            $ref: '#/components/schemas/RecoveryCommand'
+      description: "            State-only view of an MCP server connection — the wire-shape primitive that\n            every transport (REST, gRPC, SignalR push, future Orleans grain messages)\n            can carry without dragging the entire `McpServerConfiguration`\n            along. The build-outcome wrapper `McpConnectionResult` composes a\n            state with the optional built configuration.\n            Shape contract:* McpConnectionOutcome McpConnectionState.Outcome is always set.\n* string? McpConnectionState.Reason is set when\n                McpConnectionOutcome McpConnectionState.Outcome is McpConnectionOutcome.Error (from\n                McpConnectionReasons), when McpConnectionOutcome McpConnectionState.Outcome is\n                McpConnectionOutcome.Connected and the value is\n                string McpConnectionReasons.RefreshPending, or when\n                McpConnectionOutcome McpConnectionState.Outcome is McpConnectionOutcome.NeedsSetup\n                and the value is\n                string McpConnectionReasons.SchemaCredentialNotConfigured. Other\n                Connected and NeedsSetup results keep string? McpConnectionState.Reason null.\n                Unknown non-error reasons are informational and never a gate.\n* string? McpConnectionState.ReasonDetails is an optional human-readable refinement\n                (UCS error code, exception message) intended for logs and developer-facing\n                diagnostics — not for end-user UI strings.\n* Exception? McpConnectionState.Error is the original exception when the outcome was\n                caused by one. Internal use only — never serialized.\n* bool McpConnectionState.Disabled is an orthogonal admin-disable flag — it can\n                be true alongside any McpConnectionOutcome McpConnectionState.Outcome (a Connected or NeedsAuth\n                server can still be admin-disabled), so it does not collapse into the\n                readiness outcome.\n* bool? McpConnectionState.InteractiveAvailable is present (`true`)\n                only for a user-recoverable classification of an interactive personal-OAuth\n                source. It is omitted (`null`) otherwise and is never\n                `false`.\n* RecoveryCommand? McpConnectionState.RecoveryCommand is the recovery action. It is omitted\n                (`null`) on an unstamped singleton so an old payload stays\n                absent. A present value is authoritative. RecoveryCommand.Unspecified\n                is never stored."
+    LibraryDiscoveryResolutionOrigin:
+      type: integer
+    SourceRefreshReason:
+      type: integer
+      description: 'Typed per-library force-refresh outcome (MCPG-2060). Mirrors the gRPC
+
+        `SourceRefreshReason` enum. SourceRefreshReason.Unspecified is never produced.
+
+        SourceRefreshReason.Denied, SourceRefreshReason.SourceReadFailed, and
+
+        SourceRefreshReason.RateLimited are terminal for create.
+
+        SourceRefreshReason.CoveringRepairBumpFailed is advisory. SourceRefreshReason.DeadlineMissed,
+
+        SourceRefreshReason.TimedOut, SourceRefreshReason.PersistFailed, and
+
+        SourceRefreshReason.ConfigurationGone are not terminal for create.
+
+        SourceRefreshReason.RateLimited may appear per library in addition to the request-level
+
+        `sourceRefreshRateLimited` flag. Retry the refresh after the limiter window;
+
+        the create is refused (429) until a refresh completes.'
+    GatewayConfigurationRequest:
+      required:
+      - gatewayName
+      type: object
+      properties:
+        gatewayName:
+          maxLength: 256
+          type: string
+          description: Gets or sets the name of the gateway.
+        libraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the library IDs allowed in this gateway.
+        allowedTools:
+          type: array
+          items:
+            type: string
+          description: Gets or sets a list of allowed tools for the gateway.
+        allowedToolsByLibrary:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'Gets or sets the allowed tools scoped per library, keyed by library ID (MCPG-1268).
+
+            Null means the caller writes flat-list semantics only (legacy clients) and any stored
+
+            per-library map is cleared. When present, the map is expanded to cover exactly the
+
+            gateway''s libraries (omitted ones materialize empty, detached keys are pruned) and
+
+            List&lt;string&gt; GatewayConfigurationRequest.AllowedTools is derived server-side as exactly the union of those
+
+            selections, keeping legacy readers and the flat-list fallback consistent without
+
+            widening.'
+        allowedSkillsByLibrary:
+          type:
+          - 'null'
+          - object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'Gets or sets the allowed skills scoped per library, keyed by library ID (MCPG-2072).
+
+            Values are SEP-2640 index entry `url`s. Null means the caller makes no per-library
+
+            statement, and on update the stored map is carried forward, pruned to the libraries this
+
+            request still attaches, rather than cleared. An omitted map that ALSO attaches a library is
+
+            refused (`Gateway.SkillSelectionRequiredForNewLibrary`), because there is no stored
+
+            selection for a new library to carry
+
+            (MCPG-2072): clearing it would revert the gateway to serving every skill, and the editor
+
+            omits this field exactly when it could not read an app''s inventory. When present, the map
+
+            is expanded to cover exactly the gateway''s libraries (omitted ones materialize empty,
+
+            detached keys are pruned).'
+        sharedCredentials:
+          type: object
+          additionalProperties:
+            type: string
+            format: uuid
+          description: Gets or sets a dict of shared credentials.
+        allowedToolsAll:
+          type: boolean
+          description: Gets or sets a value indicating whether all tools are allowed.
+        radarEnabled:
+          type: boolean
+          description: 'Gets or sets a value indicating whether this gateway is surfaced through Radar
+
+            in the UI. Metadata only: persisted exactly as sent and does not gate Radar
+
+            routing or runtime behavior. Defaults to false when absent.'
+        organicMemoryEnabled:
+          type: boolean
+          description: 'Gets or sets a value indicating whether this static gateway includes the organic memory
+
+            library. Defaults to false when absent. Off removes the library id from
+
+            List&lt;Guid&gt; GatewayConfigurationRequest.LibraryIds even when the client also sent it.'
+        level:
+          description: 'Gets or sets the access level for this gateway configuration.
+
+            Personal: only the creator can see and use this gateway.
+
+            Tenant: all users in the tenant can see and use this gateway.
+
+            Defaults to Tenant if not specified.'
+          $ref: '#/components/schemas/Level'
+        storedToolDefinitions:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the stored tool definitions as a pre-serialized JSON string.
+
+            Format: `Dictionary&lt;Guid, JsonArray&gt;` where keys are library IDs
+
+            and values are arrays of MCP tool schemas.
+
+            Null means no tool definitions have been stored yet.'
+        storedSkillDefinitions:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the stored skill definitions as a pre-serialized JSON string (MCPG-2072).
+
+            Format: `Dictionary&lt;Guid, JsonArray&gt;` where keys are library IDs and values
+
+            are arrays of skill url/name/description snapshots. Whether a skill was CHOSEN is
+
+            answered by Dictionary&lt;Guid, List&lt;string&gt;&gt;? GatewayConfigurationRequest.AllowedSkillsByLibrary and never by this snapshot, but the
+
+            snapshot IS read at serve time to locate the nested-skill boundary, so a value supplied
+
+            here influences an authorization decision and is shape-validated before persistence.
+
+            Null means no skill definitions have been stored yet.'
+        instructions:
+          maxLength: 8192
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the markdown instructions for tools in this gateway.
+
+            Maximum 8 KB (~2K tokens). Defensible default for compatibility with smaller-context
+
+            models; can be widened later via a single migration. When set, enables the
+
+            get_tool_instructions native tool.'
+        instructionsToolDescription:
+          maxLength: 500
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets a custom description for the get_tool_instructions tool.
+
+            If null, uses the default description. Maximum 500 characters.'
+        assignedUserIds:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the assigned user identifiers (MCPG-1706). `null` or omitted
+
+            means no change on update and unrestricted on create. An empty list clears (unrestricted).
+
+            If this or List&lt;Guid&gt;? GatewayConfigurationRequest.AssignedGroupIds is non-null, both are treated as a full replace.'
+        assignedGroupIds:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the assigned group identifiers (MCPG-1706). `null` or omitted
+
+            means no change on update and unrestricted on create. An empty list clears (unrestricted).
+
+            If this or List&lt;Guid&gt;? GatewayConfigurationRequest.AssignedUserIds is non-null, both are treated as a full replace.'
+        expectedVersion:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: 'Gets or sets the xmin token from GET that this write must still match (MCPG-2094).
+
+            xmin always detects an overlap between this request''s load and save. When set,
+
+            the token widens that interval back to the caller''s GET. Omitted protects only
+
+            the in-request window. Zero is never a token and is refused.'
+          format: uint32
+      description: Request model for creating or updating gateway configuration.
+    GetToolsRequest:
+      required:
+      - libraryIds
+      type: object
+      properties:
+        libraryIds:
+          minItems: 1
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Gets or sets the list of library IDs to get tools from.
+        includeRecoveryAffordances:
+          type:
+          - 'null'
+          - boolean
+          description: 'Gets or sets a value indicating whether the response may include synthetic
+
+            `{server}__connect` credential-recovery affordance tools for recovery-eligible
+
+            libraries (unconfigured / awaiting-credentials / misconfigured, or a configured
+
+            library whose stored credentials were rejected at runtime). Optional; an absent value
+
+            (the common case) is treated as `false`: interactive config-time
+
+            callers — the Airia Platform gateway/deployment create and edit flows — omit it and get
+
+            a clean tool preview with no recovery affordances, matching the pre-MCPG-809 behavior.
+
+            Radar''s indexer opts in by sending `true` so `radar_search`
+
+            continues to surface reconnect affordances (MCPG-809 / MCPG-964). Always honored
+
+            (MCPG-2123 baked credential recovery). Nullable to make
+
+            the omitted-means-off contract explicit on the wire (avoids value-type under-posting).'
+        forceRefresh:
+          type:
+          - 'null'
+          - boolean
+          description: 'Gets or sets a value indicating whether this user''s cached tool catalog is discarded
+
+            before discovery runs. Optional; an absent value (the common case) is treated as
+
+            `false` and preserves today''s behavior of serving whatever snapshot
+
+            the Redis cache holds. The Airia Platform tool pane sets it only on the manual refresh
+
+            button, which re-issues this same POST and was previously a silent no-op because the
+
+            retry hit the same cache entry, so an agent added after the snapshot stayed invisible
+
+            for the full 10-minute TTL (MCPG-1669). Invalidation is one pass over the caller''s
+
+            whole `tools:{userId}:` prefix, not just the libraries named in this request, so
+
+            the caller''s other cached libraries re-probe lazily on next view; no other user is
+
+            ever disturbed.
+
+            A force-refresh names at most `SpecSourceRefresh:MaxRequestedLibraryIds`
+
+            libraries (default 200) and re-pins at most
+
+            `SpecSourceRefresh:MaxLibrariesPerRequest` SpecLink or SkillLink rows
+
+            (default 8); more is 400. Ordinary reads stay uncapped. The re-pin
+
+            write is rate-limited per tenant and user and has an overall deadline; rows
+
+            not reached keep the previous pin and report `sourceRefreshError`.
+
+            Nullable to make the omitted-means-off contract explicit on the wire (avoids value-type
+
+            under-posting).'
+      description: Request model for getting tools from a list of MCP providers.

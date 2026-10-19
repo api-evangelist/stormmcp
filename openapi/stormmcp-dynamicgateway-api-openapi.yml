@@ -1,0 +1,3465 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Dynamic Gateway API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: DynamicGateway
+paths:
+  /api/v1/dynamic-gateway/me/preferences:
+    get:
+      tags:
+      - DynamicGateway
+      summary: Gets the current user's stored dynamic gateway preferences
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayUserPreferencesResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayUserPreferencesResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayUserPreferencesResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayUserPreferencesResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayUserPreferencesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMePreferences
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/libraries/{libraryId}:
+    patch:
+      tags:
+      - DynamicGateway
+      summary: Sets or resets the current user's app-level dynamic gateway preference for one…
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetDynamicGatewayLibraryPreferenceRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SetDynamicGatewayLibraryPreferenceRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SetDynamicGatewayLibraryPreferenceRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: patchApiV1DynamicGatewayMeLibrariesByLibraryId
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/libraries/{libraryId}/preference:
+    delete:
+      tags:
+      - DynamicGateway
+      summary: Resets the current user's app-level dynamic gateway preference for one library
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1DynamicGatewayMeLibrariesByLibraryIdPreference
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/libraries/{libraryId}/tools:
+    put:
+      tags:
+      - DynamicGateway
+      summary: Sets the current user's upstream tool preference for one dynamic gateway library
+      parameters:
+      - name: libraryId
+        in: path
+        description: The library identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetDynamicGatewayToolPreferenceRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SetDynamicGatewayToolPreferenceRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SetDynamicGatewayToolPreferenceRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1DynamicGatewayMeLibrariesByLibraryIdTools
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/summary:
+    get:
+      tags:
+      - DynamicGateway
+      summary: Gets the current user's resolved dynamic gateway self-service summary…
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EffectiveToolSurfaceResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EffectiveToolSurfaceResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EffectiveToolSurfaceResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/EffectiveToolSurfaceResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/EffectiveToolSurfaceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMeSummary
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/skills-inventory:
+    get:
+      tags:
+      - DynamicGateway
+      summary: Gets the on-demand full skill inventory for the Skills toolkit editor…
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SkillsInventoryResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillsInventoryResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SkillsInventoryResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/SkillsInventoryResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/SkillsInventoryResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMeSkillsInventory
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/skills:
+    patch:
+      tags:
+      - DynamicGateway
+      summary: Sets the Skills toolkit master switch (MCPG-1511)
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetSkillsMasterRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SetSkillsMasterRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SetSkillsMasterRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: patchApiV1DynamicGatewayMeSkills
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/skills/selection:
+    patch:
+      tags:
+      - DynamicGateway
+      summary: Selects or deselects one skill (MCPG-1511).
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetSkillSelectionRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SetSkillSelectionRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SetSkillSelectionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: patchApiV1DynamicGatewayMeSkillsSelection
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/skills/sources:
+    patch:
+      tags:
+      - DynamicGateway
+      summary: Enables or disables one SkillLink source (MCPG-1766).
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetSkillSourceRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SetSkillSourceRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SetSkillSourceRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/SkillsPreferenceResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: patchApiV1DynamicGatewayMeSkillsSources
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/assigned-toolkits/{toolkitId}:
+    patch:
+      tags:
+      - DynamicGateway
+      summary: Hides or unhides an admin toolkit for the caller (MCPG-1672).
+      parameters:
+      - name: toolkitId
+        in: path
+        description: The admin toolkit identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetAssignedToolkitHiddenRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SetAssignedToolkitHiddenRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SetAssignedToolkitHiddenRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AssignedToolkitHiddenResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignedToolkitHiddenResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AssignedToolkitHiddenResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AssignedToolkitHiddenResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AssignedToolkitHiddenResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: patchApiV1DynamicGatewayMeAssignedToolkitsByToolkitId
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/toolkits:
+    get:
+      tags:
+      - DynamicGateway
+      summary: Gets the current user's toolkits (MCPG-1130)
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToolkitResponse'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToolkitResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToolkitResponse'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToolkitResponse'
+            application/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToolkitResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMeToolkits
+      x-operation-id-source: derived
+    post:
+      tags:
+      - DynamicGateway
+      summary: Creates a new toolkit (MCPG-1130)
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateToolkitRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateToolkitRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateToolkitRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1DynamicGatewayMeToolkits
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/toolkits/{toolkitId}:
+    patch:
+      tags:
+      - DynamicGateway
+      summary: Updates a toolkit's name, description, and/or enabled state (MCPG-1130)
+      parameters:
+      - name: toolkitId
+        in: path
+        description: The toolkit identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateToolkitRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateToolkitRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UpdateToolkitRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: patchApiV1DynamicGatewayMeToolkitsByToolkitId
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - DynamicGateway
+      summary: Deletes a toolkit (MCPG-1130)
+      parameters:
+      - name: toolkitId
+        in: path
+        description: The toolkit identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1DynamicGatewayMeToolkitsByToolkitId
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/toolkits/{toolkitId}/members/{libraryId}:
+    put:
+      tags:
+      - DynamicGateway
+      summary: Adds or updates a toolkit member (MCPG-1130)
+      parameters:
+      - name: toolkitId
+        in: path
+        description: The toolkit identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: libraryId
+        in: path
+        description: The library identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetToolkitMemberRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SetToolkitMemberRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SetToolkitMemberRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1DynamicGatewayMeToolkitsByToolkitIdMembersByLibraryId
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - DynamicGateway
+      summary: Removes a toolkit member (MCPG-1130)
+      parameters:
+      - name: toolkitId
+        in: path
+        description: The toolkit identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: libraryId
+        in: path
+        description: The library identifier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ToolkitResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1DynamicGatewayMeToolkitsByToolkitIdMembersByLibraryId
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/gateway:
+    get:
+      tags:
+      - DynamicGateway
+      summary: Gets the current user's dynamic gateway metadata (MCPG-1156)
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GatewayMetadataResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayMetadataResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GatewayMetadataResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/GatewayMetadataResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/GatewayMetadataResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMeGateway
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/activity:
+    get:
+      tags:
+      - DynamicGateway
+      summary: Gets the current user's dynamic gateway activity projection (MCPG-1156)
+      parameters:
+      - name: window
+        in: query
+        description: The aggregate window (`today` default, or `7d`).
+        schema:
+          type: string
+      - name: outcome
+        in: query
+        description: Optional recent-row outcome (`failed`, `denied`, `success`, or `unknown`).
+        schema:
+          type: string
+      - name: client
+        in: query
+        description: Optional recent-row client name.
+        schema:
+          type: string
+      - name: q
+        in: query
+        description: Optional tool-name search.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ActivityResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ActivityResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ActivityResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ActivityResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMeActivity
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/activity/{id}:
+    get:
+      tags:
+      - DynamicGateway
+      summary: Gets the full request/response payload for one of the current user's tool calls…
+      parameters:
+      - name: id
+        in: path
+        description: The request-log row identifier (from a recent row).
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ActivityDetailResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityDetailResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ActivityDetailResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ActivityDetailResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ActivityDetailResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMeActivityById
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/clients:
+    get:
+      tags:
+      - DynamicGateway
+      summary: Gets the current user's recent dynamic-gateway client sessions (MCPG-1156)
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientSessionResponse'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientSessionResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientSessionResponse'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientSessionResponse'
+            application/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientSessionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMeClients
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/radar-cache:
+    get:
+      tags:
+      - DynamicGateway
+      summary: Gets the current user's Radar cache (MCPG-1156)
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/RadarCacheResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RadarCacheResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/RadarCacheResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/RadarCacheResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/RadarCacheResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1DynamicGatewayMeRadarCache
+      x-operation-id-source: derived
+    put:
+      tags:
+      - DynamicGateway
+      summary: Sets the current user's Radar cache size (MCPG-1156)
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetRadarCacheSizeRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SetRadarCacheSizeRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SetRadarCacheSizeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/RadarCacheResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RadarCacheResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/RadarCacheResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/RadarCacheResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/RadarCacheResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1DynamicGatewayMeRadarCache
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/radar-cache/tools/{toolName}/pin:
+    put:
+      tags:
+      - DynamicGateway
+      summary: Pins a cached Radar tool (MCPG-1156)
+      parameters:
+      - name: toolName
+        in: path
+        description: The tool name.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1DynamicGatewayMeRadarCacheToolsByToolNamePin
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - DynamicGateway
+      summary: Unpins a cached Radar tool (MCPG-1156)
+      parameters:
+      - name: toolName
+        in: path
+        description: The tool name.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1DynamicGatewayMeRadarCacheToolsByToolNamePin
+      x-operation-id-source: derived
+  /api/v1/dynamic-gateway/me/radar-cache/tools/{toolName}:
+    delete:
+      tags:
+      - DynamicGateway
+      summary: Removes a cached Radar tool (MCPG-1156)
+      parameters:
+      - name: toolName
+        in: path
+        description: The tool name.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1DynamicGatewayMeRadarCacheToolsByToolName
+      x-operation-id-source: derived
+components:
+  schemas:
+    SetDynamicGatewayLibraryPreferenceRequest:
+      type: object
+      properties:
+        enabledOverride:
+          type:
+          - 'null'
+          - boolean
+          description: 'Gets or sets the nullable app-level override.
+
+            Null means reset to follow admin default.'
+      description: Request to set a dynamic gateway app-level preference.
+    ActivityResponse:
+      type: object
+      properties:
+        aggregates:
+          description: 'Gets or sets the windowed aggregates.
+
+            Deprecated. Existing readers still receive this field. Removal is MCPG-2186.'
+          $ref: '#/components/schemas/ActivityAggregatesResponse'
+        series7d:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivitySeriesPointResponse'
+          description: 'Gets or sets the fixed 7-day daily series.
+
+            Deprecated. Existing readers still receive this field. Removal is MCPG-2186.
+
+            Day keys are UTC. A client that needs local days sums IReadOnlyList&lt;ActivityBucket20mResponse&gt; ActivityResponse.Buckets20m.'
+        series24h:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivitySeries24hBucketResponse'
+          description: Gets or sets the fixed 24-hour outcome-split series (72 × 20-min buckets, AI-51). Window-independent.
+        buckets20m:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityBucket20mResponse'
+          description: 'Gets or sets 768 UTC-aligned 15-minute buckets covering 8 x 24h (MCPG-2192).
+
+            The JSON name `buckets20m` is historical. The last bucket contains now.
+
+            DateTimeOffset ActivityResponse.WindowStart is the first bucket start
+
+            and DateTimeOffset ActivityResponse.WindowEnd is the exclusive end of the last bucket.'
+        windowStart:
+          type: string
+          description: Gets or sets the UTC start of the first IReadOnlyList&lt;ActivityBucket20mResponse&gt; ActivityResponse.Buckets20m bucket.
+          format: date-time
+        windowEnd:
+          type: string
+          description: Gets or sets the exclusive UTC end of the last IReadOnlyList&lt;ActivityBucket20mResponse&gt; ActivityResponse.Buckets20m bucket.
+          format: date-time
+        recent:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityRecentRowResponse'
+          description: 'Gets or sets the latest matching tool-call rows. An outcome, client, or tool-name
+
+            query is applied before the cap of 50. This list is not a total. Older calls stay
+
+            in MCP Monitoring.'
+      description: Current-user dynamic gateway activity projection (MCPG-1156).
+    ActivityOutcome:
+      type: integer
+      description: Outcome of a recorded tool call (MCPG-1156), mapped from the request-log status.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    SkillsPreferenceResponse:
+      type: object
+      properties:
+        masterEnabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the master switch is on.
+        deselections:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillDeselectionResponse'
+          description: Gets or sets the deselected skills.
+        enabledLibraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the SkillLink library ids the caller has opted into. Empty
+
+            means no repository is served even when bool SkillsPreferenceResponse.MasterEnabled is true.'
+      description: Response for the stored skills preference.
+    DynamicGatewayUserPreferencesResponse:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: Gets or sets the tenant identifier.
+          format: uuid
+        userId:
+          type: string
+          description: Gets or sets the user identifier.
+          format: uuid
+        preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicGatewayLibraryPreferenceResponse'
+          description: Gets or sets the stored library preferences.
+      description: Dynamic gateway preference response for the authenticated tenant/user.
+    RadarCacheResponse:
+      type: object
+      properties:
+        size:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the effective per-user cache slot budget.
+          format: int32
+        used:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of cached tools.
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadarCacheEntryResponse'
+          description: Gets or sets the cached tool entries, sorted by 7-day hits descending.
+        minSize:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the inclusive minimum allowed int RadarCacheResponse.Size (`MaxPinnedTools + 1`).
+          format: int32
+        maxSize:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the inclusive maximum allowed int RadarCacheResponse.Size.
+          format: int32
+        step:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the size adjustment step (always 1 for integer slots).
+          format: int32
+        maxPinned:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the maximum number of pinned tools.
+          format: int32
+      description: Current-user Radar cache view (MCPG-1156).
+    ApprovalClassificationResponse:
+      type: object
+      properties:
+        approved:
+          type: boolean
+          description: Gets or sets a value indicating whether the calling user holds app approval for this library.
+        toolMode:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the approved tool scope when bool ApprovalClassificationResponse.Approved is true; null otherwise.
+
+              ApprovalToolMode.All is symbolic — the consuming surface expands it against the
+
+              library''s live tool inventory.'
+            $ref: '#/components/schemas/ApprovalToolMode'
+        selectedToolNames:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: 'Gets or sets the approved tool names when ApprovalToolMode? ApprovalClassificationResponse.ToolMode is
+
+            ApprovalToolMode.Selected; empty for ApprovalToolMode.All, null when
+
+            unapproved.'
+      description: 'The calling user''s approval classification for one summary row (MCPG-1550). Informational: the
+
+        server never narrows a listing or refuses an operation on it — the personal gateway and personal
+
+        toolkit pickers render from it, and refusal at use is MCPG-1652''s. ApprovalToolMode
+
+        reaches the TypeScript client by DTO reference (MCPG-1547); do not register it in
+
+        `StandaloneEnumSchemaProcessor`.'
+    SkillsInventorySkillResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Gets or sets the source-published skill URL, verbatim.
+        digest:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the upstream digest, verbatim when present.
+        frontmatter:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the upstream frontmatter, cloned from the index entry when present.
+
+              SEP-2640 publishes this as a JSON object; a string node is preserved as a string.'
+            $ref: '#/components/schemas/JsonNode'
+        selected:
+          type: boolean
+          description: Gets or sets a value indicating whether the skill is selected (not deselected).
+        scanStatus:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the governance scan status, or null when no scan ran.
+      description: One skill in the editor inventory.
+    CreateToolkitRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets or sets the toolkit name.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional description.
+      description: Request to create a toolkit (MCPG-1130).
+    SetSkillSourceRequest:
+      required:
+      - libraryId
+      - enabled
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the SkillLink library identifier.
+          format: uuid
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the source is enabled.
+      description: 'Request to enable or disable one SkillLink source (MCPG-1766). Enabling lights
+
+        up every skill in that repository except existing deselections.'
+    ActivitySeriesPointResponse:
+      type: object
+      properties:
+        day:
+          type: string
+          description: Gets or sets the day.
+          format: date
+        calls:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the tool-call count on that day.
+          format: int32
+      description: One day of the 7-day series.
+    McpServerStatus:
+      enum:
+      - Available
+      - ComingSoon
+      - Beta
+      - Deprecated
+      - Custom
+      description: Availability status for MCP servers.
+    ActivitySeries24hBucketResponse:
+      type: object
+      properties:
+        bucketStart:
+          type: string
+          description: Gets or sets the UTC start of the 20-minute bucket (aligned to a 20-min boundary).
+          format: date-time
+        succeeded:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the successful tool calls in the bucket.
+          format: int32
+        failed:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the failed tool calls in the bucket.
+          format: int32
+        denied:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the policy-denied tool calls in the bucket.
+          format: int32
+        unknown:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the tool calls whose status did not map to Succeeded/Failed/Denied (AI-58).
+          format: int32
+      description: One 20-minute bucket of the 24-hour outcome-split series (AI-51).
+    SetRadarCacheSizeRequest:
+      required:
+      - size
+      type: object
+      properties:
+        size:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the new cache slot budget.
+          format: int32
+      description: Request to set the current user's Radar cache size (MCPG-1156).
+    DynamicGatewayToolCountsResponse:
+      type: object
+      properties:
+        available:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of available tools.
+          format: int32
+        selected:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of selected tools.
+          format: int32
+      description: Dynamic gateway tool-count DTO.
+    SkillDeselectionResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        skillUrl:
+          type: string
+          description: Gets or sets the source-published skill URL.
+      description: One deselected skill on the preference response.
+    GatewayMetadataResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Gets or sets the display name (derived; not stored while row-less).
+        kind:
+          description: Gets or sets the gateway kind.
+          $ref: '#/components/schemas/GatewayKind'
+        endpoint:
+          type: string
+          description: Gets or sets the public dynamic MCP endpoint URL.
+        tenantId:
+          type: string
+          description: Gets or sets the tenant identifier.
+          format: uuid
+      description: 'Current-user dynamic gateway metadata (MCPG-1156). Uses only real or deterministically-derived values;
+
+        `createdAt` is intentionally absent in v1 because the dynamic gateway is row-less and has no
+
+        creation timestamp. `health` is intentionally omitted (AI-56 / Antonio review): synthesizing
+
+        gateway health from per-library `McpConnectionState` conflates infrastructure health with
+
+        integration connection state; the FE derives a connections note from `/me/summary` instead.'
+    DynamicGatewayToolPreferenceResponse:
+      type: object
+      properties:
+        mode:
+          description: Gets or sets the tool preference mode.
+          $ref: '#/components/schemas/DynamicToolPreferenceMode'
+        selectedToolNames:
+          type: array
+          items:
+            type: string
+          description: Gets or sets selected original upstream tool names.
+      description: Dynamic gateway tool preference DTO.
+    SkillsInventoryResponse:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillsInventoryGroupResponse'
+          description: Gets or sets the per-server groups.
+      description: 'On-demand full per-server skill inventory for the Skills toolkit editor (MCPG-1511).
+
+        Includes deselected skills. Distinct from the MCP `skill://index.json` read.
+
+        Available with the master switch off.'
+    SetToolkitMemberRequest:
+      type: object
+      properties:
+        toolMode:
+          description: Gets or sets the tool preference mode.
+          $ref: '#/components/schemas/DynamicToolPreferenceMode'
+        selectedToolNames:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the original upstream tool names selected by the user.
+      description: Request to add or update a toolkit member (MCPG-1130).
+    JsonNode: {}
+    GatewayKind:
+      type: integer
+      description: 'The kind of dynamic gateway (MCPG-1156). v1 exposes only GatewayKind.Primary; GatewayKind.Auxiliary
+
+        is reserved for the parked auxiliary-gateway feature (MCPG-1164).'
+    McpServerType:
+      type: integer
+      description: An mcp server type enumeration.
+    ClientKind:
+      type: integer
+      description: 'The kind of MCP client that connected to a dynamic gateway (MCPG-1156), derived best-effort from the
+
+        authenticating bearer scheme at handshake time. Display-only; never an authorization input.'
+    ToolkitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the toolkit identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the toolkit name.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional description.
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the toolkit master switch is on.
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolkitMemberResponse'
+          description: Gets or sets the toolkit members.
+        createdAt:
+          type: string
+          description: Gets or sets the creation timestamp.
+          format: date-time
+        updatedAt:
+          type: string
+          description: Gets or sets the update timestamp.
+          format: date-time
+      description: A user's toolkit with its members (MCPG-1130).
+    DynamicGatewayLibraryPreferenceResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        enabledOverride:
+          type:
+          - 'null'
+          - boolean
+          description: Gets or sets the nullable app-level preference.
+        toolMode:
+          description: Gets or sets the tool preference mode.
+          $ref: '#/components/schemas/DynamicToolPreferenceMode'
+        selectedToolNames:
+          type: array
+          items:
+            type: string
+          description: Gets or sets canonical selected upstream tool names.
+        createdAt:
+          type: string
+          description: Gets or sets the creation timestamp.
+          format: date-time
+        updatedAt:
+          type: string
+          description: Gets or sets the update timestamp.
+          format: date-time
+      description: Dynamic gateway preference response for one library.
+    ResolvedMcpServerResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        type:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the server type (MCPG-1511). SkillLink rows are
+
+              stripped from IReadOnlyList&lt;ResolvedMcpServerResponse&gt; EffectiveToolSurfaceResponse.McpServers
+
+              when the tenant has at least one SkillLink server.'
+            $ref: '#/components/schemas/McpServerType'
+        name:
+          type: string
+          description: Gets or sets the display name.
+        provider:
+          description: Gets or sets the provider name.
+          $ref: '#/components/schemas/KnownMcpProvider'
+        category:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the category.
+        iconUrl:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the icon URL.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the description.
+        status:
+          description: Gets or sets the catalog status (e.g. `Custom` for a tenant-owned server).
+          $ref: '#/components/schemas/McpServerStatus'
+        scopes:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the OAuth scopes the server declares (catalog metadata for the connect flow).
+        authType:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerAuthType'
+          description: Gets or sets the auth types the server supports (catalog metadata for the connect flow).
+        currentAuthType:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the auth type currently configured for this tenant, or null when none is configured.
+            $ref: '#/components/schemas/McpServerAuthType'
+        adminAssigned:
+          type: boolean
+          description: Gets or sets a value indicating whether this library is assigned by admin policy.
+        adminDefaultEnabled:
+          type: boolean
+          description: Gets or sets a value indicating whether admin policy enables this library by default.
+        userEnabledOverride:
+          type:
+          - 'null'
+          - boolean
+          description: Gets or sets the nullable app-level preference.
+        effectiveUserEnabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the user wants this library enabled.
+        connectionState:
+          description: 'Gets or sets the runtime connection state (outcome + the orthogonal admin-disabled flag). Runnability
+
+            is read from this plus bool ResolvedMcpServerResponse.EffectiveUserEnabled — there is no separate flattened status.'
+          $ref: '#/components/schemas/McpConnectionState'
+        toolPreference:
+          description: Gets or sets the tool preference.
+          $ref: '#/components/schemas/DynamicGatewayToolPreferenceResponse'
+        toolCounts:
+          description: Gets or sets the tool counts.
+          $ref: '#/components/schemas/DynamicGatewayToolCountsResponse'
+        toolkitIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the identifiers of the toolkits that reference this library (MCPG-1130). Empty when the
+
+            library is in no user toolkit (drives the self-service "Not in a toolkit" chip). User-toolkit ids only.'
+        assignedToolkitIds:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the identifiers of admin-assigned toolkits that reference this library (MCPG-1672).
+
+            Null (omitted on the wire) when empty so flag-off summaries stay byte-identical. Admin ids are never
+
+            mixed into IReadOnlyList&lt;Guid&gt; ResolvedMcpServerResponse.ToolkitIds.'
+        approval:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the calling user''s approval classification for this library (MCPG-1550). Null (omitted
+
+              on the wire) unless `self-service-dashboard` is on, so SSD-off summaries stay byte-identical.'
+            $ref: '#/components/schemas/ApprovalClassificationResponse'
+        reachability:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the self-service reachability classification (MCPG-1550, PRD D5): approved,
+
+              reachable-only through a shared surface, or unreachable. Computed at the `/me/summary`
+
+              projection, never on the cached surface. Null (omitted on the wire) whenever
+
+              ApprovalClassificationResponse? ResolvedMcpServerResponse.Approval is null. The server only classifies; drawing or withholding the connect
+
+              control is the consuming surface''s, and the row is listed whatever the class.'
+            $ref: '#/components/schemas/ReachabilityClassification'
+      description: Dynamic gateway self-service summary row for one library.
+    ActivityAggregatesResponse:
+      type: object
+      properties:
+        calls:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total tool calls in the window.
+          format: int32
+        toolsUsed:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the distinct tools used in the window.
+          format: int32
+        failures:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the failed calls in the window.
+          format: int32
+        denied:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the policy-denied calls in the window.
+          format: int32
+      description: Windowed activity aggregates.
+    SetAssignedToolkitHiddenRequest:
+      required:
+      - hidden
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Gets or sets a value indicating whether the assigned toolkit is hidden.
+      description: Request to hide or unhide an admin-assigned toolkit (MCPG-1672). Hide is not edit.
+    RecoveryCommand:
+      type: integer
+    SetSkillsMasterRequest:
+      required:
+      - masterEnabled
+      type: object
+      properties:
+        masterEnabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the master switch is on.
+      description: Request to set the Skills toolkit master switch (MCPG-1511).
+    AssignedToolkitHiddenResponse:
+      type: object
+      properties:
+        toolkitId:
+          type: string
+          description: Gets or sets the admin toolkit identifier.
+          format: uuid
+        hidden:
+          type: boolean
+          description: Gets or sets a value indicating whether the assigned toolkit is hidden.
+      description: Response for a hide/unhide of an admin-assigned toolkit (MCPG-1672).
+    DynamicToolPreferenceMode:
+      type: integer
+      description: Specifies how a user's dynamic gateway should expose upstream tools for a library.
+    UpdateToolkitRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the new toolkit name, or null to leave unchanged.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the new description, or null to leave unchanged.
+        enabled:
+          type:
+          - 'null'
+          - boolean
+          description: Gets or sets the new enabled state, or null to leave unchanged.
+      description: 'Request to update a toolkit''s name, description, and/or enabled state (MCPG-1130). Null fields are
+
+        left unchanged.'
+    ClientSessionResponse:
+      type: object
+      properties:
+        client:
+          type: string
+          description: Gets or sets the client-supplied client name (display-only).
+        kind:
+          description: Gets or sets the derived client kind.
+          $ref: '#/components/schemas/ClientKind'
+        lastSeen:
+          type: string
+          description: Gets or sets the most recent activity for this client.
+          format: date-time
+        active:
+          type: boolean
+          description: Gets or sets a value indicating whether the client's newest session is within the active window.
+      description: A recent dynamic-gateway client session (MCPG-1156). `client` is an untrusted, display-only label.
+    McpServerAuthType:
+      type: integer
+      description: An enumeration representing the authentication types for MCP servers.
+    SkillsInventoryGroupResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the display name.
+        skillRepoUrl:
+          type: string
+          description: Gets or sets the GitHub repository URL.
+        credentialStatus:
+          description: Gets or sets the group's credential/connection state.
+          $ref: '#/components/schemas/McpConnectionState'
+        credentialRequirement:
+          type: string
+          description: 'Gets or sets the group''s credential requirement
+
+            (SkillsCredentialRequirements). Distinguishes a public None-auth
+
+            repo from an ApiKey repo when both report Connected.'
+        enabled:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the caller has opted this SkillLink
+
+            source into the served catalog (MCPG-1766). Independent of the toolkit master
+
+            switch and of per-skill deselections.'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillsInventorySkillResponse'
+          description: Gets or sets the skills in this group, including deselected ones.
+        discoveryState:
+          description: Gets or sets whether this group's skill index is ready, timed out, failed, or was not attempted.
+          $ref: '#/components/schemas/SkillsInventoryDiscoveryState'
+      description: One SkillLink server's full skill inventory plus credential status.
+    ActivityRecentRowResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the request-log row identifier (the key for the call-detail lookup, AI-50).
+          format: uuid
+        timestamp:
+          type: string
+          description: Gets or sets the call start time.
+          format: date-time
+        toolName:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the tool name, or null when it was not captured.
+        durationMs:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the call duration in milliseconds.
+          format: double
+        outcome:
+          description: Gets or sets the mapped outcome.
+          $ref: '#/components/schemas/ActivityOutcome'
+        client:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the client name resolved from the session registry, or null when unknown (AI-50).
+        sessionId:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the opaque MCP session id, or null when unknown (AI-50).
+        toolkit:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the best-effort enabling toolkit name, or null when unknown.
+        libraryId:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the best-effort owning library id from live surface attribution, or null for
+
+            gateway-native (`radar_*`) and unattributable rows (MCPG-1528).'
+          format: uuid
+      description: One recent tool-call row. `client` and `sessionId` are omitted when unknown (AI-50).
+    SkillsToolkitServerGroupResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the display name.
+        skillRepoUrl:
+          type: string
+          description: Gets or sets the GitHub repository URL.
+        enabled:
+          type: boolean
+          description: 'Gets or sets a value indicating whether the caller has opted this SkillLink
+
+            source into the served catalog (MCPG-1766).'
+      description: 'Identity metadata for one SkillLink group on the summary. Credential status rides
+
+        the full-inventory editor read exclusively.'
+    ApprovalToolMode:
+      type: integer
+    RadarCacheEntryResponse:
+      type: object
+      properties:
+        toolName:
+          type: string
+          description: Gets or sets the tool name.
+        serverName:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the upstream server name, or null when not derivable.
+        libraryId:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the library id, or null when not derivable.
+          format: uuid
+        iconUrl:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the catalog icon URL, or null when not derivable.
+        hits7d:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the real 7-day successful-call count for the current user.
+          format: int32
+        pinned:
+          type: boolean
+          description: Gets or sets a value indicating whether the tool is pinned.
+      description: One cached Radar tool entry (MCPG-1156).
+    ToolkitMemberResponse:
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the library identifier.
+          format: uuid
+        toolMode:
+          description: Gets or sets the tool preference mode.
+          $ref: '#/components/schemas/DynamicToolPreferenceMode'
+        selectedToolNames:
+          type: array
+          items:
+            type: string
+          description: Gets or sets the canonical selected upstream tool names.
+        sortOrder:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the display sort order within the toolkit.
+          format: int32
+      description: One library's membership in a toolkit (MCPG-1130).
+    McpConnectionState:
+      type: object
+      properties:
+        outcome:
+          description: Gets the coarse outcome — the ubiquitous language shared across BE and FE.
+          $ref: '#/components/schemas/McpConnectionOutcome'
+        disabled:
+          type: boolean
+          description: 'Gets a value indicating whether an admin has disabled this integration at
+
+            the tenant level. Orthogonal to McpConnectionOutcome McpConnectionState.Outcome: the outcome still
+
+            reflects the underlying connection readiness, so re-enabling needs no
+
+            re-derivation. Only a configured row can be disabled.'
+        reason:
+          type:
+          - 'null'
+          - string
+          description: 'Gets the machine-readable reason from McpConnectionReasons,
+
+            or null when none applies. Set for McpConnectionOutcome.Error,
+
+            for Connected plus string McpConnectionReasons.RefreshPending, and
+
+            for NeedsSetup plus
+
+            string McpConnectionReasons.SchemaCredentialNotConfigured.'
+        reasonDetails:
+          type:
+          - 'null'
+          - string
+          description: 'Gets optional developer-facing detail refining the reason (e.g. UCS error
+
+            code, exception message). May be surfaced in logs and ProblemDetails but
+
+            must not be used for end-user UI strings.'
+        interactiveAvailable:
+          type:
+          - 'null'
+          - boolean
+          description: 'Gets a value indicating whether an interactive personal-OAuth connect,
+
+            setup, or reconnect can clear this classification. Present as
+
+            `true` only for `not_configured`,
+
+            `awaiting_credentials`, `credential_invalid`, and
+
+            `misconfigured` when the primary credential of an interactive
+
+            personal-OAuth source is the cause. Absent (`null`) for
+
+            non-interactive sources, Connected results, and reasons a primary
+
+            connect cannot clear. Never `false`.'
+        recoveryCommand:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets the recovery action for this classification. Null on an unstamped
+
+              singleton (omitted from JSON and gRPC). A stamped wire state always
+
+              carries a value other than RecoveryCommand.Unspecified.
+
+              Absent means the client keeps today''s derivation. Present is authoritative
+
+              and replaces reading string? McpConnectionState.Reason to choose Connect, Reconnect,
+
+              Configure, or Save credential.'
+            $ref: '#/components/schemas/RecoveryCommand'
+      description: "            State-only view of an MCP server connection — the wire-shape primitive that\n            every transport (REST, gRPC, SignalR push, future Orleans grain messages)\n            can carry without dragging the entire `McpServerConfiguration`\n            along. The build-outcome wrapper `McpConnectionResult` composes a\n            state with the optional built configuration.\n            Shape contract:* McpConnectionOutcome McpConnectionState.Outcome is always set.\n* string? McpConnectionState.Reason is set when\n                McpConnectionOutcome McpConnectionState.Outcome is McpConnectionOutcome.Error (from\n                McpConnectionReasons), when McpConnectionOutcome McpConnectionState.Outcome is\n                McpConnectionOutcome.Connected and the value is\n                string McpConnectionReasons.RefreshPending, or when\n                McpConnectionOutcome McpConnectionState.Outcome is McpConnectionOutcome.NeedsSetup\n                and the value is\n                string McpConnectionReasons.SchemaCredentialNotConfigured. Other\n                Connected and NeedsSetup results keep string? McpConnectionState.Reason null.\n                Unknown non-error reasons are informational and never a gate.\n* string? McpConnectionState.ReasonDetails is an optional human-readable refinement\n                (UCS error code, exception message) intended for logs and developer-facing\n                diagnostics — not for end-user UI strings.\n* Exception? McpConnectionState.Error is the original exception when the outcome was\n                caused by one. Internal use only — never serialized.\n* bool McpConnectionState.Disabled is an orthogonal admin-disable flag — it can\n                be true alongside any McpConnectionOutcome McpConnectionState.Outcome (a Connected or NeedsAuth\n                server can still be admin-disabled), so it does not collapse into the\n                readiness outcome.\n* bool? McpConnectionState.InteractiveAvailable is present (`true`)\n                only for a user-recoverable classification of an interactive personal-OAuth\n                source. It is omitted (`null`) otherwise and is never\n                `false`.\n* RecoveryCommand? McpConnectionState.RecoveryCommand is the recovery action. It is omitted\n                (`null`) on an unstamped singleton so an old payload stays\n                absent. A present value is authoritative. RecoveryCommand.Unspecified\n                is never stored."
+    AssignedToolkitSummaryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the admin toolkit identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the toolkit name.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the optional description.
+        origin:
+          type: string
+          description: Gets or sets the origin stamp. Always string DynamicToolkitOrigins.Admin.
+        hidden:
+          type: boolean
+          description: Gets or sets a value indicating whether the caller has hidden this assignment.
+        assignmentMode:
+          description: Gets or sets the assignment mode so the dashboard can gate hide/edit affordances (MCPG-1699).
+          $ref: '#/components/schemas/AdminToolkitAssignmentMode'
+        memberCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of members in the toolkit.
+          format: int32
+        effectiveToolCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the count of explicitly-selected tools across Selected-mode members.
+          format: int32
+        allToolsMemberCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets or sets the count of contributing entries with `SelectedToolNames == null` (all-tools)
+
+            (MCPG-1715). An explicit empty subset is `0` here and on int AssignedToolkitSummaryResponse.EffectiveToolCount.'
+          format: int32
+        connectionRollup:
+          oneOf:
+          - type: 'null'
+          - description: Gets or sets the worst-of connection rollup across the toolkit's effective member libraries.
+            $ref: '#/components/schemas/McpConnectionState'
+        libraryIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Gets or sets the member library ids, ordered. Reverse join for
+
+            IReadOnlyList&lt;Guid&gt;? ResolvedMcpServerResponse.AssignedToolkitIds; never mixed into user `toolkitIds`.'
+      description: Dynamic gateway self-service summary rollup for one admin-assigned toolkit (MCPG-1672).
+    ActivityDetailResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the request-log row identifier.
+          format: uuid
+        timestamp:
+          type: string
+          description: Gets or sets the call start time.
+          format: date-time
+        toolName:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the tool name, or null when it was not captured.
+        outcome:
+          description: Gets or sets the mapped outcome.
+          $ref: '#/components/schemas/ActivityOutcome'
+        requestObject:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the recorded request payload. Null for an organic memory call.
+
+            The host omits nulls, so this property is stamped to emit JSON null.'
+        responseObject:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: 'Gets or sets the recorded response payload frames. Null for an organic memory call.
+
+            The host omits nulls, so this property is stamped to emit JSON null.'
+        client:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the durable MCP client name stamped at write time, or null when unknown (D-011).
+      description: The full request/response payload for a single tool call (AI-50 call detail).
+    EffectiveToolSurfaceResponse:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: Gets or sets the tenant identifier.
+          format: uuid
+        dynamicMcpUrl:
+          type: string
+          description: Gets or sets the public dynamic MCP URL.
+        resolvedAt:
+          type: string
+          description: Gets or sets the resolution timestamp.
+          format: date-time
+        snapshotHash:
+          type: string
+          description: Gets or sets the effective surface snapshot hash.
+        mcpServers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedMcpServerResponse'
+          description: Gets or sets the summary libraries.
+        toolkits:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolkitSummaryResponse'
+          description: Gets or sets the user's toolkits with their rollups (MCPG-1130). Empty for users with no toolkits.
+        assignedToolkits:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/AssignedToolkitSummaryResponse'
+          description: 'Gets or sets admin-assigned toolkits (MCPG-1672). Null when
+
+            `self-service-dashboard` is off so flag-off summaries stay byte-identical.'
+        skillsToolkit:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the virtual Skills toolkit projection (MCPG-1511). Null when the tenant
+
+              has no SkillLink servers.'
+            $ref: '#/components/schemas/SkillsToolkitSummaryResponse'
+      description: 'Dynamic gateway self-service summary response (MCPG-882, Phase 2a): the current user''s apps, each with
+
+        its admin/preference flags and runtime McpConnectionState ResolvedMcpServerResponse.ConnectionState,
+
+        resolved from the effective tool surface. Never exposes the hidden Dynamic gateway row id.'
+    SetDynamicGatewayToolPreferenceRequest:
+      type: object
+      properties:
+        toolMode:
+          description: Gets or sets the tool preference mode.
+          $ref: '#/components/schemas/DynamicToolPreferenceMode'
+        selectedToolNames:
+          type: array
+          items:
+            type: string
+          description: Gets or sets original upstream tool names selected by the user.
+      description: Request to set a dynamic gateway upstream tool preference.
+    AdminToolkitAssignmentMode:
+      description: 'How assignees may change an admin-assigned toolkit (MCPG-1699).
+
+        Existing rows default to AdminToolkitAssignmentMode.Editable.'
+    ActivityBucket20mResponse:
+      type: object
+      properties:
+        bucketStart:
+          type: string
+          description: Gets or sets the UTC start of the 15-minute bucket (aligned to a 15-min boundary).
+          format: date-time
+        succeeded:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the successful tool calls in the bucket.
+          format: int32
+        failed:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the failed tool calls in the bucket.
+          format: int32
+        denied:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the policy-denied tool calls in the bucket.
+          format: int32
+        unknown:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the tool calls whose status did not map to Succeeded/Failed/Denied (AI-58).
+          format: int32
+        toolNames:
+          type: array
+          items:
+            type: string
+          description: 'Gets or sets the distinct tool names in this bucket, sorted.
+
+            Empty when the bucket has no named calls. Scoped to the calling user, same as the rest of me/activity (MCPG-2203).'
+      description: One 15-minute bucket (MCPG-2192; the type name is historical); start is a UTC instant; the client decides day and hour boundaries.
+    SetSkillSelectionRequest:
+      required:
+      - libraryId
+      - skillUrl
+      - selected
+      type: object
+      properties:
+        libraryId:
+          type: string
+          description: Gets or sets the SkillLink library identifier.
+          format: uuid
+        skillUrl:
+          type: string
+          description: Gets or sets the source-published skill URL (stored verbatim).
+        selected:
+          type: boolean
+          description: Gets or sets a value indicating whether the skill is selected.
+      description: 'Request to select or deselect one skill (MCPG-1511). bool SetSkillSelectionRequest.Selected true
+
+        removes the key from the deselection set (idempotent); false adds it.'
+    ToolkitSummaryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the toolkit identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the toolkit name.
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the toolkit master switch is on.
+        memberCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of members in the toolkit.
+          format: int32
+        effectiveToolCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets or sets the count of explicitly-selected tools across Selected-mode members. All-mode members''
+
+            full upstream tool set is resolved in Phase 2d and is not yet included here.'
+          format: int32
+        allToolsMemberCount:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: 'Gets or sets the count of contributing All-mode members (MCPG-1715). Zero with
+
+            int ToolkitSummaryResponse.EffectiveToolCount 0 is an empty Selected subset, not all-tools.'
+          format: int32
+        connectionRollup:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the worst-of connection rollup across the toolkit''s effective member libraries, or null
+
+              when there is no effective member status to render.'
+            $ref: '#/components/schemas/McpConnectionState'
+      description: Dynamic gateway self-service summary rollup for one toolkit (MCPG-1130).
+    ReachabilityClassification:
+      type: integer
+    KnownMcpProvider:
+      type: integer
+      description: An MCP Server provider type.
+    SkillsInventoryDiscoveryState:
+      type: integer
+      description: 'Whether a Skills toolkit group has a usable skill index (MCPG-1579).
+
+        A timeout with nothing stored is not the same as an empty repository.'
+    McpConnectionOutcome:
+      type: integer
+      description: "            Coarse outcome of an MCP server's connection state — the FE-aligned ubiquitous\n            language used end-to-end across BE and FE to drive UI affordances.\n            One outcome per state; string? McpConnectionState.Reason refines an\nMcpConnectionOutcome.Error outcome with a machine-readable code from\nMcpConnectionReasons."
+    SkillsToolkitSummaryResponse:
+      type: object
+      properties:
+        kind:
+          type: string
+          description: Gets or sets the kind discriminator. Always string SkillsToolkitIdentity.Kind.
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the caller's skills master switch is on.
+        serverGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillsToolkitServerGroupResponse'
+          description: Gets or sets the SkillLink server groups (identity metadata only).
+      description: 'Kind-discriminated virtual Skills toolkit on the dynamic-gateway summary (MCPG-1511).
+
+        Not a member of IReadOnlyList&lt;ToolkitSummaryResponse&gt; EffectiveToolSurfaceResponse.Toolkits.'

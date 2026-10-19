@@ -1,0 +1,773 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway User Analytics API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: User Analytics
+paths:
+  /api/v1/analytics/users:
+    get:
+      tags:
+      - User Analytics
+      summary: Gets user analytics overview for the specified date range
+      parameters:
+      - name: from
+        in: query
+        description: Start date (defaults to 30 days ago).
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        description: End date (defaults to today).
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserGrowthMetrics'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserGrowthMetrics'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserGrowthMetrics'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserGrowthMetrics'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserGrowthMetrics'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AnalyticsUsers
+      x-operation-id-source: derived
+  /api/v1/analytics/users/growth:
+    get:
+      tags:
+      - User Analytics
+      summary: Gets user growth metrics with day-over-day, week-over-week, and…
+      parameters:
+      - name: days
+        in: query
+        description: 'Number of days to analyze (default: 30).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 30
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserGrowthMetrics'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserGrowthMetrics'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserGrowthMetrics'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserGrowthMetrics'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserGrowthMetrics'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AnalyticsUsersGrowth
+      x-operation-id-source: derived
+  /api/v1/analytics/users/trends:
+    get:
+      tags:
+      - User Analytics
+      summary: Gets user trends over time with configurable granularity
+      parameters:
+      - name: type
+        in: query
+        description: Trend type (Daily, Weekly, Monthly, Hourly).
+        schema:
+          default: 0
+          $ref: '#/components/schemas/TrendType'
+      - name: from
+        in: query
+        description: Start date.
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        description: End date.
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserAnalyticsTrend'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserAnalyticsTrend'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AnalyticsUsersTrends
+      x-operation-id-source: derived
+  /api/v1/analytics/users/distribution:
+    get:
+      tags:
+      - User Analytics
+      summary: Gets user distribution by various categories
+      parameters:
+      - name: type
+        in: query
+        description: Distribution type.
+        schema:
+          default: 3
+          $ref: '#/components/schemas/DistributionType'
+      - name: days
+        in: query
+        description: 'Number of days to analyze (default: 30).'
+        schema:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          format: int32
+          default: 30
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserDistribution'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserDistribution'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserDistribution'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserDistribution'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponseOfUserDistribution'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AnalyticsUsersDistribution
+      x-operation-id-source: derived
+  /api/v1/analytics/users/export:
+    get:
+      tags:
+      - User Analytics
+      summary: Exports analytics data in the requested format
+      parameters:
+      - name: from
+        in: query
+        description: Start date.
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        description: End date.
+        schema:
+          type: string
+          format: date-time
+      - name: granularity
+        in: query
+        description: Data granularity (Daily, Weekly, Monthly).
+        schema:
+          default: 0
+          $ref: '#/components/schemas/TrendType'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnalyticsExportModel'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnalyticsExportModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1AnalyticsUsersExport
+      x-operation-id-source: derived
+components:
+  schemas:
+    AnalyticsResponseOfUserAnalyticsTrend:
+      type: object
+      properties:
+        data:
+          description: Gets or sets the analytics data.
+          $ref: '#/components/schemas/UserAnalyticsTrend'
+        metadata:
+          description: Gets or sets metadata about the response.
+          $ref: '#/components/schemas/AnalyticsMetadata'
+        fromCache:
+          type: boolean
+          description: Gets or sets a value indicating whether this data was cached.
+        cacheAgeMinutes:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the cache age in minutes.
+          format: int32
+      description: Generic wrapper for analytics responses.
+    AnalyticsResponseOfUserGrowthMetrics:
+      type: object
+      properties:
+        data:
+          description: Gets or sets the analytics data.
+          $ref: '#/components/schemas/UserGrowthMetrics'
+        metadata:
+          description: Gets or sets metadata about the response.
+          $ref: '#/components/schemas/AnalyticsMetadata'
+        fromCache:
+          type: boolean
+          description: Gets or sets a value indicating whether this data was cached.
+        cacheAgeMinutes:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the cache age in minutes.
+          format: int32
+      description: Generic wrapper for analytics responses.
+    TrendType:
+      type: integer
+      description: Defines types of trends.
+    TrendDirection:
+      type: integer
+      description: Defines trend directions.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    AnalyticsExportModel:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Gets or sets the date/time.
+          format: date-time
+        periodType:
+          type: string
+          description: Gets or sets the period type (Daily, Weekly, Monthly).
+        periodLabel:
+          type: string
+          description: Gets or sets the period label.
+        newUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the new users count.
+          format: int32
+        totalUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total users count.
+          format: int32
+        activeUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the active users count.
+          format: int32
+        growthRate:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - 'null'
+          - number
+          - string
+          description: Gets or sets the growth rate percentage.
+          format: double
+        dayOverDayChange:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the Day over Day change.
+          format: int32
+        weekOverWeekChange:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the Week over Week change.
+          format: int32
+        monthOverMonthChange:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the Month over Month change.
+          format: int32
+        notes:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets additional notes.
+      description: Flattened model for CSV export of analytics data.
+    GrowthMetric:
+      type: object
+      properties:
+        currentPeriodUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of new users in the current period.
+          format: int32
+        previousPeriodUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of new users in the previous period.
+          format: int32
+        absoluteChange:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the absolute change in users.
+          format: int32
+        percentageChange:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the percentage change.
+          format: double
+        rate:
+          description: Gets or sets the growth rate classification.
+          $ref: '#/components/schemas/GrowthRate'
+      description: Represents growth metrics for a specific period comparison.
+    DistributionType:
+      type: integer
+      description: Defines types of user distributions.
+    UserDistribution:
+      type: object
+      properties:
+        type:
+          description: Gets or sets the distribution type.
+          $ref: '#/components/schemas/DistributionType'
+        totalUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of users in this distribution.
+          format: int32
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistributionSegment'
+          description: Gets or sets the distribution segments.
+        period:
+          description: Gets or sets the period this distribution covers.
+          $ref: '#/components/schemas/DateRange'
+      description: Represents the distribution of users across different categories.
+    UserAnalyticsTrend:
+      type: object
+      properties:
+        type:
+          description: Gets or sets the trend type.
+          $ref: '#/components/schemas/TrendType'
+        period:
+          description: Gets or sets the period covered by this trend.
+          $ref: '#/components/schemas/DateRange'
+        dataPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrendDataPoint'
+          description: Gets or sets the data points in this trend.
+        summary:
+          description: Gets or sets the summary statistics for this trend.
+          $ref: '#/components/schemas/TrendSummary'
+      description: Represents user analytics trends over time.
+    TrendDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Gets or sets the date/time of this data point.
+          format: date-time
+        newUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of new users at this point.
+          format: int32
+        totalUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of users at this point.
+          format: int32
+        activeUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of active users at this point.
+          format: int32
+        periodLabel:
+          type: string
+          description: Gets or sets the period label (e.g., "2024-01-15", "Week 3", "January").
+      description: Represents a single data point in a trend.
+    AnalyticsResponseOfUserDistribution:
+      type: object
+      properties:
+        data:
+          description: Gets or sets the analytics data.
+          $ref: '#/components/schemas/UserDistribution'
+        metadata:
+          description: Gets or sets metadata about the response.
+          $ref: '#/components/schemas/AnalyticsMetadata'
+        fromCache:
+          type: boolean
+          description: Gets or sets a value indicating whether this data was cached.
+        cacheAgeMinutes:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the cache age in minutes.
+          format: int32
+      description: Generic wrapper for analytics responses.
+    GrowthRate:
+      type: integer
+      description: Defines growth rate classifications.
+    DateRange:
+      type: object
+      properties:
+        from:
+          type: string
+          description: Gets or sets the start date of the range.
+          format: date-time
+        to:
+          type: string
+          description: Gets or sets the end date of the range.
+          format: date-time
+        totalDays:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets the total days in the range.
+          format: int32
+      description: Represents a date range for analytics queries.
+    TrendSummary:
+      type: object
+      properties:
+        averageNewUsers:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the average new users per period.
+          format: double
+        peakNewUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the peak new users in a single period.
+          format: int32
+        peakDate:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the date of peak new users.
+          format: date-time
+        totalNewUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total new users in the trend period.
+          format: int32
+        direction:
+          description: Gets or sets the trend direction.
+          $ref: '#/components/schemas/TrendDirection'
+        slope:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the trend slope (users per day).
+          format: double
+      description: Represents summary statistics for a trend.
+    AnalyticsMetadata:
+      type: object
+      properties:
+        generatedAt:
+          type: string
+          description: Gets or sets when this data was generated.
+          format: date-time
+        dataSource:
+          type: string
+          description: Gets or sets the data source.
+        queryParameters:
+          type: object
+          additionalProperties:
+            type: string
+          description: Gets or sets the query parameters used.
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Gets or sets any warnings or notes about the data.
+        processingTimeMs:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the processing time in milliseconds.
+          format: int64
+      description: Metadata about analytics response.
+    UserGrowthMetrics:
+      type: object
+      properties:
+        totalUsers:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the current total number of users.
+          format: int32
+        newUsersToday:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the number of new users today.
+          format: int32
+        dayOverDay:
+          description: Gets or sets the Day over Day growth metrics.
+          $ref: '#/components/schemas/GrowthMetric'
+        weekOverWeek:
+          description: Gets or sets the Week over Week growth metrics.
+          $ref: '#/components/schemas/GrowthMetric'
+        monthOverMonth:
+          description: Gets or sets the Month over Month growth metrics.
+          $ref: '#/components/schemas/GrowthMetric'
+        period:
+          description: Gets or sets the period covered by these metrics.
+          $ref: '#/components/schemas/DateRange'
+      description: Represents user growth metrics over different time periods.
+    DistributionSegment:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Gets or sets the segment name/label.
+        count:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the count of users in this segment.
+          format: int32
+        percentage:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the percentage of total users.
+          format: double
+        metadata:
+          type: object
+          description: Gets or sets additional metadata for this segment.
+      description: Represents a segment in a distribution.

@@ -1,0 +1,618 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Dynamic Tools Discovery API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: DynamicToolsDiscovery
+paths:
+  /api/v1/dynamic/tools/discover:
+    post:
+      tags:
+      - DynamicToolsDiscovery
+      summary: 'Discovers the authenticated user''s dynamic tool surface for Radar indexing: the…'
+      requestBody:
+        description: The cancellation token.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoverDynamicToolsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DiscoverDynamicToolsRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/DiscoverDynamicToolsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/GetToolsResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1DynamicToolsDiscover
+      x-operation-id-source: derived
+components:
+  schemas:
+    ToolFetchFailureOrigin:
+      type: integer
+    SkillScanResult:
+      type: object
+      properties:
+        skillName:
+          type: string
+          description: 'Gets or sets the skill name this scan result corresponds to (the entry''s
+
+            `frontmatter.name`, or derived from the URL path when absent).'
+        url:
+          type: string
+          description: 'Gets or sets the entry''s raw `skill://` URL, verbatim from the index.
+
+            Correlates this result with the matching JsonArray? LibraryToolResult.Skills
+
+            entry by its `url` property.'
+        status:
+          type: string
+          description: 'Gets or sets the scan status. Values are defined in
+
+            ToolScanStatuses — the same vocabulary as per-tool scan results.
+
+            string ToolScanStatuses.NotScanned covers entries whose SKILL.md body
+
+            could not be fetched (upstream read failed, file exceeded the size cap, or the
+
+            entry was beyond the per-server scan cap).'
+      description: 'Governance scan outcome for a single skill (MCPG-1262). One entry is produced per
+
+        scannable entry of a skill-capable server''s `skill://index.json` inventory;
+
+        the SKILL.md body is scanned by the same Policy Engine scanner used for tool
+
+        definitions.'
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    JsonArray:
+      type: array
+    ToolScanResult:
+      type: object
+      properties:
+        toolName:
+          type: string
+          description: Gets or sets the tool name this scan result corresponds to.
+        status:
+          type: string
+          description: 'Gets or sets the scan status. Values are defined in
+
+            ToolScanStatuses.'
+      description: 'Scan outcome for a single MCP tool definition. One entry is produced per
+
+        tool returned from the remote MCP server''s `tools/list` response.'
+    GetToolsResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/LibraryToolResult'
+          description: Gets or sets the results keyed by library ID.
+        sourceRefreshRateLimited:
+          type: boolean
+          description: Gets or sets a value indicating whether the hoisted Refresh Tools limiter refused this request.
+      description: Response model for the GetTools endpoint.
+    DerivedAnnotationResult:
+      type: object
+      properties:
+        toolName:
+          type: string
+          description: Gets or sets the tool name this derivation corresponds to.
+        status:
+          type: string
+          description: 'Gets or sets the row status — a value from
+
+            DerivedAnnotationStatuses. Defaults to
+
+            string DerivedAnnotationStatuses.Derived so verdicts cached
+
+            before the field existed deserialize as completed rows.
+
+            string DerivedAnnotationStatuses.Deriving rows are synthesized
+
+            per response while the background worker runs; they are never cached
+
+            and never stamped into stored definitions.'
+        hints:
+          type: object
+          additionalProperties:
+            type: boolean
+          description: 'Gets or sets the asserted hints after safety masking — only hints the
+
+            backend asserted at or above the confidence floor, with
+
+            `readOnlyHint: true` never present (the asymmetry rule: a benign
+
+            read-only label from a non-deterministic source could satisfy an
+
+            auto-approve rule). May be empty: the backend answered but asserted
+
+            nothing derivable.'
+        rationales:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'Gets or sets the per-hint one-line rationales for the asserted hints.
+
+            Surfaced on the REST row for admin evaluation; not part of the
+
+            `_meta` stamp.'
+        source:
+          type: string
+          description: 'Gets or sets the verdict source — a value from the derivation source
+
+            vocabulary (v1: always `model`).'
+        adapterId:
+          type: string
+          description: 'Gets or sets the producing adapter''s identity (model id + rubric
+
+            version), so verdicts from different brains stay distinguishable.'
+        confidence:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: 'Gets or sets the minimum confidence across the asserted hints; zero
+
+            when nothing was asserted.'
+          format: double
+        inputHash:
+          type: string
+          description: 'Gets or sets the content hash of the derivation input (name,
+
+            description, input-schema property names) the verdict was computed
+
+            from.'
+        generatedAt:
+          type: string
+          description: Gets or sets when the verdict was produced.
+          format: date-time
+      description: 'Derived annotation hints for a single upstream MCP tool that declares no
+
+        `annotations` block of its own (MCPG-1417). One entry is produced per
+
+        derived tool; tools that were skipped (already annotated, non-upstream, or
+
+        whose derivation failed) produce no entry. Also the value cached in the
+
+        global content-addressed verdict cache — the tool name participates in the
+
+        content hash, so a cached entry''s identity is stable by construction.'
+    LibraryToolResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Gets or sets a value indicating whether the tools were retrieved successfully.
+        errorMessage:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the error message if the retrieval failed.
+        failureOrigin:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the typed origin of an unsuccessful tools fetch (MCPG-2031).
+
+              Null on a successful result. The in-process
+
+              ToolFetchFailureOrigin is the single source; this property
+
+              copies it onto the REST wire so a caller can classify credential, timeout,
+
+              transport, and upstream failures without parsing string? LibraryToolResult.ErrorMessage.'
+            $ref: '#/components/schemas/ToolFetchFailureOrigin'
+        resolutionOrigin:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the resolution-stage origin (MCPG-2087). Null on fetch-stage
+
+              failures and on success. Distinct from ToolFetchFailureOrigin? LibraryToolResult.FailureOrigin.'
+            $ref: '#/components/schemas/LibraryDiscoveryResolutionOrigin'
+        connectionReason:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the canonical `McpConnectionReasons` value on a
+
+            resolution-stage unsuccessful result (MCPG-2075). Null otherwise.'
+        advertisedSurface:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the tools-versus-skills-only discriminator (MCPG-2073).
+
+              Null when initialize did not capture capabilities, and also null when
+
+              initialize captured a capability list that named neither tools nor skills.'
+            $ref: '#/components/schemas/LibraryAdvertisedSurface'
+        tools:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the tools available from this library as a JSON object
+
+              (raw pass-through of the MCP `tools/list` response shape).'
+            $ref: '#/components/schemas/JsonObject'
+        toolScans:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/ToolScanResult'
+          description: 'Gets or sets the per-tool scan results. Correlates with entries in
+
+            JsonObject? LibraryToolResult.Tools by string ToolScanResult.ToolName. Null when
+
+            the library was not scanned (feature flag off). An empty list indicates
+
+            scanning was attempted but produced no results (scanner failure or no
+
+            tools returned by the server).'
+        advertisedCapabilities:
+          type:
+          - 'null'
+          - array
+          items:
+            type: string
+          description: 'Gets or sets the typed capability inventory the server declared at
+
+            `initialize` (values from
+
+            McpServerCapabilityNames),
+
+            or null when initialization did not complete far enough to capture capabilities
+
+            (MCPG-1275). Lets consumers distinguish a healthy server with zero tools (e.g. a
+
+            skills-only server) from a failed one without string matching.'
+        skills:
+          oneOf:
+          - type: 'null'
+          - description: 'Gets or sets the skill inventory read from a skill-capable server''s
+
+              `skill://index.json` as the flat array of SEP-2640 index entries
+
+              (each entry''s `url`/`digest`/`frontmatter` is verbatim upstream
+
+              content, MCPG-1275). Null when the server is not skill-capable, the index is unparseable, or the probe
+
+              failed.'
+            $ref: '#/components/schemas/JsonArray'
+        skillScans:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/SkillScanResult'
+          description: 'Gets or sets the per-skill governance scan results (MCPG-1262). Correlates with
+
+            entries in JsonArray? LibraryToolResult.Skills by string SkillScanResult.Url. Null when
+
+            the library carries no skill inventory (see JsonArray? LibraryToolResult.Skills) or the scan
+
+            step itself faulted. An entry whose SKILL.md body could not be
+
+            fetched carries string ToolScanStatuses.NotScanned.'
+        derivedAnnotations:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/DerivedAnnotationResult'
+          description: 'Gets or sets the per-tool derived annotation results (MCPG-1417).
+
+            Correlates with entries in JsonObject? LibraryToolResult.Tools by
+
+            string DerivedAnnotationResult.ToolName; only unannotated
+
+            upstream tools that produced a verdict have entries. Null when the
+
+            caller did not opt in, the derivation backend is unconfigured, or
+
+            derivation failed for the library. Report-only metadata — the tools'' own
+
+            `annotations` blocks are never modified.'
+        sourceRefreshError:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the reason an explicit refresh (`forceRefresh`) could not re-pin this
+
+            library''s SpecLink or SkillLink source to its current revision (MCPG-1891). Null when the
+
+            source was refreshed, when the library has no pinned source, or when no refresh was asked
+
+            for. Discovery still ran, against the previously pinned revision, so bool LibraryToolResult.Success
+
+            and JsonObject? LibraryToolResult.Tools describe that revision.'
+        sourceRefreshReasons:
+          type:
+          - 'null'
+          - array
+          items:
+            $ref: '#/components/schemas/SourceRefreshReason'
+          description: 'Gets or sets the typed per-library force-refresh reasons (MCPG-2060). Distinct from
+
+            string? LibraryToolResult.SourceRefreshError, which keeps the human sentence. Null or empty when no
+
+            force-refresh reason applies. Multiple values on one library are all present.
+
+            SourceRefreshReason.Unspecified is never produced. SourceRefreshReason.Denied,
+
+            SourceRefreshReason.SourceReadFailed, and
+
+            SourceRefreshReason.RateLimited are terminal for create;
+
+            SourceRefreshReason.CoveringRepairBumpFailed is advisory.
+
+            SourceRefreshReason.DeadlineMissed, SourceRefreshReason.TimedOut,
+
+            SourceRefreshReason.PersistFailed, and
+
+            SourceRefreshReason.ConfigurationGone are not terminal for create.
+
+            Retry the refresh after the limiter window; the create is refused (429) until
+
+            a refresh completes.'
+        sourceRef:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the administrator source ref after an explicit refresh (MCPG-1891).
+
+            Null when no refresh ran, when the library is not a pinned SpecLink or SkillLink
+
+            server, or when the pin is a content hash. A failed re-pin keeps the previous value.'
+        sourceRevision:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the pinned source revision after an explicit refresh (MCPG-1891).
+
+            Null when no refresh ran or the library has no pin. A failed re-pin keeps the previous value.
+
+            This is the pin triple''s revision, not the observation envelope''s source revision.'
+        sourceResolvedAt:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets when string? LibraryToolResult.SourceRevision was last resolved after an explicit refresh
+
+            (MCPG-1891). Null when no refresh ran or the library has no pin. A failed re-pin keeps the
+
+            previous value.'
+          format: date-time
+        observationSourceRevision:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the observation envelope''s source revision (MCPG-1832). Distinct from
+
+            the force-refresh pin string? LibraryToolResult.SourceRevision.'
+        sourceIdentity:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the credential-free source identity from the observation envelope (MCPG-1832).
+        catalogVersion:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the content-derived catalog version of the observed tool set (MCPG-1832).
+        observationToken:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets the observation token echoed when this result actually built or revalidated.
+
+            A gateway cache hit carries the cached build''s token unchanged; the
+
+            response is non-advancing because this request issued no token.'
+        sourceCoordinate:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the source coordinate the observation was built from (MCPG-1832).
+        observationGeneration:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: 'Gets or sets the generation the observed version holds in that coordinate''s slot,
+
+            or null when it holds none (MCPG-1832).'
+          format: int64
+        slotCurrentVersion:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the slot's current catalog version at response time (MCPG-1832).
+        slotCurrentGeneration:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          description: Gets or sets the slot's current generation at response time, or null when the slot has never advanced (MCPG-1832).
+          format: int64
+        revisionIsDerived:
+          type: boolean
+          description: 'Gets or sets a value indicating whether string? LibraryToolResult.ObservationSourceRevision was derived from
+
+            the tool-set content rather than read from an immutable coordinate pin (MCPG-1832).'
+        catalogRecordReason:
+          type:
+          - 'null'
+          - string
+          description: 'Gets or sets a library-addressed reason the tenantless catalog record could not be updated
+
+            while producer envelope and tools were kept (MCPG-1832).'
+      description: Result for tools from a specific library.
+    LibraryDiscoveryResolutionOrigin:
+      type: integer
+    SourceRefreshReason:
+      type: integer
+      description: 'Typed per-library force-refresh outcome (MCPG-2060). Mirrors the gRPC
+
+        `SourceRefreshReason` enum. SourceRefreshReason.Unspecified is never produced.
+
+        SourceRefreshReason.Denied, SourceRefreshReason.SourceReadFailed, and
+
+        SourceRefreshReason.RateLimited are terminal for create.
+
+        SourceRefreshReason.CoveringRepairBumpFailed is advisory. SourceRefreshReason.DeadlineMissed,
+
+        SourceRefreshReason.TimedOut, SourceRefreshReason.PersistFailed, and
+
+        SourceRefreshReason.ConfigurationGone are not terminal for create.
+
+        SourceRefreshReason.RateLimited may appear per library in addition to the request-level
+
+        `sourceRefreshRateLimited` flag. Retry the refresh after the limiter window;
+
+        the create is refused (429) until a refresh completes.'
+    LibraryAdvertisedSurface:
+      type: integer
+    DiscoverDynamicToolsRequest:
+      required:
+      - tenantId
+      - userId
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: Gets or sets the tenant whose dynamic surface to discover.
+          format: uuid
+        userId:
+          type: string
+          description: Gets or sets the user whose dynamic surface to discover.
+          format: uuid
+      description: 'Request for `POST /api/v1/dynamic/tools/discover` (MCPG-882, Phase 2e) — the Radar service''s
+
+        dynamic-index callback. Both ids are cross-checked against the authenticated bearer (the caller''s
+
+        own token, echoed by Radar): a mismatch is `403`, mirroring the dynamic transport''s
+
+        tenant-claim discipline. They are carried explicitly (rather than derived from the token alone) so
+
+        the Radar service states which surface it believes it is indexing and the gateway verifies it.'
+    JsonObject:
+      type: object

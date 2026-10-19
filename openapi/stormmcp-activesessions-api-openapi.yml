@@ -1,0 +1,357 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway Active Sessions API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: ActiveSessions
+paths:
+  /api/v1/sessions/active:
+    get:
+      tags:
+      - ActiveSessions
+      summary: Gets all active sessions for the current user with detailed usage information
+      parameters:
+      - name: includeUsageDetails
+        in: query
+        description: 'Whether to include detailed tool usage information (default: true).'
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActiveSessionResponse'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActiveSessionResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActiveSessionResponse'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActiveSessionResponse'
+            application/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActiveSessionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1SessionsActive
+      x-operation-id-source: derived
+  /api/v1/sessions/active/{sessionId}:
+    get:
+      tags:
+      - ActiveSessions
+      summary: Gets detailed information about a specific active session
+      parameters:
+      - name: sessionId
+        in: path
+        description: The session ID to get details for.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ActiveSessionResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActiveSessionResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ActiveSessionResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ActiveSessionResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ActiveSessionResponse'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1SessionsActiveBySessionId
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - ActiveSessions
+      summary: Terminates an active session
+      parameters:
+      - name: sessionId
+        in: path
+        description: The session ID to terminate.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1SessionsActiveBySessionId
+      x-operation-id-source: derived
+  /api/v1/sessions/active/count:
+    get:
+      tags:
+      - ActiveSessions
+      summary: Gets the count of active sessions for the current user
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema: {}
+            application/json:
+              schema: {}
+            text/json:
+              schema: {}
+            text/csv:
+              schema: {}
+            application/csv:
+              schema: {}
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1SessionsActiveCount
+      x-operation-id-source: derived
+components:
+  schemas:
+    ActiveSessionResponse:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          description: Gets or sets the session ID (grain primary key).
+        gatewayId:
+          type: string
+          description: Gets or sets the gateway configuration ID.
+          format: uuid
+        registeredAt:
+          type: string
+          description: Gets or sets the timestamp when the session was registered.
+          format: date-time
+        lastActiveAt:
+          type: string
+          description: Gets or sets the timestamp when the session was last active.
+          format: date-time
+        durationMinutes:
+          pattern: ^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$
+          type:
+          - number
+          - string
+          description: Gets or sets the duration of the session in minutes.
+          format: double
+        totalRequests:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - integer
+          - string
+          description: Gets or sets the total number of requests made in this session.
+          format: int32
+        methodCounts:
+          type: object
+          additionalProperties:
+            pattern: ^-?(?:0|[1-9]\d*)$
+            type:
+            - integer
+            - string
+            format: int32
+          description: Gets or sets the methods called during this session.
+        toolUsage:
+          type: object
+          additionalProperties:
+            pattern: ^-?(?:0|[1-9]\d*)$
+            type:
+            - integer
+            - string
+            format: int32
+          description: Gets or sets the specific tools/assets used in this session.
+        lastUsedTool:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the most recently used tool/asset.
+        lastToolUsedAt:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the timestamp of the last tool usage.
+          format: date-time
+      description: Response model for active session information.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string

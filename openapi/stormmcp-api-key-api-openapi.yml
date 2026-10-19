@@ -1,0 +1,534 @@
+openapi: 3.2.0
+info:
+  title: MCP Gateway API Key API
+  description: API for MCP Gateway operations
+  version: v1
+servers:
+- url: https://dev.stormmcp.ai/
+tags:
+- name: API Key
+paths:
+  /api/v1/ApiKey:
+    get:
+      tags:
+      - API Key
+      summary: Gets all user API keys (without sensitive data)
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserApiKeyListResponse'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserApiKeyListResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserApiKeyListResponse'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserApiKeyListResponse'
+            application/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserApiKeyListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1ApiKey
+      x-operation-id-source: derived
+    post:
+      tags:
+      - API Key
+      summary: Creates a new user API key
+      requestBody:
+        description: The API key creation request.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserApiKeyRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserApiKeyRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateUserApiKeyRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyCreatedResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyCreatedResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyCreatedResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyCreatedResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: postApiV1ApiKey
+      x-operation-id-source: derived
+  /api/v1/ApiKey/{id}:
+    get:
+      tags:
+      - API Key
+      summary: Gets a specific user API key by ID (includes sensitive data)
+      parameters:
+      - name: id
+        in: path
+        description: The API key ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyDetailResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyDetailResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyDetailResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyDetailResponse'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyDetailResponse'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: getApiV1ApiKeyById
+      x-operation-id-source: derived
+    put:
+      tags:
+      - API Key
+      summary: Updates an existing user API key
+      parameters:
+      - name: id
+        in: path
+        description: The API key ID to update.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The API key update request.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserApiKeyRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserApiKeyRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserApiKeyRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: putApiV1ApiKeyById
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - API Key
+      summary: Deletes a user API key
+      parameters:
+      - name: id
+        in: path
+        description: The API key ID to delete.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      operationId: deleteApiV1ApiKeyById
+      x-operation-id-source: derived
+components:
+  schemas:
+    UserApiKeyCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the API key identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the name of the API key.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the description of the API key.
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the API key is enabled.
+        apiKey:
+          type: string
+          description: Gets or sets the newly created API key value.
+      description: Response model for user API key creation (includes the newly created API key).
+    UserApiKeyDetailResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the API key identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the name of the API key.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the description of the API key.
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the API key is enabled.
+        apiKey:
+          type: string
+          description: Gets or sets the actual API key value.
+      description: Response model for user API key detail operations (includes sensitive data).
+    UserApiKeyListResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Gets or sets the API key identifier.
+          format: uuid
+        name:
+          type: string
+          description: Gets or sets the name of the API key.
+        description:
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the description of the API key.
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the API key is enabled.
+        createdAt:
+          type: string
+          description: Gets or sets the creation date of the API key.
+          format: date-time
+      description: Response model for user API key list operations (without sensitive data).
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - 'null'
+          - string
+        title:
+          type:
+          - 'null'
+          - string
+        status:
+          pattern: ^-?(?:0|[1-9]\d*)$
+          type:
+          - 'null'
+          - integer
+          - string
+          format: int32
+        detail:
+          type:
+          - 'null'
+          - string
+        instance:
+          type:
+          - 'null'
+          - string
+    UpdateUserApiKeyRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Gets or sets the name of the API key.
+        description:
+          maxLength: 500
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the description of the API key.
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the API key is enabled.
+      description: Request model for updating a user API key.
+    CreateUserApiKeyRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Gets or sets the name of the API key.
+        description:
+          maxLength: 500
+          type:
+          - 'null'
+          - string
+          description: Gets or sets the description of the API key.
+        enabled:
+          type: boolean
+          description: Gets or sets a value indicating whether the API key is enabled.
+      description: Request model for creating a new user API key.
