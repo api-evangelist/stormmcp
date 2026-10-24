@@ -19,6 +19,13 @@ tags:
 - Integration
 - Automation
 - Security
+- Low-Code
+tags_raw:
+- Company
+- Cloud
+- Integration
+- Automation
+- Security
 - Low-code
 maintainers:
 - FN: Kin Lane
@@ -65,6 +72,8 @@ apis:
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
+  - Active Sessions
+  tags_raw:
   - ActiveSessions
   properties:
   - type: OpenAPI
@@ -153,6 +162,8 @@ apis:
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -441,6 +452,8 @@ apis:
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -553,6 +566,8 @@ apis:
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
+  - MCP Registry
+  tags_raw:
   - McpRegistry
   properties:
   - type: OpenAPI
@@ -619,6 +634,8 @@ apis:
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
@@ -866,6 +883,8 @@ apis:
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
+  - .well Known
+  tags_raw:
   - WellKnown
   properties:
   - type: OpenAPI
@@ -888,6 +907,8 @@ apis:
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
+  - APIKeys
+  tags_raw:
   - API Key
   properties:
   - type: OpenAPI
