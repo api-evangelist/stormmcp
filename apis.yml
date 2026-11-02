@@ -634,9 +634,11 @@ apis:
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
+  - OAuth
   - Authentication
   tags_raw:
   - OAuth
+  - Authentication
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-oauth-api-openapi.yml
