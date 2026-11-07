@@ -20,7 +20,7 @@ accessModel:
   confidence: low
   source:
   - security
-  generated: '2026-11-02'
+  generated: '2026-11-06'
   method: derived
 specificationVersion: '0.20'
 created: '2026-10-18'
