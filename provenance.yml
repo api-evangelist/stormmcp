@@ -5,6 +5,12 @@ artifacts:
   agentic-access/stormmcp-agentic-access.yml:
     method: generated
     evidence: declared in the artifact
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
   conformance/stormmcp-conformance.yml:
     method: derived
     evidence: declared in the artifact
@@ -26,10 +32,106 @@ artifacts:
   json-ld/stormmcp-context.jsonld:
     method: unknown
     evidence: no authorship recorded
+  json-schema/stormmcp-active-session-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-activity-detail-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-activity-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-admin-toolkit-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-analytics-response-of-gateway-activity-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-app-instruction-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-approval-tool-scope-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-auxiliary-gateway-inventory-detail-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-auxiliary-gateway-inventory-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-catalog-seed-sweep-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-clear-connections-impact-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-configured-app-instructions-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-content-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-create-admin-toolkit-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-create-custom-server-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-create-custom-server-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-credential-census-page-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-credential-test-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-custom-server-credential-binding-backfill-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-custom-server-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-discover-dynamic-tools-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-dynamic-gateway-inventory-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-effective-approvals-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-effective-tool-surface-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-flagged-tool-withhold-allow-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-flagged-tool-withhold-setting-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/stormmcp-gateway-configuration-request-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/stormmcp-gateway-configuration-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-gateway-metadata-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-get-custom-servers-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-get-tools-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-hub-connection-ticket-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-json-node-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-json-rpc-message-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/stormmcp-known-mcp-server-schema.json:
@@ -38,16 +140,100 @@ artifacts:
   json-schema/stormmcp-known-mcp-server-with-status-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/stormmcp-library-approval-grants-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-library-approval-grants-summary-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-library-approval-grants-summary-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/stormmcp-library-catalog-invalidation-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-mcp-registry-server-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-mcp-registry-server-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-oauth-callback-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-oauth-callback-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-oauth-config-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-oauth-redirect-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-oauth-redirect-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/stormmcp-oidcclient-representation-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/stormmcp-organic-memory-admin-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-organic-memory-admin-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-organic-memory-compartment-rename-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-paged-result-of-admin-toolkit-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-paged-result-of-dynamic-gateway-inventory-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-personal-credential-status-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-provider-integration-model-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-provider-integration-model-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-provider-integration-status-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-radar-cache-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-replace-admin-toolkit-assignments-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-replace-app-approvals-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-save-app-instruction-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-test-yaml-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-toolkit-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-update-admin-toolkit-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-update-custom-server-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/stormmcp-user-info-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-10-23T190305.yml:
@@ -66,6 +252,9 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-11-02T082323.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   mcp/stormmcp-mcp.yml:
@@ -192,6 +381,78 @@ artifacts:
   openapi/stormmcp-wellknown-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/stormmcp-activesessions-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-admintoolkits-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-api-key-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-appinstructions-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-auth-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-credentialcensus-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-customremoteservers-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-dynamicgateway-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-flaggedtoolwithholdadmin-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-gatewayactivity-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-gatewayconfiguration-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-integrations-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-library-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-mcpephemeralstreamablehttp-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-mcpgatewayinventory-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-oauth-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-organicmemoryadmin-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-organicmemorycompartment-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-organicmemorypreference-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-requestlog-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-selfservicedashboardarea-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-selfservicedashboardareaadmin-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-tenantserveraccess-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
+  overlays/stormmcp-user-analytics-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
   rules/stormmcp-rules.yml:
     method: generated
     evidence: declared in the artifact

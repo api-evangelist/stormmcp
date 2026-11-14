@@ -20,7 +20,7 @@ accessModel:
   confidence: low
   source:
   - security
-  generated: '2026-11-06'
+  generated: '2026-11-13'
   method: derived
 specificationVersion: '0.20'
 created: '2026-10-18'
@@ -91,17 +91,7 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-activesessions-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-active-session-response-schema.json
 - aid: stormmcp:stormmcp-admintoolkits-api
   name: Storm MCP Admin Toolkits API
   description: The AdminToolkits API from Storm MCP — 3 operation(s) for admintoolkits.
@@ -113,17 +103,15 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-admintoolkits-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-admin-toolkit-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
+    url: json-schema/stormmcp-paged-result-of-admin-toolkit-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
+    url: json-schema/stormmcp-update-admin-toolkit-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
+    url: json-schema/stormmcp-create-admin-toolkit-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-replace-admin-toolkit-assignments-request-schema.json
 - aid: stormmcp:stormmcp-appinstructions-api
   name: Storm MCP App Instructions API
   description: The AppInstructions API from Storm MCP — 2 operation(s) for appinstructions.
@@ -135,17 +123,11 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-appinstructions-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-app-instruction-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
+    url: json-schema/stormmcp-save-app-instruction-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-configured-app-instructions-response-schema.json
 - aid: stormmcp:stormmcp-approvals-api
   name: Storm MCP Approvals API
   description: The Approvals API from Storm MCP — 5 operation(s) for approvals.
@@ -157,17 +139,17 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-approvals-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-replace-app-approvals-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
+    url: json-schema/stormmcp-approval-tool-scope-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
+    url: json-schema/stormmcp-effective-approvals-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
+    url: json-schema/stormmcp-library-approval-grants-summary-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
+    url: json-schema/stormmcp-library-approval-grants-summary-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-library-approval-grants-response-schema.json
 - aid: stormmcp:stormmcp-auth-api
   name: Storm MCP Auth API
   description: The Auth API from Storm MCP — 1 operation(s) for auth.
@@ -181,17 +163,7 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-auth-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-user-info-response-schema.json
 - aid: stormmcp:stormmcp-catalogseedsweep-api
   name: Storm MCP Catalog Seed Sweep API
   description: The CatalogSeedSweep API from Storm MCP — 1 operation(s) for catalogseedsweep.
@@ -203,17 +175,7 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-catalogseedsweep-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-catalog-seed-sweep-result-schema.json
 - aid: stormmcp:stormmcp-credentialcensus-api
   name: Storm MCP Credential Census API
   description: The CredentialCensus API from Storm MCP — 1 operation(s) for credentialcensus.
@@ -225,17 +187,7 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-credentialcensus-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-credential-census-page-schema.json
 - aid: stormmcp:stormmcp-customremoteservers-api
   name: Storm MCP Custom Remote Servers API
   description: The CustomRemoteServers API from Storm MCP — 7 operation(s) for customremoteservers.
@@ -247,21 +199,20 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-customremoteservers-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-custom-server-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
+    url: json-schema/stormmcp-test-yaml-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
+    url: json-schema/stormmcp-create-custom-server-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
+    url: json-schema/stormmcp-update-custom-server-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
+    url: json-schema/stormmcp-create-custom-server-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-get-custom-servers-response-schema.json
 - aid: stormmcp:stormmcp-customservercredentialbindingbackfill-api
   name: Storm MCP Custom Server Credential Binding Backfill API
-  description: >-
-    The CustomServerCredentialBindingBackfill API from Storm MCP — 1 operation(s) for customservercredentialbindingbackfill.
+  description: The CustomServerCredentialBindingBackfill API from Storm MCP — 1 operation(s) for customservercredentialbindingbackfill.
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
@@ -270,17 +221,7 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-customservercredentialbindingbackfill-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-custom-server-credential-binding-backfill-result-schema.json
 - aid: stormmcp:stormmcp-dynamicgateway-api
   name: Storm MCP Dynamic Gateway API
   description: The DynamicGateway API from Storm MCP — 20 operation(s) for dynamicgateway.
@@ -292,17 +233,17 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-dynamicgateway-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-activity-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
+    url: json-schema/stormmcp-effective-tool-surface-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
+    url: json-schema/stormmcp-radar-cache-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
+    url: json-schema/stormmcp-activity-detail-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
+    url: json-schema/stormmcp-gateway-metadata-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-toolkit-response-schema.json
 - aid: stormmcp:stormmcp-dynamicmcp-api
   name: Storm MCP Dynamic MCP API
   description: The DynamicMcp API from Storm MCP — 1 operation(s) for dynamicmcp.
@@ -314,17 +255,9 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-dynamicmcp-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-json-node-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-json-rpc-message-schema.json
 - aid: stormmcp:stormmcp-dynamictoolsdiscovery-api
   name: Storm MCP Dynamic Tools Discovery API
   description: The DynamicToolsDiscovery API from Storm MCP — 1 operation(s) for dynamictoolsdiscovery.
@@ -336,21 +269,12 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-dynamictoolsdiscovery-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-discover-dynamic-tools-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-get-tools-response-schema.json
 - aid: stormmcp:stormmcp-flaggedtoolwithholdadmin-api
   name: Storm MCP Flagged Tool Withhold Admin API
-  description: >-
-    The FlaggedToolWithholdAdmin API from Storm MCP — 2 operation(s) for flaggedtoolwithholdadmin.
+  description: The FlaggedToolWithholdAdmin API from Storm MCP — 2 operation(s) for flaggedtoolwithholdadmin.
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
@@ -359,17 +283,9 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-flaggedtoolwithholdadmin-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-flagged-tool-withhold-allow-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-flagged-tool-withhold-setting-request-schema.json
 - aid: stormmcp:stormmcp-gatewayactivity-api
   name: Storm MCP Gateway Activity API
   description: The GatewayActivity API from Storm MCP — 1 operation(s) for gatewayactivity.
@@ -381,17 +297,7 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-gatewayactivity-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-analytics-response-of-gateway-activity-response-schema.json
 - aid: stormmcp:stormmcp-gatewayconfiguration-api
   name: Storm MCP Gateway Configuration API
   description: The GatewayConfiguration API from Storm MCP — 5 operation(s) for gatewayconfiguration.
@@ -403,17 +309,9 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-gatewayconfiguration-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
     url: json-schema/stormmcp-gateway-configuration-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
     url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-hubconnectiontickets-api
   name: Storm MCP Hub Connection Tickets API
   description: The HubConnectionTickets API from Storm MCP — 1 operation(s) for hubconnectiontickets.
@@ -425,17 +323,7 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-hubconnectiontickets-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-hub-connection-ticket-response-schema.json
 - aid: stormmcp:stormmcp-icons-api
   name: Storm MCP Icons API
   description: The Icons API from Storm MCP — 1 operation(s) for icons.
@@ -446,18 +334,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-icons-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-integrations-api
   name: Storm MCP Integrations API
   description: The Integrations API from Storm MCP — 19 operation(s) for integrations.
@@ -471,17 +347,17 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-integrations-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-provider-integration-model-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
+    url: json-schema/stormmcp-clear-connections-impact-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
+    url: json-schema/stormmcp-provider-integration-status-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
+    url: json-schema/stormmcp-provider-integration-model-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
+    url: json-schema/stormmcp-personal-credential-status-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-credential-test-result-schema.json
 - aid: stormmcp:stormmcp-library-api
   name: Storm MCP Library API
   description: The Library API from Storm MCP — 9 operation(s) for library.
@@ -493,21 +369,12 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-library-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
     url: json-schema/stormmcp-known-mcp-server-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
     url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-librarycataloginvalidation-api
   name: Storm MCP Library Catalog Invalidation API
-  description: >-
-    The LibraryCatalogInvalidation API from Storm MCP — 1 operation(s) for librarycataloginvalidation.
+  description: The LibraryCatalogInvalidation API from Storm MCP — 1 operation(s) for librarycataloginvalidation.
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
@@ -516,21 +383,10 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-librarycataloginvalidation-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
     url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-mcpephemeralstreamablehttp-api
   name: Storm MCP MCP Ephemeral Streamable HTTP API
-  description: >-
-    The McpEphemeralStreamableHttp API from Storm MCP — 1 operation(s) for mcpephemeralstreamablehttp.
+  description: The McpEphemeralStreamableHttp API from Storm MCP — 1 operation(s) for mcpephemeralstreamablehttp.
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
@@ -539,17 +395,7 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-mcpephemeralstreamablehttp-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-json-rpc-message-schema.json
 - aid: stormmcp:stormmcp-mcpgatewayinventory-api
   name: Storm MCP MCP Gateway Inventory API
   description: The McpGatewayInventory API from Storm MCP — 4 operation(s) for mcpgatewayinventory.
@@ -561,17 +407,13 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-mcpgatewayinventory-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-auxiliary-gateway-inventory-detail-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
+    url: json-schema/stormmcp-dynamic-gateway-inventory-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
+    url: json-schema/stormmcp-auxiliary-gateway-inventory-list-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-paged-result-of-dynamic-gateway-inventory-list-response-schema.json
 - aid: stormmcp:stormmcp-mcpregistry-api
   name: Storm MCP MCP Registry API
   description: The McpRegistry API from Storm MCP — 3 operation(s) for mcpregistry.
@@ -585,17 +427,9 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-mcpregistry-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-mcp-registry-server-list-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-mcp-registry-server-response-schema.json
 - aid: stormmcp:stormmcp-mcpsse-api
   name: Storm MCP MCP SSE API
   description: The McpSSE API from Storm MCP — 2 operation(s) for mcpsse.
@@ -607,17 +441,7 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-mcpsse-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-json-rpc-message-schema.json
 - aid: stormmcp:stormmcp-mcpstreamablehttp-api
   name: Storm MCP MCP Streamable HTTP API
   description: The McpStreamableHttp API from Storm MCP — 1 operation(s) for mcpstreamablehttp.
@@ -629,17 +453,7 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-mcpstreamablehttp-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-json-rpc-message-schema.json
 - aid: stormmcp:stormmcp-oauth-api
   name: Storm MCP OAuth API
   description: The OAuth API from Storm MCP — 4 operation(s) for oauth.
@@ -655,17 +469,17 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-oauth-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-oauth-redirect-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
+    url: json-schema/stormmcp-oauth-callback-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
+    url: json-schema/stormmcp-oauth-config-list-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
+    url: json-schema/stormmcp-oauth-callback-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
+    url: json-schema/stormmcp-oauth-redirect-response-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-content-result-schema.json
 - aid: stormmcp:stormmcp-organicmemoryadmin-api
   name: Storm MCP Organic Memory Admin API
   description: The OrganicMemoryAdmin API from Storm MCP — 1 operation(s) for organicmemoryadmin.
@@ -677,21 +491,12 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-organicmemoryadmin-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
+    url: json-schema/stormmcp-organic-memory-admin-request-schema.json
   - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-organic-memory-admin-response-schema.json
 - aid: stormmcp:stormmcp-organicmemorycompartment-api
   name: Storm MCP Organic Memory Compartment API
-  description: >-
-    The OrganicMemoryCompartment API from Storm MCP — 14 operation(s) for organicmemorycompartment.
+  description: The OrganicMemoryCompartment API from Storm MCP — 14 operation(s) for organicmemorycompartment.
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
@@ -700,21 +505,10 @@ apis:
   - type: OpenAPI
     url: openapi/stormmcp-organicmemorycompartment-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
+    url: json-schema/stormmcp-organic-memory-compartment-rename-response-schema.json
 - aid: stormmcp:stormmcp-organicmemorypreference-api
   name: Storm MCP Organic Memory Preference API
-  description: >-
-    The OrganicMemoryPreference API from Storm MCP — 1 operation(s) for organicmemorypreference.
+  description: The OrganicMemoryPreference API from Storm MCP — 1 operation(s) for organicmemorypreference.
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
@@ -722,22 +516,9 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-organicmemorypreference-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-organicmemorypurgeadmin-api
   name: Storm MCP Organic Memory Purge Admin API
-  description: >-
-    The OrganicMemoryPurgeAdmin API from Storm MCP — 1 operation(s) for organicmemorypurgeadmin.
+  description: The OrganicMemoryPurgeAdmin API from Storm MCP — 1 operation(s) for organicmemorypurgeadmin.
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
@@ -745,18 +526,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-organicmemorypurgeadmin-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-radar-api
   name: Storm MCP Radar API
   description: The Radar API from Storm MCP — 2 operation(s) for radar.
@@ -767,18 +536,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-radar-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-register-api
   name: Storm MCP Register API
   description: The Register API from Storm MCP — 1 operation(s) for register.
@@ -791,16 +548,6 @@ apis:
     url: openapi/stormmcp-register-api-openapi.yml
   - type: JSONSchema
     url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-requestlog-api
   name: Storm MCP Request Log API
   description: The RequestLog API from Storm MCP — 2 operation(s) for requestlog.
@@ -811,22 +558,9 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-requestlog-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-selfservicedashboardarea-api
   name: Storm MCP Self Service Dashboard Area API
-  description: >-
-    The SelfServiceDashboardArea API from Storm MCP — 1 operation(s) for selfservicedashboardarea.
+  description: The SelfServiceDashboardArea API from Storm MCP — 1 operation(s) for selfservicedashboardarea.
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
@@ -834,22 +568,9 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-selfservicedashboardarea-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-selfservicedashboardareaadmin-api
   name: Storm MCP Self Service Dashboard Area Admin API
-  description: >-
-    The SelfServiceDashboardAreaAdmin API from Storm MCP — 1 operation(s) for selfservicedashboardareaadmin.
+  description: The SelfServiceDashboardAreaAdmin API from Storm MCP — 1 operation(s) for selfservicedashboardareaadmin.
   humanURL: https://stormmcp.ai/docs
   baseURL: https://dev.stormmcp.ai/
   tags:
@@ -857,18 +578,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-selfservicedashboardareaadmin-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-tenantserveraccess-api
   name: Storm MCP Tenant Server Access API
   description: The TenantServerAccess API from Storm MCP — 4 operation(s) for tenantserveraccess.
@@ -879,18 +588,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-tenantserveraccess-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-wellknown-api
   name: Storm MCP Well Known API
   description: The WellKnown API from Storm MCP — 4 operation(s) for wellknown.
@@ -903,18 +600,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-wellknown-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-api-key-api
   name: Storm MCP API Key API
   description: The API Key API from Storm MCP — 2 operation(s) for api key.
@@ -927,18 +612,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-api-key-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 - aid: stormmcp:stormmcp-user-analytics-api
   name: Storm MCP User Analytics API
   description: The User Analytics API from Storm MCP — 5 operation(s) for user analytics.
@@ -949,18 +622,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/stormmcp-user-analytics-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/stormmcp-oidcclient-representation-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-request-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-gateway-configuration-response-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-known-mcp-server-with-status-schema.json
-  - type: JSONSchema
-    url: json-schema/stormmcp-library-catalog-invalidation-result-schema.json
 x-enrichment:
   date: '2026-10-19'
   status: enriched
